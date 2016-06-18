@@ -1,0 +1,25 @@
+<div class="pure-g page-content" ng-controller="HomeController as vm">
+    <div class="pure-u-1">
+        <div class="hero-box">
+            <h1>THS - Your Student's Union</h1>
+        </div>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-2">
+        <h2>Facebook</h2>
+        <ul class="featured-articles">
+            <div ng-repeat="post in vm.socialPosts">
+                <a ui-sref="post({ id: post.id, title: post.slug })">{{ post.title }}</a>
+                {{ post.description }}
+                <img src="{{ post.media.image.src }}"/>
+            </div>
+        </ul>
+        <ul class="featured-articles">
+            <li ng-repeat="post in vm.featuredPosts">
+                <a ui-sref="post({ id: post.id, title: post.slug })">{{ post.post_title }}</a>
+            </li>
+        </ul>
+    </div>
+<div class="pure-u-1 pure-u-md-1-2">
+        
+    </div>
+</div>

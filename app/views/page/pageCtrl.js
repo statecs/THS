@@ -32,7 +32,7 @@
       // Fetch data from Facebook
       apiFactory.getFacebook().then(function(data) {
         if (data.status === 200) {
-          facebookData = data.data.social;
+          facebookData = data.data.data;
           setUpTiles();
         }
       });
@@ -55,7 +55,7 @@
         }
       });
 
-       // Fetch data from Armada News
+       // Fetch data from THS News
       apiFactory.getths().then(function(data) {
       	 if (data.status === 200) {
           thsData = data.data;
@@ -89,7 +89,7 @@
       var tile;
 
       function setUpTiles() {
-        if (thsData) {
+        if (thsData && facebookData && instagramData) {
           // Add instagram tiles
           instagramData.forEach(function (instaObj) {
             tile = Object.create(SocialTile);
@@ -100,7 +100,7 @@
             tile.imageUrl = instaObj.images.standard_resolution.url;
             socialTiles.push(tile);
           });
-
+/*
           // Add facebook tiles
           facebookData.forEach(function (facebookObj) {
             // Ignore facebook objects that did not contain an image
@@ -113,9 +113,29 @@
               tile.description = facebookObj.message;
               socialTiles.push(tile);
             }
+          });*/
+
+console.log(facebookData);
+
+            facebookData.forEach(function (feedObj) {
+          if (feedObj.attachments.data[0].media.image.src != null) {
+            tile = Object.create(SocialTile);
+            if (feedObj.attachments.data[0].title != "Timeline Photos") {
+            tile.title = feedObj.attachments.data[0].title;
+            } 
+          
+            tile.imageUrl = feedObj.attachments.data[0].media.image.src;
+            
+            tile.description = feedObj.attachments.data[0].content;
+            tile.date = feedObj.created_time;
+            tile.type = "facebook";
+            tile.link = feedObj.attachments.data[0].url;
+            socialTiles.push(tile);
+          }
           });
 
-console.log(thsData);
+
+
            thsData.forEach(function (thsObj) {
             tile = Object.create(SocialTile);
             tile.title = thsObj.title.rendered;

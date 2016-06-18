@@ -11,13 +11,13 @@
       var factoryFunctions = {};
 
       var ths ="http://ths.kth.se/wp-json/wp/v2/posts";
-      var idevie = "";
+      var facebook = "https://graph.facebook.com/121470594571005/posts?access_token=963806983710968|1b4e82243d046851a67059d2f8735b45&fields=attachments&limit=100";
 
       var path = "http://armada.nu/api/";
       var pages = path + "pages";
       var news = path + "news";
       var social = path + "social/";
-      var facebook = social + "facebook";
+      //var facebook = social + "facebook";
       var instagram = social + "instagram";
 
       var pagesStrings = path + "pages";
