@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook']);
 
 /**
  *
@@ -59,16 +59,27 @@ function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('about', {
-            url: "/about",
+        .state('pages', {
+            url: "/pages",
             views: {
                 'main': {
-                    templateUrl: 'about/about.tpl.html',
-                    controller: 'AboutController',
+                    templateUrl: 'pages/pages.tpl.html',
+                    controller: 'PagesController',
+                    controllerAs: 'vm'
+                }
+            }
+        })
+        .state('page', {
+            url: "/:slug",
+            views: {
+                'main': {
+                    templateUrl: 'pages/page.tpl.html',
+                    controller: 'PageController',
                     controllerAs: 'vm'
                 }
             }
         });
+         
 
     $locationProvider.html5Mode(true).hashPrefix('!');
 

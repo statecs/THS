@@ -56,7 +56,9 @@
                                              vm.activeSection === 'post' ||
                                              vm.activeSection === 'postsByTag' ||
                                              vm.activeSection === 'postsBySearch'}" ui-sref="blog">News</a></li>
-                <li><a ng-class="{ selected: vm.activeSection === 'about'}" ui-sref="about">About</a></li>
+                <li><a ng-class="{ selected: vm.activeSection === 'about'}" ui-sref="about">
+                About</a></li>
+                 <li><a ng-class="{ selected: vm.activeSection === 'pages' || vm.activeSection === 'page'}" ui-sref="pages">Pages</a></li>
             </ul>
         </div>
     </div>

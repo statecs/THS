@@ -29,7 +29,8 @@ var VENDOR_SCRIPTS = [
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
-    'bower_components/angular-utils-pagination/dirPagination.js'
+    'bower_components/angular-utils-pagination/dirPagination.js',
+    'bower_components/angular-facebook-api-factory/dist/angular-facebook-api-factory.js'
 ];
 
 var log = function(message) {
