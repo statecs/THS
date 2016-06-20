@@ -7,7 +7,7 @@
     <div class="pure-u-1 pure-u-md-1-2">
         <h2>Facebook</h2>
         <ul class="featured-articles">
-            <li ng-repeat="post in vm.posts">
+            <li ng-repeat="post in vm.posts" when-visible="animateElementIn" when-not-visible="animateElementOut">
                 <h3>{{ post.title }}</h3>
                 {{ post.message }}
                 <a href="{{ post.link }}"><img src="{{ post.full_picture }}"/></a>

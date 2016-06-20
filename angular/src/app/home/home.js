@@ -1,4 +1,4 @@
-function HomeController(BlogService, SocialService, MetadataService,facebookFactory) {
+function HomeController($scope, BlogService, SocialService, MetadataService,facebookFactory) {
     var vm = this;
     var apiCallFunction;
     
@@ -13,6 +13,16 @@ function HomeController(BlogService, SocialService, MetadataService,facebookFact
         vm.posts = posts;
         console.log(vm.posts);
     });
+
+     $scope.animateElementIn = function($el) {
+    $el.removeClass('hidden');
+    $el.addClass('animated fadeInUp'); // this example leverages animate.css classes
+  };
+
+  $scope.animateElementOut = function($el) {
+    $el.addClass('hidden');
+    $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
+  };
 
   /*  facebookFactory.getPostsFromPageById({
     page:"121470594571005,148731426526,199385490073014", // ID or name
