@@ -9,12 +9,12 @@ function HomeController(BlogService, SocialService, MetadataService,facebookFact
 
     vm.featuredPosts = [];
 
-    /*SocialService.facebookPosts().then(function(posts) {
-        vm.socialPosts = posts;
-        console.log(vm.socialPosts);
-    });*/
+    SocialService.facebookPosts().then(function(posts) {
+        vm.posts = posts;
+        console.log(vm.posts);
+    });
 
-    facebookFactory.getPostsFromPageById({
+  /*  facebookFactory.getPostsFromPageById({
     page:"121470594571005,148731426526,199385490073014", // ID or name
     limit:"20", // (optional) valid values: 0-100 | default: 25
     before:"", // (optional)
@@ -28,14 +28,14 @@ function HomeController(BlogService, SocialService, MetadataService,facebookFact
  
 }).catch(function (_data) {
     //on error
-});
+});*/
 
   /**
      * Decorate a post to make it play nice with AngularJS
      * @param result
      * @returns {*}
      */
-    function decorateResult(_data) {
+   /* function decorateResult(_data) {
 
 var object1 = _data.data[121470594571005].data;
 var object2 = _data.data[148731426526].data;

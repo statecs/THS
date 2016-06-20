@@ -69,6 +69,16 @@ function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('pagesBySearch', {
+            url: "/pages/search/:searchTerm",
+            views: {
+                'main': {
+                    templateUrl: 'pages/pages.tpl.html',
+                    controller: 'PageController',
+                    controllerAs: 'vm'
+                }
+            }
+        })
         .state('page', {
             url: "/:slug",
             views: {

@@ -7,31 +7,15 @@
  * @returns {{allPosts: allPosts, allPostsByTag: allPostsByTag, allPostsBySearchTerm: allPostsBySearchTerm, featuredPosts: featuredPosts, post: post}}
  * @constructor
  */
-function SocialService($http, $sce, config, facebookFactory, $rootScope) {
+function SocialService($http, $sce, config, facebookFactory) {
+
+		var result = [];
 
     function facebookPosts() {
-      //  return getData('https://graph.facebook.com/121470594571005/posts?access_token=963806983710968|1b4e82243d046851a67059d2f8735b45&fields=attachments&limit=100');
-    facebookFactory.getPostsFromPageById({
-    page:"121470594571005,148731426526", // ID or name
-    limit:"10", // (optional) valid values: 0-100 | default: 25
-    before:"", // (optional)
-    after:"", // (optional)
-    access_token:"963806983710968|1b4e82243d046851a67059d2f8735b45"
-}).then(function (_data) {
-    //on success
-
-     $rootScope.facebookPosts = _data;
-     return _data;
- 
-}).catch(function (_data) {
-    //on error
-});
+      return getData('https://graph.facebook.com/v2.5/posts?ids=121470594571005,148731426526&access_token=963806983710968%7C1b4e82243d046851a67059d2f8735b45&fields=id,message,story,created_time,full_picture,from,link,description,type,shares,source,picture,object_id&limit=20');
     }
-
-console.log($rootScope.facebookPosts);
    
-
-   /* function getData(url) {
+    function getData(url) {
         return $http
             .get(url, { cache: true })
             .then(function(response) {
@@ -43,24 +27,23 @@ console.log($rootScope.facebookPosts);
                 } else {
                     return decorateResult(response.data);
                 }
-            });
-    }*/
+           });
+    }
 
     /**
      * Decorate a post to make it play nice with AngularJS
      * @param result
      * @returns {*}
      */
-  /*  function decorateResult(result) {
+    function decorateResult(result) {
+	    result = result[121470594571005].data;
 
-		result.id = result.data[0].id;
-	    result.data = result.data[0].attachments.data[0];
-	        return result;
+	    return result;
         //result.excerpt = $sce.trustAsHtml(result.data[0].attachments.data[0].title);
        // result.content = $sce.trustAsHtml(result.data[0].attachments.data[0].description);
     
                     	
-    }*/
+    }
 
     return {
         facebookPosts: facebookPosts
