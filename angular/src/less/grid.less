@@ -1,0 +1,226 @@
+/******************** 
+    Grid Flexbox
+**********************/
+.o-grid {
+    font-size: 0;
+    margin-left: 0
+}
+.o-grid.-margin {
+    margin-left: -3.75rem
+}
+.o-grid.-small-margin {
+    margin-left: -1.875rem
+}
+@media (max-width: 999px) {
+    .o-grid.-large-margin {
+        margin-left: -3.75rem
+    }
+    .o-grid.-mbottom {
+        margin-bottom: 10px
+    }
+}
+@media (min-width: 1000px) {
+    .o-grid.-flex-medium {
+        position: relative;
+        display: flex
+    }
+    .o-grid.-flex-medium .o-grid_item,
+    .o-grid.-flex-medium .o-half,
+    .o-grid.-flex-medium .o-third,
+    .o-grid.-flex-medium .o-whole {
+        position: relative;
+        flex-shrink: 0
+    }
+}
+.o-grid_item,
+.o-half,
+.o-third,
+.o-whole {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    font-size: 1rem;
+    padding-left: 0
+}
+.c-header-main_nav-button_label,
+.o-button_icon,
+.o-button_text,
+.o-grid.-middle .o-grid_item,
+.o-grid.-middle .o-half,
+.o-grid.-middle .o-third,
+.o-grid.-middle .o-whole,
+.selectric:before,
+.selectric>* {
+    vertical-align: middle
+}
+.o-grid.-margin>.o-grid_item,
+.o-grid.-margin>.o-half,
+.o-grid.-margin>.o-third,
+.o-grid.-margin>.o-whole {
+    padding-left: 3.75rem
+}
+.o-grid.-small-margin>.o-grid_item,
+.o-grid.-small-margin>.o-half,
+.o-grid.-small-margin>.o-third,
+.o-grid.-small-margin>.o-whole {
+    padding-left: 1.875rem
+}
+@media (max-width: 999px) {
+    .o-grid.-large-margin>.o-grid_item,
+    .o-grid.-large-margin>.o-half,
+    .o-grid.-large-margin>.o-third,
+    .o-grid.-large-margin>.o-whole {
+        padding-left: 3.75rem
+    }
+}
+@media (min-width: 1000px) and (max-width: 1199px) {
+    .o-grid.-large-margin {
+        margin-left: -5.625rem
+    }
+    .o-grid.-large-margin>.o-grid_item,
+    .o-grid.-large-margin>.o-half,
+    .o-grid.-large-margin>.o-third,
+    .o-grid.-large-margin>.o-whole {
+        padding-left: 5.625rem
+    }
+}
+@media (min-width: 1200px) {
+    .o-grid.-large-margin {
+        margin-left: -7.5rem
+    }
+    .o-grid.-large-margin>.o-grid_item,
+    .o-grid.-large-margin>.o-half,
+    .o-grid.-large-margin>.o-third,
+    .o-grid.-large-margin>.o-whole {
+        padding-left: 7.5rem
+    }
+}
+.o-grid.-bottom>.o-grid_item,
+.o-grid.-bottom>.o-half,
+.o-grid.-bottom>.o-third,
+.o-grid.-bottom>.o-whole {
+    margin-bottom: 3.75rem
+}
+@media (max-width: 999px) {
+    .o-grid.-mbottom>.o-grid_item,
+    .o-grid.-mbottom>.o-half,
+    .o-grid.-mbottom>.o-third,
+    .o-grid.-mbottom>.o-whole {
+        margin-bottom: 30px
+    }
+    .o-grid.-mbottom>.-group.o-half,
+    .o-grid.-mbottom>.-group.o-third,
+    .o-grid.-mbottom>.-group.o-whole,
+    .o-grid.-mbottom>.o-grid_item.-group {
+        margin-bottom: 20px
+    }
+    .c-nav-page_header,
+    .c-nav_header {
+        -webkit-tap-highlight-color: transparent
+    }
+}
+@media (min-width: 1000px) {
+    .o-half {
+        width: 50%
+    }
+    .o-third {
+        width: 33.33%
+    }
+}
+.o-half.-tiny {
+    width: 50%
+}
+
+/******************** 
+    Blocks>Flexbox
+**********************/
+
+.c-block {
+    display: block;
+    position: relative
+}
+.c-block.-center:before,
+.c-block.-center>* {
+    display: inline-block;
+    vertical-align: middle
+}
+.c-block.-link::after,
+.c-block_background-wrap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+}
+.c-block.is-active {
+    z-index: 900!important
+}
+@media (max-width: 699px) {
+    .c-block {
+        padding: 25px;
+        height: 300px
+    }
+}
+@media (min-width: 700px) {
+    .c-block {
+        padding: 3.75rem
+    }
+}
+@media (min-width: 900px) and (max-width: 1200px) {
+    .c-block {
+        height: 15.25rem
+    }
+}
+@media (min-width: 1201px) and (max-width: 1599px) {
+    .c-block {
+        height: 21.25rem
+    }
+}
+@media (min-width: 1600px) {
+    .c-block {
+        height: 27.5rem
+    }
+}
+.c-block.-full {
+    width: 100%;
+    height: 100%
+}
+.c-block.-black {
+    background-color: #000
+}
+.c-block.-center {
+    font-size: 0;
+    text-align: center
+}
+.c-block.-center:before {
+    height: 100%
+}
+.c-block.-center>* {
+    font-size: 1rem
+}
+.c-block.-link::after {
+    transform: translate3d(0, 0, 0);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, .2), 0 5px 5px 0 rgba(0, 0, 0, .24);
+    opacity: 0;
+    transition: opacity .3s
+}
+.c-block_background,
+.c-block_title {
+    transition: transform .3s cubic-bezier(.4, 0, .2, 1)
+}
+@media (min-width: 1200px) {
+    .c-block.-link::after {
+        z-index: 800
+    }
+}
+.c-block.-center:before,
+.c-block.-link::after,
+.c-block_category::before {
+    content: ""
+}
+.c-block.-link:hover {
+    z-index: 100
+}
+.c-block.-link:hover::after {
+    opacity: 1
+}

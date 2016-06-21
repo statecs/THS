@@ -1,25 +1,21 @@
 <div class="pure-g page-content" ng-controller="HomeController as vm">
-    <div class="pure-u-1">
-        <div class="hero-box">
-            <h1>THS - Your Student's Union</h1>
+    <div class="o-content">
+    <div class="o-container" data-widget="block">
+        <div class="o-grid">
+            <div class="o-whole wrap" id="content-area">
+                <div class="c-block -link u-fadeInUp is-animated" style="background-color: rgb(255, 255, 255);">
+                <span class="c-block_background-wrap">
+                <iframe style="position: absolute; top: 0; left: 0;" id="player" data-id="vjfpKmPmSTw" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="100%" src="https://www.youtube.com/embed/vjfpKmPmSTw?vq=hd720&amp;autoplay=0&amp;loop=1&amp;playlist=vjfpKmPmSTw&amp;modestbranding=1&amp;controls=0&amp;enablejsapi=1&amp;"></iframe></span>
+                  <article class="c-block_container"><h1 class="c-block_category">THS - Your Students' Union</h1></article>
+                </div>
+            </div>
+
+              <div class="o-third" ng-repeat="post in vm.posts" ng-if="post.full_picture">
+                <a class="c-block -link u-fadeInUp is-animated" target=_"blank" href="{{ post.link }}" style="color: rgb(200, 201, 185); visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp; background-image: url('{{ post.full_picture }}');  background-size: cover;">
+                    <div class="o-ripple" style="background-color: #F65846;"></div>
+                </a>
+            </div>
         </div>
     </div>
-    <div class="pure-u-1 pure-u-md-1-2">
-        <h2>Facebook</h2>
-        <ul class="featured-articles">
-            <li ng-repeat="post in vm.posts" when-visible="animateElementIn" when-not-visible="animateElementOut">
-                <h3>{{ post.title }}</h3>
-                {{ post.message }}
-                <a href="{{ post.link }}"><img src="{{ post.full_picture }}"/></a>
-            </li>
-        </ul>
-        <ul class="featured-articles">
-            <li ng-repeat="post in vm.featuredPosts">
-                <a ui-sref="post({ id: post.id, title: post.slug })">{{ post.post_title }}</a>
-            </li>
-        </ul>
-    </div>
-<div class="pure-u-1 pure-u-md-1-2">
-        
-    </div>
+</div>
 </div>

@@ -8,7 +8,7 @@
                 {{ vm.page.date | date:'dd MMM yyyy' }}
             </div>
             <ul class="tags">
-                <li ng-repeat="tag in vm.page.terms.post_tag">
+                <li ng-repeat="tag in vm.page.terms.post_tag" class="u-fadeInUp is-animated" style=" visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                     <a ui-sref="pageByTag({ tag: tag.slug })">{{ tag.name }}</a>
                 </li>
             </ul>

@@ -19,10 +19,10 @@ function HomeController($scope, BlogService, SocialService, MetadataService,face
     $el.addClass('animated fadeInUp'); // this example leverages animate.css classes
   };
 
-  $scope.animateElementOut = function($el) {
-    $el.addClass('hidden');
-    $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
-  };
+   $scope.animateElementOut = function($el) {
+   // $el.addClass('hidden');
+   // $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
+  }; 
 
   /*  facebookFactory.getPostsFromPageById({
     page:"121470594571005,148731426526,199385490073014", // ID or name

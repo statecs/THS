@@ -16,6 +16,7 @@ var Q= require('q'),
     wrap = require('gulp-wrap'),
     templateCache = require('gulp-angular-templatecache'),
     replace = require('gulp-replace'),
+    connect = require('gulp-connect'),
     livereload = require('gulp-livereload');
 
 /////////////////////
@@ -251,6 +252,20 @@ function buildIndex(path) {
         .pipe(gulp.dest('./' + path));
 }
 
+gulp.task('connect', ['index'], function() {
+
+    connect.server({
+    root: 'dist',
+    livereload: true
+    });
+
+    gulp.watch('src/app/**/*.js', ['scripts']);
+    gulp.watch('src/app/**/*.tpl.html', ['templates']);
+    gulp.watch('src/less/*.less', ['styles']);
+    gulp.watch('src/app/index.html', ['index']);
+    gulp.watch(['src/assets/**/*.*', 'src/app/.htaccess', 'src/app/static-page.php'], ['static-assets']);
+
+});
 
 gulp.task('watch', ['index'], function() {
     livereload.listen();

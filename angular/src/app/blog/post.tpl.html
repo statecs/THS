@@ -1,7 +1,6 @@
-<h1>{{ vm.post.title.rendered }}</h1>
-
-<div class="pure-g page-content">
+<div class="pure-g page-content u-fadeInUp is-animated" style=" visibility: visible; animation-delay: 1.0s; animation-name: fadeInUp;">
     <div class="pure-u-1">
+    <h1>{{ vm.post.title.rendered }}</h1>
 
         <div class="post-meta">
             <div class="date">
@@ -14,6 +13,6 @@
             </ul>
         </div>
 
-        <div class="post-body" ng-bind-html="vm.post.content"></div>
+        <div class="post-body u-fadeInUp is-animated" style=" visibility: visible; animation-delay: 1.0s; animation-name: fadeInUp;" ng-bind-html="vm.post.content"></div>
     </div>
 </div>
