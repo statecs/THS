@@ -16,6 +16,7 @@ var Q= require('q'),
     wrap = require('gulp-wrap'),
     templateCache = require('gulp-angular-templatecache'),
     replace = require('gulp-replace'),
+    connect = require('gulp-connect'),
     livereload = require('gulp-livereload');
 
 /////////////////////
@@ -29,7 +30,9 @@ var VENDOR_SCRIPTS = [
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
-    'bower_components/angular-utils-pagination/dirPagination.js'
+    'bower_components/angular-utils-pagination/dirPagination.js',
+    'bower_components/angular-facebook-api-factory/dist/angular-facebook-api-factory.js',
+    'bower_components/angular-scroll-animate/dist/angular-scroll-animate.js'
 ];
 
 var log = function(message) {
@@ -117,7 +120,7 @@ gulp.task('styles', function() {
             .pipe(less())
             .pipe(autoprefixer());
 
-        vendorStyles = gulp.src(['bower_components/pure/pure.css', 'bower_components/pure/grids-responsive.css']);
+        vendorStyles = gulp.src(['bower_components/pure/pure.css', 'bower_components/pure/grids-responsive.css', 'bower_components/animate.css/animate.css']);
 
         merge(vendorStyles, appStyles)
             .pipe(gulp.dest('build/styles'))
@@ -249,6 +252,20 @@ function buildIndex(path) {
         .pipe(gulp.dest('./' + path));
 }
 
+gulp.task('connect', ['index'], function() {
+
+    connect.server({
+    root: 'dist',
+    livereload: true
+    });
+
+    gulp.watch('src/app/**/*.js', ['scripts']);
+    gulp.watch('src/app/**/*.tpl.html', ['templates']);
+    gulp.watch('src/less/*.less', ['styles']);
+    gulp.watch('src/app/index.html', ['index']);
+    gulp.watch(['src/assets/**/*.*', 'src/app/.htaccess', 'src/app/static-page.php'], ['static-assets']);
+
+});
 
 gulp.task('watch', ['index'], function() {
     livereload.listen();
@@ -258,6 +275,5 @@ gulp.task('watch', ['index'], function() {
     gulp.watch('src/app/index.html', ['index']);
     gulp.watch(['src/assets/**/*.*', 'src/app/.htaccess', 'src/app/static-page.php'], ['static-assets']);
 });
-
 
 gulp.task('default', ['index']);

@@ -10,24 +10,20 @@
 function PageService($http, $sce, config) {
 
     function allPages() {
-        return getData('wp/v2/page?per_page=20');
+        return getData('wp/v2/pages?per_page=50');
     }
 
     function allPagesByTag(tag) {
-        // getData('wp/v2/posts?filter[category_name]=post&filter[tag]=' + tag);
-        getData('wp/v2/posts?filter[s]=post&filter[tag]=' + tag);
+        getData('wp/v2/pages?filter[s]=post&filter[tag]=' + tag);
     }
 
     function allPagesBySearchTerm(searchTerm) {
-        return getData('wp/v2/posts?per_page=20&filter[s]=' + searchTerm);
+        return getData('wp/v2/pages?per_page=20&filter[s]=' + searchTerm);
     }
 
-    function featuredPages() {
-        return getData('wp/v2/sticky');
-    }
-
-    function page(id) {
-        return getData('wp/v2/posts/' + id);
+    function page(slug) {
+        //return getData('wp/v2/pages/' + id);
+        return getData('wp/v2/pages?slug=' + slug);
     }
 
     function getData(url) {
@@ -54,6 +50,7 @@ function PageService($http, $sce, config) {
         result.excerpt = $sce.trustAsHtml(result.excerpt.rendered);
         result.date = Date.parse(result.date);
         result.content = $sce.trustAsHtml(result.content.rendered);
+        console.log(result);
         return result;
     }
 
@@ -61,7 +58,6 @@ function PageService($http, $sce, config) {
         allPages: allPages,
         allPagesByTag: allPagesByTag,
         allPagesBySearchTerm: allPagesBySearchTerm,
-        featuredPages: featuredPages,
         page: page
     };
 }

@@ -60,11 +60,11 @@ function makePage($data) {
     <div class="main">
 
         <h2><a href="http://dev.ths.kth.se/blog">Back to Blog</a></h2>
-        <h1 class="page-header"><?php echo $data->title; ?></h1>
+        <h1 class="page-header"><?php echo $data->title->rendered; ?></h1>
         <div class="pure-g page-content">
             <div class="pure-u-1">
                 <div class="post-body">
-                    <?php echo $data->content; ?>
+                    <?php echo $data->content->rendered; ?>
                 </div>
             </div>
         </div>

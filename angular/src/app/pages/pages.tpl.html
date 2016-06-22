@@ -1,4 +1,4 @@
-<h1>News <small>{{ vm.subtitle }}</small></h1>
+<h1>Pages <small>{{ vm.subtitle }}</small></h1>
 
 <div class="pure-g page-content">
     <div class="pure-u-1">
@@ -8,22 +8,22 @@
         </div>
 
         <ul class="no-bullet post-list">
-            <li dir-paginate="post in vm.posts | itemsPerPage: 15" class="post-list-row u-fadeInUp is-animated" style=" visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+            <li dir-paginate="page in vm.pages | itemsPerPage: 15" class="post-list-row">
                 <span class="post-list-meta">
                     <div class="date">
-                        {{ post.date | date:'dd MMM yyyy' }}
+                        {{ page.date_gmt | date:'dd MMM yyyy' }}
                     </div>
                 </span>
                 <div class="post-list-entry">
-                    <h2><a ui-sref="post({ id: post.id, title: post.slug })" class="post-list-title">{{ post.title.rendered | decodeHtmlCodes  }}</a></h2>
+                    <h2><a ui-sref="page({ id: page.id, slug: page.slug })" class="post-list-title">{{ page.title.rendered | decodeHtmlCodes  }}</a></h2>
 
                     <ul class="tags">
-                        <li ng-repeat="tag in post.terms.post_tag">
-                            <a ui-sref="postsByTag({ tag: tag.slug })">{{ tag.name }}</a>
+                        <li ng-repeat="tag in page.terms.post_tag">
+                            <a ui-sref="pageByTag({ tag: tag.slug })">{{ tag.name }}</a>
                         </li>
                     </ul>
 
-                    <div class="post-list-excerpt" ng-bind-html="post.excerpt">
+                    <div class="post-list-excerpt" ng-bind-html="page.excerpt">
                     </div>
                 </div>
             </li>

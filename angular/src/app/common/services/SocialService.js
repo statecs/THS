@@ -7,12 +7,14 @@
  * @returns {{allPosts: allPosts, allPostsByTag: allPostsByTag, allPostsBySearchTerm: allPostsBySearchTerm, featuredPosts: featuredPosts, post: post}}
  * @constructor
  */
-function SocialService($http, $sce, config) {
+function SocialService($http, $sce, config, facebookFactory) {
 
-    function thsFacebookPosts() {
-        return getData('https://graph.facebook.com/121470594571005/posts?access_token=963806983710968|1b4e82243d046851a67059d2f8735b45&fields=attachments&limit=100');
+		var result = [];
+
+    function facebookPosts() {
+      return getData('https://graph.facebook.com/v2.5/posts?ids=121470594571005,148731426526&access_token=963806983710968%7C1b4e82243d046851a67059d2f8735b45&fields=id,message,story,created_time,full_picture,from,link,description,type,shares,source,picture,object_id&limit=20');
     }
-
+   
     function getData(url) {
         return $http
             .get(url, { cache: true })
@@ -25,7 +27,7 @@ function SocialService($http, $sce, config) {
                 } else {
                     return decorateResult(response.data);
                 }
-            });
+           });
     }
 
     /**
@@ -34,10 +36,9 @@ function SocialService($http, $sce, config) {
      * @returns {*}
      */
     function decorateResult(result) {
+	    result = result[121470594571005].data;
 
-		result.id = result.data[0].id;
-	    result.data = result.data[0].attachments.data[0];
-	        return result;
+	    return result;
         //result.excerpt = $sce.trustAsHtml(result.data[0].attachments.data[0].title);
        // result.content = $sce.trustAsHtml(result.data[0].attachments.data[0].description);
     
@@ -45,7 +46,7 @@ function SocialService($http, $sce, config) {
     }
 
     return {
-        thsFacebookPosts: thsFacebookPosts
+        facebookPosts: facebookPosts
     };
 }
 
