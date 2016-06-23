@@ -2,6 +2,7 @@ var Q= require('q'),
     gulp = require('gulp'),
     util = require('gulp-util'),
     less = require('gulp-less'),
+    browserSync = require('browser-sync').create(),
     minifyCss = require('gulp-minify-css'),
     autoprefixer = require('gulp-autoprefixer'),
     rimraf = require('gulp-rimraf'),
@@ -18,6 +19,7 @@ var Q= require('q'),
     replace = require('gulp-replace'),
     connect = require('gulp-connect'),
     livereload = require('gulp-livereload');
+    historyApiFallback = require('connect-history-api-fallback');
 
 /////////////////////
 // User-defined paths
@@ -252,19 +254,31 @@ function buildIndex(path) {
         .pipe(gulp.dest('./' + path));
 }
 
-gulp.task('connect', ['index'], function() {
-
-    connect.server({
-    root: 'dist',
-    livereload: true
+gulp.task('serve-dev', ['index'], function() {
+    browserSync.init({
+        server: {
+            baseDir: "build/",
+            middleware: [ historyApiFallback() ]
+        }
     });
-
-    gulp.watch('src/app/**/*.js', ['scripts']);
-    gulp.watch('src/app/**/*.tpl.html', ['templates']);
-    gulp.watch('src/less/*.less', ['styles']);
-    gulp.watch('src/app/index.html', ['index']);
+    gulp.watch('src/app/**/*.js', ['scripts']).on('change', browserSync.reload);
+    gulp.watch('src/app/**/*.tpl.html', ['templates']).on('change', browserSync.reload);
+    gulp.watch('src/less/*.less', ['styles']).on('change', browserSync.reload);
+    gulp.watch('src/app/index.html', ['index']).on('change', browserSync.reload);
     gulp.watch(['src/assets/**/*.*', 'src/app/.htaccess', 'src/app/static-page.php'], ['static-assets']);
-
+});
+gulp.task('serve-build', ['index'], function() {
+    browserSync.init({
+        server: {
+            baseDir: "dist/",
+            middleware: [ historyApiFallback() ]
+        }
+    });
+    gulp.watch('src/app/**/*.js', ['scripts']).on('change', browserSync.reload);
+    gulp.watch('src/app/**/*.tpl.html', ['templates']).on('change', browserSync.reload);
+    gulp.watch('src/less/*.less', ['styles']).on('change', browserSync.reload);
+    gulp.watch('src/app/index.html', ['index']).on('change', browserSync.reload);
+    gulp.watch(['src/assets/**/*.*', 'src/app/.htaccess', 'src/app/static-page.php'], ['static-assets']);
 });
 
 gulp.task('watch', ['index'], function() {
