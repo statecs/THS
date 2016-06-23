@@ -1,4 +1,4 @@
-function PagesController($anchorScroll, $stateParams, $state, PageService, MetadataService) {
+function PagesController($anchorScroll, $stateParams, $state, ApiService, MetadataService) {
     var vm = this;
     var apiCallFunction;
 
@@ -11,20 +11,20 @@ function PagesController($anchorScroll, $stateParams, $state, PageService, Metad
         description: 'A collection of articles on some topics.'
     });
 
+
     if (typeof $stateParams.tags !== 'undefined') {
-        apiCallFunction = PageService.allPagesByTag($stateParams.tag);
+        apiCallFunction = ApiService.allPagesByTag($stateParams.tag);
         vm.subtitle = 'tagged with "' + $stateParams.tag + '"';
-    } else if (typeof $stateParams.searchTerm !== 'undefined') {
-        apiCallFunction = PageService.allPagesBySearchTerm($stateParams.searchTerm);
+    } else if (typeof $stateParams.searchTermPages !== 'undefined') {
+        apiCallFunction = ApiService.allPagesBySearchTerm($stateParams.searchTermPages);
         vm.subtitle = 'searching "' + $stateParams.searchTerm + '"';
     } else {
-        apiCallFunction = PageService.allPages();
+        apiCallFunction = ApiService.allPages();
     }
 
 
     apiCallFunction.then(function(pages) {
         vm.pages = pages;
-        console.log(pages);
         vm.loaded = true;
     });
 
@@ -32,7 +32,7 @@ function PagesController($anchorScroll, $stateParams, $state, PageService, Metad
         $anchorScroll();
     };
 
-    vm.search = function(term) {
+    vm.searchPage = function(term) {
         $state.go('pagesBySearch', { searchTerm: term });
     };
 }

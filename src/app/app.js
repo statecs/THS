@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify']);
 
 /**
  *
@@ -40,7 +40,7 @@ function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
             }
         })
         .state('postsBySearch', {
-            url: "/search/:searchTerm",
+            url: "/posts/search/:searchTerm",
             views: {
                 'main': {
                     templateUrl: 'blog/blog.tpl.html',
@@ -81,6 +81,9 @@ function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
         })
         .state('page', {
             url: "/:slug",
+            params: {
+                id: "id"
+            },
             views: {
                 'main': {
                     templateUrl: 'pages/page.tpl.html',

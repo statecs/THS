@@ -1,4 +1,4 @@
-function HomeController($scope, BlogService, SocialService, MetadataService,facebookFactory) {
+function HomeController($scope, ApiService, MetadataService, facebookFactory) {
     var vm = this;
     var apiCallFunction;
     
@@ -9,7 +9,7 @@ function HomeController($scope, BlogService, SocialService, MetadataService,face
 
     vm.featuredPosts = [];
 
-    SocialService.facebookPosts().then(function(posts) {
+    ApiService.facebookPosts().then(function(posts) {
         vm.posts = posts;
         console.log(vm.posts);
     });
@@ -90,9 +90,9 @@ console.log(finalobj);
         vm.loaded = true;
     });*/
 
-    BlogService.featuredPosts().then(function(posts) {
+    /*ApiService.featuredPosts().then(function(posts) {
         vm.featuredPosts = posts;
-    });
+    });*/
 
     // pass an empty object to use the defaults.
     MetadataService.setMetadata({});

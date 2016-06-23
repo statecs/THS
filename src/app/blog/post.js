@@ -1,4 +1,4 @@
-function PostController($stateParams, $anchorScroll, $timeout, $location, BlogService, MetadataService) {
+function PostController($stateParams, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
     var vm = this;
     console.log(vm);
 
@@ -6,7 +6,7 @@ function PostController($stateParams, $anchorScroll, $timeout, $location, BlogSe
 
   console.log($stateParams);
 
-    BlogService.post($stateParams.id).then(function(post) {
+    ApiService.postById($stateParams.id).then(function(post) {
         console.log($stateParams);
         vm.post = post;
 

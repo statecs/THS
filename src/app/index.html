@@ -38,19 +38,17 @@
     <!-- endinject -->
 
 </head>
-<body ng-controller="AppController as vm" class=" is-loading is-initial-load  is-repeat-visitor u-background u-foreground t-work">
 
-   <div class="c-loader b-color">
+<body ng-controller="AppController as vm" class="is-repeat-visitor u-background u-foreground t-work">
+
+ <spinner name="loadingSpinner">
+ <div class="overlay"></div>
+ <div class="is-loading is-initial-load">
+     <div class="c-loader b-color">
             <div class="c-loader_figure"></div>
         </div>
-
-       
-<div class="mobile-menu-button">
-    <a href="#" ng-click="vm.toggleMobileMenu($event)">
-        <i class="icon-menu" ng-hide="vm.showMobileMenu"></i>
-        <i class="icon-close" ng-show="vm.showMobileMenu"></i>
-    </a>
-</div>
+  </div>
+</spinner>
 
     <div class="main-view">
     <div class="menu">
@@ -65,6 +63,7 @@
                  <li><a ng-class="{ selected: vm.activeSection === 'pages' || vm.activeSection === 'page'}" ui-sref="pages">Pages</a></li>
             </ul>
         </div>
+        
         <div class="content">
             <div ui-view="main"></div>
         </div>

@@ -1,4 +1,4 @@
-function BlogController($anchorScroll, $stateParams, $state, BlogService, MetadataService) {
+function BlogController($anchorScroll, $stateParams, $state, ApiService, MetadataService) {
     var vm = this;
     var apiCallFunction;
 
@@ -12,13 +12,14 @@ function BlogController($anchorScroll, $stateParams, $state, BlogService, Metada
     });
 
     if (typeof $stateParams.tags !== 'undefined') {
-        apiCallFunction = BlogService.allPostsByTag($stateParams.tag);
+        apiCallFunction = ApiService.allPostsByTag($stateParams.tag);
         vm.subtitle = 'tagged with "' + $stateParams.tag + '"';
     } else if (typeof $stateParams.searchTerm !== 'undefined') {
-        apiCallFunction = BlogService.allPostsBySearchTerm($stateParams.searchTerm);
+        console.log("searchBlog");
+        apiCallFunction = ApiService.allPostsBySearchTerm($stateParams.searchTerm);
         vm.subtitle = 'searching "' + $stateParams.searchTerm + '"';
     } else {
-        apiCallFunction = BlogService.allPosts();
+        apiCallFunction = ApiService.allPosts();
     }
 
 

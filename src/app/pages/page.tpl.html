@@ -1,19 +1,18 @@
-<h1>s{{ vm.page.title.rendered }}</h1>
-
-<div class="pure-g page-content">
+<div class="pure-g page-content u-fadeInUp is-animated" style=" visibility: visible; animation-delay: 1.0s; animation-name: fadeInUp;">
     <div class="pure-u-1">
+    <h1>{{ vm.page.title.rendered }}</h1>
 
         <div class="post-meta">
             <div class="date">
                 {{ vm.page.date | date:'dd MMM yyyy' }}
             </div>
             <ul class="tags">
-                <li ng-repeat="tag in vm.page.terms.post_tag" class="u-fadeInUp is-animated" style=" visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                    <a ui-sref="pageByTag({ tag: tag.slug })">{{ tag.name }}</a>
+                <li ng-repeat="tag in vm.post.terms.post_tag">
+                    <a ui-sref="pagesByTag({ tag: tag.slug })">{{ tag.name }}</a>
                 </li>
             </ul>
         </div>
 
-        <div class="post-body" ng-bind-html="vm.page.content"></div>
+        <div class="post-body u-fadeInUp is-animated" style=" visibility: visible; animation-delay: 1.0s; animation-name: fadeInUp;" ng-bind-html="vm.page.content"></div>
     </div>
 </div>

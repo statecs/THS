@@ -1,8 +1,12 @@
-function PageController($stateParams, $anchorScroll, $timeout, $location, PageService, MetadataService) {
+function PageController($stateParams, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
     var vm = this;
     vm.page = {};
 
-    PageService.page($stateParams.slug).then(function(page) {
+    console.log($stateParams.id);
+    if ($stateParams.id === 'id' ){
+
+    
+        ApiService.pageBySlug($stateParams.slug).then(function(page) {
         console.log($stateParams);
         vm.page = page[0];
 
@@ -13,6 +17,24 @@ function PageController($stateParams, $anchorScroll, $timeout, $location, PageSe
             description: page.excerpt
         });
     });
+    
+
+    } else {
+
+        ApiService.pageById($stateParams.id).then(function(page) {
+        console.log($stateParams);
+        vm.page = page;
+
+        console.log(page);
+
+        MetadataService.setMetadata({
+            title: page.title,
+            description: page.excerpt
+        });
+    });
+  }
+
+    
 }
 
 
