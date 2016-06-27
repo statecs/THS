@@ -1,4 +1,4 @@
-function PostController($stateParams, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
+function CategoryCtrl($stateParams, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
     var vm = this;
     console.log(vm);
 
@@ -22,4 +22,4 @@ function PostController($stateParams, $anchorScroll, $timeout, $location, ApiSer
 
 angular
     .module('app')
-    .controller('PostController', PostController);
+    .controller('CategoryCtrl', CategoryCtrl);

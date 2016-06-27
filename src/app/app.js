@@ -8,92 +8,89 @@ angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPag
  * @ngInject
  */
 function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
     $stateProvider
-        .state('home', {
-            url: "/",
-            views: {
-                'main': {
-                    templateUrl: 'home/home.tpl.html',
-                    controller: 'HomeController',
-                    controllerAs: 'vm'
+        .state('root', {
+                url: '',
+                abstract: true,
+                views: {
+                    'header': {
+                        controller: 'HeaderCtrl'
+                    }
                 }
-            }
-        })
-        .state('blog', {
-            url: "/blog",
-            views: {
-                'main': {
-                    templateUrl: 'blog/blog.tpl.html',
-                    controller: 'BlogController',
-                    controllerAs: 'vm'
+            })
+            .state('root.home', {
+                url: '/',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/home-page.tpl.html',
+                        controller: 'HomeCtrl',
+                        controllerAs: 'vm'
+                    }
                 }
-            }
-        })
-        .state('postsByTag', {
-            url: "/tag/:tag",
-            views: {
-                'main': {
-                    templateUrl: 'blog/blog.tpl.html',
-                    controller: 'BlogController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('postsBySearch', {
-            url: "/posts/search/:searchTerm",
-            views: {
-                'main': {
-                    templateUrl: 'blog/blog.tpl.html',
-                    controller: 'BlogController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('post', {
-            url: '/:id/:title',
-            views: {
-                'main': {
-                    templateUrl: 'blog/post.tpl.html',
-                    controller: 'PostController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('pages', {
-            url: "/pages",
-            views: {
-                'main': {
-                    templateUrl: 'pages/pages.tpl.html',
-                    controller: 'PagesController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('pagesBySearch', {
-            url: "/pages/search/:searchTerm",
-            views: {
-                'main': {
-                    templateUrl: 'pages/pages.tpl.html',
-                    controller: 'PageController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('page', {
-            url: "/:slug",
-            params: {
-                id: "id"
-            },
-            views: {
-                'main': {
-                    templateUrl: 'pages/page.tpl.html',
-                    controller: 'PageController',
-                    controllerAs: 'vm'
-                }
-            }
-        });
-         
 
+            })
+            .state('root.news', {
+            url: "/news",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/news.tpl.html',
+                        controller: 'NewsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.newsBySearch', {
+                url: "/news/search/:searchTerm",
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/news.tpl.html',
+                        controller: 'NewsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.newsPost',{
+                url: '/news/:id/:title',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/single-post.tpl.html',
+                        controller: 'PostCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('blogcategory', {
+                url: '/news/category/:id',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/category.tpl.html',
+                        controller: 'CategoryCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.page', {
+                url: '/:parent/:slug',
+                views: {
+                    'container@': {
+                        controller: 'PageCtrl',
+                        controllerAs: 'vm',
+                        template: '<div ng-include="getTemplateUrl()"></div>' // Make Dynamic
+                    }
+                }
+            })
+            .state('root.pageslug', {
+                url: '/:slug',
+                views: {
+                    'container@': {
+                        controller: 'PageCtrl',
+                        controllerAs: 'vm',
+                        template: '<div ng-include="getTemplateUrl()"></div>' // Make Dynamic
+                    }
+                }
+            });
+       
     $locationProvider.html5Mode(true).hashPrefix('!');
 
     $urlRouterProvider.rule(function ($injector, $location) {

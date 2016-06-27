@@ -1,4 +1,4 @@
-function BlogController($anchorScroll, $stateParams, $state, ApiService, MetadataService) {
+function NewsCtrl($anchorScroll, $stateParams, $state, ApiService, MetadataService) {
     var vm = this;
     var apiCallFunction;
 
@@ -33,10 +33,10 @@ function BlogController($anchorScroll, $stateParams, $state, ApiService, Metadat
     };
 
     vm.search = function(term) {
-        $state.go('postsBySearch', { searchTerm: term });
+        $state.go('root.newsBySearch', { searchTerm: term });
     };
 }
 
 angular
     .module('app')
-    .controller('BlogController', BlogController);
+    .controller('NewsCtrl', NewsCtrl);

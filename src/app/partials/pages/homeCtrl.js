@@ -1,4 +1,4 @@
-function HomeController($scope, ApiService, MetadataService, facebookFactory) {
+function HomeCtrl($scope, ApiService, MetadataService, facebookFactory) {
     var vm = this;
     var apiCallFunction;
     
@@ -31,9 +31,9 @@ function HomeController($scope, ApiService, MetadataService, facebookFactory) {
     after:"", // (optional)
     access_token:"963806983710968|1b4e82243d046851a67059d2f8735b45"
 
-	}).then(function (_data) {
+    }).then(function (_data) {
     //on success
-	vm.posts = decorateResult(_data);
+    vm.posts = decorateResult(_data);
     // $rootScope.facebookPosts = _data;
  
 }).catch(function (_data) {
@@ -70,13 +70,13 @@ function merge(obj1,obj2){ // Our merge function
     return result;
 }
  var finalobj = merge(object1, object2);
-	  //  _data = _data.data[121470594571005].data;
+      //  _data = _data.data[121470594571005].data;
 console.log(finalobj);
-	    return finalobj;
+        return finalobj;
         //result.excerpt = $sce.trustAsHtml(result.data[0].attachments.data[0].title);
        // result.content = $sce.trustAsHtml(result.data[0].attachments.data[0].description);
     
-                    	
+                        
     }
 
 
@@ -101,4 +101,4 @@ console.log(finalobj);
 
 angular
     .module('app')
-    .controller('HomeController', HomeController);
+    .controller('HomeCtrl', HomeCtrl);

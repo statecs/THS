@@ -19,7 +19,7 @@
   "dependencies": {
     "pure": "~0.5.0",
     "angular": "~1.5.7",
-    "angular-ui-router": "~0.2.13",
+    "angular-ui-router": "~0.2.18",
     "angular-utils-pagination": "~0.6.0",
     "angular-animate": "~1.5.7",
     "angular-facebook-api-factory": "~0.5.0",

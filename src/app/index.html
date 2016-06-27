@@ -4,6 +4,7 @@
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en" ng-app="app" ng-class="{ 'force-scrollbar' : !isHomePage }"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" ng-app="app" ng-class="{ 'force-scrollbar' : !isHomePage }"> <!--<![endif]-->
 <head>
+    <base href="/">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
@@ -53,19 +54,17 @@
     <div class="main-view">
     <div class="menu">
             <ul>
-                <li><a ng-class="{ selected: vm.activeSection === 'home'}" ui-sref="home">Home</a></li>
-                <li><a ng-class="{ selected: vm.activeSection === 'blog' ||
-                                             vm.activeSection === 'post' ||
+                <li><a ng-class="{ selected: vm.activeSection === 'root.home'}" ui-sref="root.home">Home</a></li>
+                <li><a ng-class="{ selected: vm.activeSection === 'root.news' ||
+                                             vm.activeSection === 'root.newsPost' ||
                                              vm.activeSection === 'postsByTag' ||
-                                             vm.activeSection === 'postsBySearch'}" ui-sref="blog">News</a></li>
-                <li><a ng-class="{ selected: vm.activeSection === 'about'}" ui-sref="about">
-                About</a></li>
-                 <li><a ng-class="{ selected: vm.activeSection === 'pages' || vm.activeSection === 'page'}" ui-sref="pages">Pages</a></li>
+                                             vm.activeSection === 'root.blogBySearch'}" ui-sref="root.news">News</a></li>
+                 <li><a ng-class="{ selected: vm.activeSection === 'pages' || vm.activeSection === 'root.page' || vm.activeSection === 'root.pageslug'}" href="/start">Start</a></li>
             </ul>
         </div>
-        
+
         <div class="content">
-            <div ui-view="main"></div>
+            <div ui-view="container"></div>
         </div>
     </div>
 
