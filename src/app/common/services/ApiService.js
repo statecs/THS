@@ -7,7 +7,9 @@
  * @returns {{allPosts: allPosts, allPostsByTag: allPostsByTag, allPostsBySearchTerm: allPostsBySearchTerm, featuredPosts: featuredPosts, post: post}}
  * @constructor
  */
-function ApiService($http, $sce, config, spinnerService, alertify) {
+function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, ngProgressFactory) {
+
+        $rootScope.progressbar = ngProgressFactory.createInstance();
 
     function allPosts() {
         return getData('wp/v2/posts?per_page=20');
@@ -56,31 +58,41 @@ function ApiService($http, $sce, config, spinnerService, alertify) {
 
     function getData(url) {
         spinnerService.show('loadingSpinner');
+        $rootScope.progressbar.start();
         return $http
             .get(config.API_URL + url, { cache: true })
             .then(function(response) {
                 console.log(response.data);
-                if (response.data instanceof Array) {
-                    var items = response.data.map(function(item) {
-                        return decorateResult(item);
-                    });
-                    return items;
+                if (typeof response.data ==='object' && response.data instanceof Array) {
+                     if(!response.data.length){
+                        alertify.error("Error: Not Found 404");
+                        throw "Error: Not Found 404";
+                     } else{
+                        var items = response.data.map(function(item) {
+                            return decorateResult(item);
+                        });
+                        return items;
+                    }
+                   
                 } else {
                     return decorateResult(response.data);
                 }
             })
             .catch(function (e) {
                     console.log("error", e);
-                     alertify.error("Error: Bad Request 400");
+                    alertify.error("Error: Bad Request 400");
                     throw e;
                     
             })
             .finally(function(response) {
                  spinnerService.hide('loadingSpinner');
+                  $rootScope.progressbar.complete();
             });
     }
 
      function getSocialData(url) {
+        spinnerService.show('loadingSpinner');
+        $rootScope.progressbar.start();
         return $http
             .get(url, { cache: true })
             .then(function(response) {
@@ -92,6 +104,16 @@ function ApiService($http, $sce, config, spinnerService, alertify) {
                 } else {
                     return decorateResultSocial(response.data);
                 }
+            })
+            .catch(function (e) {
+                    console.log("error", e);
+                    alertify.error("Error: Bad Request 400");
+                    throw e;
+                    
+            })
+            .finally(function(response) {
+                 spinnerService.hide('loadingSpinner');
+                  $rootScope.progressbar.complete();
             });
     }
 

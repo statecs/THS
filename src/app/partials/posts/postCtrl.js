@@ -13,7 +13,7 @@ function PostCtrl($stateParams, $anchorScroll, $timeout, $location, ApiService, 
         console.log(post);
 
         MetadataService.setMetadata({
-            title: post.title,
+            title: post.title.rendered,
             description: post.excerpt
         });
     });

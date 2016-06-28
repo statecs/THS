@@ -36,7 +36,8 @@ var VENDOR_SCRIPTS = [
     'bower_components/angular-facebook-api-factory/dist/angular-facebook-api-factory.js',
     'bower_components/angular-scroll-animate/dist/angular-scroll-animate.js',
     'bower_components/angular-spinners/dist/angular-spinners.min.js',
-    'bower_components/alertifyjs/dist/js/ngAlertify.js'
+    'bower_components/alertifyjs/dist/js/ngAlertify.js',
+    'bower_components/ngprogress/build/ngprogress.min.js'
 ];
 
 var log = function(message) {
@@ -124,7 +125,7 @@ gulp.task('styles', function() {
             .pipe(less())
             .pipe(autoprefixer());
 
-        vendorStyles = gulp.src(['bower_components/pure/pure.css', 'bower_components/pure/grids-responsive.css', 'bower_components/animate.css/animate.css']);
+        vendorStyles = gulp.src(['bower_components/pure/pure.css', 'bower_components/pure/grids-responsive.css',  'bower_components/ngprogress/ngProgress.css', 'bower_components/animate.css/animate.css']);
 
         merge(vendorStyles, appStyles)
             .pipe(gulp.dest('build/styles'))

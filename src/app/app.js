@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify', 'ngProgress']);
 
 /**
  *
@@ -72,6 +72,7 @@ function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
             })
             .state('root.page', {
                 url: '/:parent/:slug',
+                //url: ':link',
                 views: {
                     'container@': {
                         controller: 'PageCtrl',
