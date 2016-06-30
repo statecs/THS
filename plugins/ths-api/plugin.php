@@ -1,31 +1,101 @@
 <?php
-/**
- * @package WordPress
- * @subpackage Default_Theme
+/*
+ * Plugin Name: THS API
+ * Plugin URI:
+ * Description: JSON endpoint and shortcode for THS Website
+ * Version: 1.0
+ * Author: statecs
+ * Author URI: http://statecreative.se
+ * License: MIT
  */
-/** 2016 -> **/
 
 /*
  *
  *  FILE STRUCTURE:
  *
- *  1. ADD \ REGISTER MENUS
- *  2. ADD PAGE TEMPLATES
- *  4. ADD REQUIRED PLUGINS
- *  5. REWRITE PERMALINK
- *  6. ADD \ REMOVE ACTIONS
- *  7. ADD FRONT PAGE ENDPOINT
+ *  1. WP-API
+ *  2. CUSTOM ENDPOINTS
+ *  3. ADD \ REGISTER MENUS
+ *  4. ADD PAGE TEMPLATES
+ *  5. ADD \ REMOVE ACTIONS
+ *  6. ADD REQUIRED PLUGINS
 */
+
+/**
+* Shortcode
+*/
+
+/* include static class */
+include_once( __DIR__.'/inc/class-ths-postypes.php' );
+/* add_shortcode('dummy', array( 'THS_Shortcode', 'seances') );
+add_filter('get_the_excerpt', 'do_shortcode', 99);*/
+
+add_filter( 'rest_url_prefix', function( $prefix ) { return 'api'; } );
+
+/**
+* 1. WP API
+*/
+
+/* include static class */
+include_once( __DIR__.'/inc/class-ths-api.php' );
+
+/**
+ * Only from certain origins
+ */
+add_action( 'rest_api_init', function() {
+
+	remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
+	add_filter( 'rest_pre_serve_request', function( $value ) {
+
+		$origin = get_http_origin();
+		if ( $origin && in_array( $origin, array(
+				//define some origins!
+				   'http://ths.kth.se',
+        			'http://dev.ths.kth.se',
+        			'http://localhost:3000',
+			) ) ) {
+			header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
+			header( 'Access-Control-Allow-Methods: GET' );
+			header( 'Access-Control-Allow-Credentials: true' );
+		}
+
+		return $value;
+		
+	});
+}, 15 );
+
+/**
+* 2. CUSTOM ENDPOINTS
+*/
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'wp/v2', '/sticky', array(
+        'methods' => WP_REST_Server::READABLE,
+        'callback' => array('THS_API', 'get_sticky_posts'),
+    ));
+});
+
+
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'wp/v2', '/post', array(
+        'methods' => WP_REST_Server::READABLE,
+        'callback' => array('THS_API', 'get_posts_from_url'),
+        'args'     => array(
+			'url' => array( 'required' => true )
+		),
+    ));
+});
+
  /* ------------
-    2. ADD \ REGISTER MENUS
-    --------------- */
+  3. ADD \ REGISTER MENUS
+ --------------- */
     register_nav_menus( array(
         'header_menu' => 'Main Menu',
         'footer_menu' => 'Footer Menu',
     ) );
 
+
 /* ------------
-    3. ADD PAGE TEMPLATES
+    4. ADD PAGE TEMPLATES
     Custom Page Templates can be added quickly in the array under $templates.
     When adding a custom template, angular will look for an html file in the directory
     ./partials/pages/
@@ -77,9 +147,39 @@
         $exp = is_int( $persistently ) ? $persistently : 1800;
         wp_cache_set( 'page_templates-' . $hash, $data, 'themes', $exp );
     }
-     /* ------------
-    4. ADD REQUIRED PLUGINS
-    --------------- */
+
+
+function my_rest_prepare_post( $data, $post, $request ) {
+	$_data = $data->data;
+	$thumbnail_id = get_post_thumbnail_id( $post->ID );
+	$thumbnail = wp_get_attachment_image_src( $thumbnail_id, 'full' );
+	$_data['featured_image_thumbnail_url'] = $thumbnail[0];
+	$data->data = $_data;
+	return $data;
+}
+add_filter( 'rest_prepare_post', 'my_rest_prepare_post', 10, 3 );
+
+
+/* Remove X-Pingback in the HTTP header */
+add_filter('wp_headers', function($headers) {
+    unset($headers['X-Pingback']);
+    return $headers;
+});
+
+/* Remove link to Rest API in the HTTP header */
+remove_action( 'template_redirect', 'rest_output_link_header', 11, 0 );
+
+
+/* ------------
+    5. ADD \ REMOVE ACTIONS
+--------------- */
+    add_action( 'edit_form_after_editor', 'custom_page_templates_init' );
+    add_action( 'load-post.php', 'custom_page_templates_init_post' );
+    add_action( 'load-post-new.php', 'custom_page_templates_init_post' );
+
+/* ------------
+    6. ADD REQUIRED PLUGINS
+--------------- */
     function required_plugins() {
         $plugin_error_message = array();
         include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
@@ -99,44 +199,3 @@
             echo '</div>';
         }
     }
-
-     /* ------------
-    6. ADD \ REMOVE ACTIONS
-    --------------- */
-    add_action( 'edit_form_after_editor', 'custom_page_templates_init' );
-    add_action( 'load-post.php', 'custom_page_templates_init_post' );
-    add_action( 'load-post-new.php', 'custom_page_templates_init_post' );
-
-
-function my_rest_prepare_post( $data, $post, $request ) {
-    $_data = $data->data;
-    $thumbnail_id = get_post_thumbnail_id( $post->ID );
-    $thumbnail = wp_get_attachment_image_src( $thumbnail_id, 'full' );
-    $_data['featured_image_thumbnail_url'] = $thumbnail[0];
-    $data->data = $_data;
-    return $data;
-}
-add_filter( 'rest_prepare_post', 'my_rest_prepare_post', 10, 3 );
-
-
-// Sticky posts in REST - https://github.com/WP-API/WP-API/issues/2210
-function get_sticky_posts() {
-    $posts = get_posts(
-        array(
-            'post__in' => get_option('sticky_posts')
-        )
-    );
-    if (empty($posts)) {
-        return null;
-    }
-
-    return $posts;
-}
-add_action( 'rest_api_init', function () {
-    register_rest_route( 'wp/v2', '/sticky', array(
-        'methods' => 'GET',
-        'callback' => 'get_sticky_posts',
-    ));
-});
-
-?>

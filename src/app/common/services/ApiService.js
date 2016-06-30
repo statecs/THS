@@ -48,8 +48,8 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
     function pageById(id) {
         return getData('wp/v2/pages/' + id);
     }
-    function pageBySlug(slug) {
-        return getData('wp/v2/pages/?slug=' + slug);
+    function pageBySlug(url) {
+        return getData('wp/v2/post/?url=' + url);
     }
 
     function facebookPosts() {

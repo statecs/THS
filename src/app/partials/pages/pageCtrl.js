@@ -3,9 +3,9 @@ function PageCtrl($scope, $stateParams, $anchorScroll, $timeout, $location, ApiS
     vm.page = {};
 
 
- console.log($stateParams.slug);
+ console.log($stateParams.path);
 
-  ApiService.pageBySlug($stateParams.slug).then(function(page) {
+  ApiService.pageBySlug($stateParams.path).then(function(page) {
         console.log($stateParams);
         vm.page = page[0];
 

@@ -70,7 +70,7 @@ function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
                     }
                 }
             })
-            .state('root.page', {
+           /* .state('root.page', {
                 url: '/:parent/:slug',
                 //url: ':link',
                 views: {
@@ -80,9 +80,9 @@ function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
                         template: '<div ng-include="getTemplateUrl()"></div>' // Make Dynamic
                     }
                 }
-            })
-            .state('root.pageslug', {
-                url: '/:slug',
+            })*/
+            .state('root.otherwise', {
+                url: '*path',
                 views: {
                     'container@': {
                         controller: 'PageCtrl',
