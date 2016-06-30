@@ -1,4 +1,4 @@
-function HomeCtrl($scope, ApiService, MetadataService, facebookFactory) {
+function HomeCtrl($scope, ApiService, $http, MetadataService, facebookFactory) {
     var vm = this;
     var apiCallFunction;
     
@@ -6,6 +6,12 @@ function HomeCtrl($scope, ApiService, MetadataService, facebookFactory) {
 
     vm.posts = [];
 
+ $http.get('http://ths.kth.se/api/wp/v2/social?type=instagram').success(function(res) {
+  $scope.progressbar.start();
+    $scope.instagramSocial = res.data;
+    console.log($scope.instagramSocial);
+  }).finally(function(response) {
+  $scope.progressbar.complete();});
 
     vm.featuredPosts = [];
 

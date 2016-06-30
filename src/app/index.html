@@ -50,18 +50,9 @@
   </div>
 </spinner>
 
-    <div class="main-view">
-    <div class="menu">
-            <ul>
-                <li><a ng-class="{ selected: vm.activeSection === 'root.home'}" ui-sref="root.home">Home</a></li>
-                <li><a ng-class="{ selected: vm.activeSection === 'root.news' ||
-                                             vm.activeSection === 'root.newsPost' ||
-                                             vm.activeSection === 'postsByTag' ||
-                                             vm.activeSection === 'root.blogBySearch'}" ui-sref="root.news">News</a></li>
-                 <li><a ng-class="{ selected: vm.activeSection === 'pages' || vm.activeSection === 'root.page' || vm.activeSection === 'root.pageslug'}" href="/start">Start</a></li>
-            </ul>
-        </div>
+<header ui-view="header"></header>
 
+    <div class="main-view">
         <div class="content">
             <div ui-view="container"></div>
         </div>

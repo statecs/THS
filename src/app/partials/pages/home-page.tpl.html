@@ -10,6 +10,13 @@
                 </div>
             </div>
 
+
+              <div class="o-third" ng-repeat="post in instagramSocial">
+                <a class="c-block -link u-fadeInUp is-animated" target=_"blank" href="{{ post.link }}" style="color: rgb(200, 201, 185); visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp; background-image: url('{{ post.images.standard_resolution.url }}');  background-size: cover;">
+                    <div class="o-ripple" style="background-color: #F65846;"></div>
+                </a>
+            </div>
+
               <div class="o-third" ng-repeat="post in vm.posts" ng-if="post.full_picture">
                 <a class="c-block -link u-fadeInUp is-animated" target=_"blank" href="{{ post.link }}" style="color: rgb(200, 201, 185); visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp; background-image: url('{{ post.full_picture }}');  background-size: cover;">
                     <div class="o-ripple" style="background-color: #F65846;"></div>

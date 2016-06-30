@@ -48,7 +48,7 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
     function pageById(id) {
         return getData('wp/v2/pages/' + id);
     }
-    function pageBySlug(url) {
+    function postByURL(url) {
         return getData('wp/v2/post/?url=' + url);
     }
 
@@ -149,7 +149,7 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
         allPagesByTag: allPagesByTag,
         allPagesBySearchTerm: allPagesBySearchTerm,
         pageById: pageById,
-        pageBySlug: pageBySlug,
+        postByURL: postByURL,
         facebookPosts: facebookPosts
     };
 }

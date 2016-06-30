@@ -85,6 +85,16 @@ add_action( 'rest_api_init', function () {
     ));
 });
 
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'wp/v2', '/social', array(
+        'methods' => WP_REST_Server::READABLE,
+        'callback' => array('THS_API', 'get_social_posts'),
+        'args'     => array(
+            'type' => array( 'required' => true )
+        ),
+    ));
+});
+
  /* ------------
   3. ADD \ REGISTER MENUS
  --------------- */

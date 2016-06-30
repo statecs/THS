@@ -1,16 +1,19 @@
-function PageCtrl($scope, $stateParams, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
+function PageCtrl($scope, $stateParams, $window, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
     var vm = this;
     vm.page = {};
 
 
  console.log($stateParams.path);
 
-  ApiService.pageBySlug($stateParams.path).then(function(page) {
+  ApiService.postByURL($stateParams.path).then(function(page) {
         console.log($stateParams);
         vm.page = page[0];
 
         console.log(vm.page);
-   
+        
+    // $window.location.href = vm.link;
+
+
 /*
         getTemplate Logic
         If Default Set Default

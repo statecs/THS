@@ -37,7 +37,8 @@ var VENDOR_SCRIPTS = [
     'bower_components/angular-scroll-animate/dist/angular-scroll-animate.js',
     'bower_components/angular-spinners/dist/angular-spinners.min.js',
     'bower_components/alertifyjs/dist/js/ngAlertify.js',
-    'bower_components/ngprogress/build/ngprogress.min.js'
+    'bower_components/ngprogress/build/ngprogress.min.js',
+    'bower_components/angular-local-storage/dist/angular-local-storage.min.js'
 ];
 
 var log = function(message) {
@@ -77,6 +78,7 @@ gulp.task('scripts', function() {
             // replace the constant values placeholders with the actual data
             .pipe(replace(/%%ROOT_URL%%/, PATHS['build'].basePath))
             .pipe(replace(/%%API_URL%%/, PATHS['build'].apiUrl))
+            .pipe(replace(/%%POSTS_PAGE%%/, PATHS['build'].posts_per_page))
             .pipe(replace(/%%DEFAULT_TITLE%%/, config['DEFAULT_TITLE']))
             .pipe(replace(/%%DEFAULT_DESCRIPTION%%/, config['DEFAULT_DESCRIPTION']))
             // write the scripts to the build dir
@@ -181,6 +183,7 @@ gulp.task('static-assets', function() {
         staticPage =  gulp.src('./src/app/static-page.php')
             .pipe(replace(/%%API_URL%%/g, PATHS['build'].apiUrl))
             .pipe(replace(/%%SITE_URL%%/g, PATHS['build'].siteUrl))
+            .pipe(replace(/%%POSTS_PAGE%%/, PATHS['build'].posts_per_page))
             .pipe(gulp.dest('build'))
             .pipe(replace(PATHS['build'].apiUrl, PATHS['dist'].apiUrl))
             .pipe(replace(PATHS['build'].siteUrl, PATHS['dist'].siteUrl))

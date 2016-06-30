@@ -3,12 +3,14 @@
     "build": {
       "siteUrl": "http://localhost",
       "basePath": "/",
-      "apiUrl": "http://ths.kth.se/api/"
+      "apiUrl": "http://ths.kth.se/api/",
+      "posts_per_page": "10"
     },
     "dist": {
       "siteUrl": "http://dev.ths.kth.se/",
       "basePath": "/",
-      "apiUrl": "http://ths.kth.se/api/"
+      "apiUrl": "http://ths.kth.se/api/",
+      "posts_per_page": "10"
     }
   },
   "DEFAULT_TITLE" : "THS",

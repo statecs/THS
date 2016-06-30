@@ -7,6 +7,7 @@
 
 $API_URL = "%%API_URL%%";
 $SITE_URL = "%%SITE_URL%%";
+$POST_PAGE = "%%POST_PAGE%%";
 
 
 $jsonData = getData($API_URL);
