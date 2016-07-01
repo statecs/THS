@@ -7,46 +7,54 @@
  * @returns {{allPosts: allPosts, allPostsByTag: allPostsByTag, allPostsBySearchTerm: allPostsBySearchTerm, featuredPosts: featuredPosts, post: post}}
  * @constructor
  */
-function SocialService($http, $sce, config, facebookFactory) {
+function SocialService($http, $sce, config, spinnerService, alertify, ngProgressFactory, $rootScope) {
 
 		var result = [];
 
     function facebookPosts() {
-      return getData('https://graph.facebook.com/v2.5/posts?ids=121470594571005,148731426526&access_token=963806983710968%7C1b4e82243d046851a67059d2f8735b45&fields=id,message,story,created_time,full_picture,from,link,description,type,shares,source,picture,object_id&limit=20');
+      return getData('wp/v2/social?type=facebook');
+    }
+    function instagramPosts() {
+      return getData('wp/v2/social?type=instagram');
     }
    
     function getData(url) {
+        spinnerService.show('loadingSpinner');
+        $rootScope.progressbar.start();
         return $http
-            .get(url, { cache: true })
+            .get(config.API_URL + url, { cache: true })
             .then(function(response) {
-                if (response.data instanceof Array) {
-                    var items = response.data.map(function(item) {
-                        return decorateResult(item);
-                    });
-                    return items;
+                console.log(response.data);
+                if (typeof response.data ==='object' && response.data instanceof Array) {
+                     if(!response.data.length){
+                        alertify.error("Error: Not Found 404");
+                        throw "Error: Not Found 404";
+                     } else{
+                        var items = response.data.map(function(item) {
+                            return item;
+                        });
+                        return items;
+                    }
+                   
                 } else {
-                    return decorateResult(response.data);
+                    return response.data;
                 }
-           });
-    }
-
-    /**
-     * Decorate a post to make it play nice with AngularJS
-     * @param result
-     * @returns {*}
-     */
-    function decorateResult(result) {
-	    result = result[121470594571005].data;
-
-	    return result;
-        //result.excerpt = $sce.trustAsHtml(result.data[0].attachments.data[0].title);
-       // result.content = $sce.trustAsHtml(result.data[0].attachments.data[0].description);
-    
-                    	
+            })
+            .catch(function (e) {
+                    console.log("error", e);
+                    alertify.error("Error: Bad Request 400");
+                    throw e;
+                    
+            })
+            .finally(function(response) {
+                 spinnerService.hide('loadingSpinner');
+                  $rootScope.progressbar.complete();
+            });
     }
 
     return {
-        facebookPosts: facebookPosts
+        facebookPosts: facebookPosts,
+        instagramPosts: instagramPosts
     };
 }
 

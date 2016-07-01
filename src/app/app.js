@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource']);
 
 
 function initializeApp($rootScope, localStorageService, $http ){
@@ -26,7 +26,7 @@ function initializeApp($rootScope, localStorageService, $http ){
  */
 function routesConfig($stateProvider, $locationProvider, paginationTemplateProvider, $urlRouterProvider, localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix('wp');
-    paginationTemplateProvider.setPath('./partials/pagination.tpl.html');
+    paginationTemplateProvider.setPath('common/directives/pagination/dirPagination.tpl.html');
 
     $urlRouterProvider.otherwise('/');
     $stateProvider

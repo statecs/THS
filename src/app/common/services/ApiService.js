@@ -9,15 +9,10 @@
  */
 function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, ngProgressFactory) {
 
-        $rootScope.progressbar = ngProgressFactory.createInstance();
+    $rootScope.progressbar = ngProgressFactory.createInstance();
 
     function allPosts() {
         return getData('wp/v2/posts?per_page=20');
-    }
-
-    function allPostsByTag(tag) {
-        // getData('wp/v2/posts?filter[category_name]=post&filter[tag]=' + tag);
-        getData('wp/v2/posts?filter[category_name]=' + tag);
     }
 
     function allPostsBySearchTerm(searchTerm) {
@@ -31,29 +26,9 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
     function postById(id) {
         return getData('wp/v2/posts/' + id);
     }
-      function allPages() {
-        return getData('wp/v2/pages?per_page=50');
-    }
 
-    function allPagesByTag(tag) {
-        getData('wp/v2/pages?filter[s]=post&filter[tag]=' + tag);
-    }
-
-    function allPagesBySearchTerm(searchTerm) {
-        console.log(searchTerm);
-         console.log("AllpagesSearch");
-        return getData('wp/v2/pages?per_page=20&filter[s]=' + searchTerm);
-    }
-
-    function pageById(id) {
-        return getData('wp/v2/pages/' + id);
-    }
     function postByURL(url) {
         return getData('wp/v2/post/?url=' + url);
-    }
-
-    function facebookPosts() {
-      return getSocialData('https://graph.facebook.com/v2.5/posts?ids=121470594571005,148731426526&access_token=963806983710968%7C1b4e82243d046851a67059d2f8735b45&fields=id,message,story,created_time,full_picture,from,link,description,type,shares,source,picture,object_id&limit=20');
     }
 
     function getData(url) {
@@ -62,13 +37,13 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
         return $http
             .get(config.API_URL + url, { cache: true })
             .then(function(response) {
-                console.log(response.data);
                 if (typeof response.data ==='object' && response.data instanceof Array) {
                      if(!response.data.length){
                         alertify.error("Error: Not Found 404");
                         throw "Error: Not Found 404";
                      } else{
                         var items = response.data.map(function(item) {
+                            console.log(item);
                             return decorateResult(item);
                         });
                         return items;
@@ -76,33 +51,6 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
                    
                 } else {
                     return decorateResult(response.data);
-                }
-            })
-            .catch(function (e) {
-                    console.log("error", e);
-                    alertify.error("Error: Bad Request 400");
-                    throw e;
-                    
-            })
-            .finally(function(response) {
-                 spinnerService.hide('loadingSpinner');
-                  $rootScope.progressbar.complete();
-            });
-    }
-
-     function getSocialData(url) {
-        spinnerService.show('loadingSpinner');
-        $rootScope.progressbar.start();
-        return $http
-            .get(url, { cache: true })
-            .then(function(response) {
-                if (response.data instanceof Array) {
-                    var items = response.data.map(function(item) {
-                        return decorateResultSocial(item);
-                    });
-                    return items;
-                } else {
-                    return decorateResultSocial(response.data);
                 }
             })
             .catch(function (e) {
@@ -129,28 +77,13 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
         //result = result[121470594571005].data;
         return result;
     }
-        /**
-     * Decorate a post to make it play nice with AngularJS
-     * @param result
-     * @returns {*}
-     */
-    function decorateResultSocial(result) {
-        result = result[121470594571005].data;
-        return result;
-    }
 
     return {
         allPosts: allPosts,
-        allPostsByTag: allPostsByTag,
         allPostsBySearchTerm: allPostsBySearchTerm,
         featuredPosts: featuredPosts,
         postById: postById,
-        allPages: allPages,
-        allPagesByTag: allPagesByTag,
-        allPagesBySearchTerm: allPagesBySearchTerm,
-        pageById: pageById,
         postByURL: postByURL,
-        facebookPosts: facebookPosts
     };
 }
 

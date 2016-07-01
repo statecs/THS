@@ -1,24 +1,68 @@
-function HomeCtrl($scope, ApiService, $http, MetadataService, facebookFactory) {
+function HomeCtrl($scope, ApiService, $http, MetadataService, SocialService) {
     var vm = this;
     var apiCallFunction;
+    var instagramData, facebookData;
     
     vm.loaded = false;
 
     vm.posts = [];
 
- $http.get('http://ths.kth.se/api/wp/v2/social?type=instagram').success(function(res) {
-  $scope.progressbar.start();
-    $scope.instagramSocial = res.data;
-    console.log($scope.instagramSocial);
-  }).finally(function(response) {
-  $scope.progressbar.complete();});
-
     vm.featuredPosts = [];
 
-    ApiService.facebookPosts().then(function(posts) {
-        vm.posts = posts;
-        console.log(vm.posts);
+   SocialService.instagramPosts().then(function(posts) {
+        instagramData = posts.data;
+        //console.log(instagramData);
+        setUpPosts();
     });
+
+    SocialService.facebookPosts().then(function(posts) {
+        facebookData = posts[121470594571005].data;
+        console.log(facebookData);
+         setUpPosts();
+    });
+
+      var SocialTile = {
+        date: null, // Date created
+        imageUrl: null, // URL to image
+        description: 'description', // Any relevant description text
+        link: "", // Link to the content
+        title: "", // A title (probably only relevant for news items)
+        type: null // "facebook" or "instagram" or "news"
+      };
+
+
+
+    var socialTiles = [];
+    var tile;
+
+    function setUpPosts() {
+
+        instagramData.forEach(function (instaObj) {
+            tile = Object.create(SocialTile);
+            tile.link = instaObj.link;
+            tile.date = instaObj.created_time * 1000;
+            tile.type = "instagram";
+            tile.description = instaObj.caption.text;
+            tile.imageUrl = instaObj.images.standard_resolution.url;
+            socialTiles.push(tile);
+          });
+
+          facebookData.forEach(function (feedObj) {
+          if (feedObj.full_picture != null) {
+              tile = Object.create(SocialTile);
+              tile.imageUrl = feedObj.full_picture ;
+              tile.description = feedObj.message;
+              tile.date = feedObj.created_time;
+              tile.type = "facebook";
+              tile.link = feedObj.link;
+              socialTiles.push(tile);
+            }
+          });
+
+    vm.socialTiles = socialTiles;
+    console.log(vm.socialTiles);
+    vm.loaded = true;
+    }
 
      $scope.animateElementIn = function($el) {
     $el.removeClass('hidden');
@@ -30,75 +74,6 @@ function HomeCtrl($scope, ApiService, $http, MetadataService, facebookFactory) {
    // $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
   }; 
 
-  /*  facebookFactory.getPostsFromPageById({
-    page:"121470594571005,148731426526,199385490073014", // ID or name
-    limit:"20", // (optional) valid values: 0-100 | default: 25
-    before:"", // (optional)
-    after:"", // (optional)
-    access_token:"963806983710968|1b4e82243d046851a67059d2f8735b45"
-
-    }).then(function (_data) {
-    //on success
-    vm.posts = decorateResult(_data);
-    // $rootScope.facebookPosts = _data;
- 
-}).catch(function (_data) {
-    //on error
-});*/
-
-  /**
-     * Decorate a post to make it play nice with AngularJS
-     * @param result
-     * @returns {*}
-     */
-   /* function decorateResult(_data) {
-
-var object1 = _data.data[121470594571005].data;
-var object2 = _data.data[148731426526].data;
-var object3 = _data.data[199385490073014].data;
-
-
-function merge(obj1,obj2){ // Our merge function
-    var result = {}; // return result
-    for(var i in obj1){      // for every property in obj1 
-        if((i in obj2) && (typeof obj1[i] === "object") && (i !== null)){
-            result[i] = merge(obj1[i],obj2[i]); // if it's an object, merge   
-        }else{
-           result[i] = obj1[i]; // add it to result
-        }
-    }
-    for(i in obj2){ // add the remaining properties from object 2
-        if(i in result){ //conflict
-            continue;
-        }
-        result[i] = obj2[i];
-    }
-    return result;
-}
- var finalobj = merge(object1, object2);
-      //  _data = _data.data[121470594571005].data;
-console.log(finalobj);
-        return finalobj;
-        //result.excerpt = $sce.trustAsHtml(result.data[0].attachments.data[0].title);
-       // result.content = $sce.trustAsHtml(result.data[0].attachments.data[0].description);
-    
-                        
-    }
-
-
-  /* apiCallFunction = SocialService.facebookPosts();
-
- console.log(apiCallFunction);
-
-      apiCallFunction.then(function(posts) {
-        vm.posts = posts;
-        console.log(posts);
-        vm.loaded = true;
-    });*/
-
-    /*ApiService.featuredPosts().then(function(posts) {
-        vm.featuredPosts = posts;
-    });*/
 
     // pass an empty object to use the defaults.
     MetadataService.setMetadata({});
