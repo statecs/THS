@@ -34,7 +34,7 @@ function PageCtrl($scope, $stateParams, $window, $anchorScroll, $timeout, $locat
         }
 
         MetadataService.setMetadata({
-            title: page.title,
+            title: vm.page.title.rendered,
             description: page.excerpt
         });
     });

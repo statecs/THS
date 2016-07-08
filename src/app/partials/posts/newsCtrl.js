@@ -7,7 +7,7 @@ function NewsCtrl($anchorScroll, $stateParams, $state, ApiService, MetadataServi
     vm.subtitle = '';
 
     MetadataService.setMetadata({
-        title: 'Blog',
+        title: 'News',
         description: 'A collection of articles on some topics.'
     });
 
