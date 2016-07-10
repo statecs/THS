@@ -28,7 +28,7 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
     }
 
     function postByURL(url) {
-        return getData('wp/v2/post/?url=' + url);
+        return getData('wp/v2/post' + url);
     }
 
     function getData(url) {
@@ -74,6 +74,7 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
         result.excerpt = $sce.trustAsHtml(result.excerpt.rendered);
         result.date = Date.parse(result.date);
         result.content = $sce.trustAsHtml(result.content.rendered);
+        result.title = $sce.trustAsHtml(result.title.rendered);
         //result = result[121470594571005].data;
         return result;
     }

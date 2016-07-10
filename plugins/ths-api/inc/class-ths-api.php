@@ -51,7 +51,7 @@ class THS_API  {
     return $posts;
 }
 
-  // Social posts
+  // Sticky posts in REST - https://github.com/WP-API/WP-API/issues/2210
   public static function get_social_posts( WP_REST_Request $request) {
 
     $type = $request['type'];
@@ -78,6 +78,9 @@ class THS_API  {
   */
 
   private static function prepare_item_for_response( $post, $request ) {
+
+    $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+
    // Base fields for every post.
     $postdata = array(
       'id'           => $post->ID,
@@ -93,17 +96,29 @@ class THS_API  {
       'type'         => $post->post_type,
       'link'         => get_permalink( $post->ID ),
       'acf'          => get_fields($post->ID),
-      'template'     => get_page_template_slug( $post->ID ),
       'author'       => (int) $post->post_author,
       'comment_status'   => $post->comment_status,
       'sticky'       => is_sticky( $post->ID ),
+      'template'     => get_page_template_slug( $post->ID ),
+      'featured_image' => $thumbnail[0],
+      'categories' => get_the_category( $post->ID ),
     );
 
-    $postdata['title'] = array(
+
+    if ( $postdata['template'] === false ) {
+      if (!empty( get_post_meta($post->ID,'_post_template',true))) {
+        $postdata['template'] = get_post_meta($post->ID,'_post_template',true);
+      } else {
+        $postdata['template'] = "news";
+      }
+    }
+
+
+      $postdata['title'] = array(
         'rendered' => get_the_title( $post->ID ),
       );
 
-    $postdata['content'] = array(
+      $postdata['content'] = array(
         /** This filter is documented in wp-includes/post-template.php */
         'rendered' => apply_filters( 'the_content', $post->post_content ),
       );
@@ -115,8 +130,7 @@ class THS_API  {
       }
 
       $postdata['excerpt'] = array(
-        'raw'      => $post->post_excerpt,
-        'rendered' => $post->post_excerpt,
+        'rendered' => wp_trim_words( $post->post_content, 50, ' <a href="'. get_permalink( $post->ID ) .'">read more</a>' )
       );
 
       $response = rest_ensure_response( $postdata );
@@ -150,5 +164,3 @@ class THS_API  {
   }
 
 }
-
-

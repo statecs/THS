@@ -15,10 +15,10 @@ makePage($jsonData, $API_URL);
 
 
 function getData($API_URL) {
-    $id = $_GET['url'] ? $_GET['url'] : 1;
+    $url = $_GET['url'] ? $_GET['url'] : 1;
    // $rawData = file_get_contents($API_URL.'wp/v2/post?url='.$id);
    // $id = ctype_digit($_GET['id']) ? $_GET['id'] : 1;
-    $rawData = file_get_contents($API_URL.'wp/v2/post?url='.$id);
+    $rawData = file_get_contents($API_URL.'wp/v2/post/'.$url);
      //return $id;
     return json_decode($rawData);
 }
@@ -30,7 +30,7 @@ function makePage($data) {
       <!DOCTYPE html>
     <html>
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <!--<meta http-equiv="content-type" content="text/html; charset=utf-8">-->
         <title><?php echo $data[0]->title->rendered; ?></title>
         <meta property="description" content="<?php echo $metaDescription; ?>" />
 

@@ -11,8 +11,7 @@ function PageCtrl($scope, $stateParams, $window, $anchorScroll, $timeout, $locat
 
         console.log(vm.page);
         
-    // $window.location.href = vm.link;
-
+   // $window.location.href = vm.link;
 
 /*
         getTemplate Logic
@@ -21,7 +20,7 @@ function PageCtrl($scope, $stateParams, $window, $anchorScroll, $timeout, $locat
         IF Pages Then Return Correct File
         */
          $scope.getTemplateUrl = function() {
-            if (vm.page.template == 'default' || vm.page.template == ''  ) {
+            if (vm.page.template == 'default' || vm.page.template == '' ) {
                 return 'partials/pages/default.tpl.html';
             } else if (
                 vm.page.template == 'single-post'    ||
@@ -34,7 +33,7 @@ function PageCtrl($scope, $stateParams, $window, $anchorScroll, $timeout, $locat
         }
 
         MetadataService.setMetadata({
-            title: vm.page.title.rendered,
+            title: vm.page.title,
             description: page.excerpt
         });
     });

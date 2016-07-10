@@ -68,7 +68,7 @@ add_action( 'rest_api_init', function() {
 * 2. CUSTOM ENDPOINTS
 */
 add_action( 'rest_api_init', function () {
-    register_rest_route( 'wp/v2', '/sticky', array(
+    register_rest_route( 'wp/v2', '/sticky/(?P<id>\d+)', array(
         'methods' => WP_REST_Server::READABLE,
         'callback' => array('THS_API', 'get_sticky_posts'),
     ));
@@ -76,7 +76,7 @@ add_action( 'rest_api_init', function () {
 
 
 add_action( 'rest_api_init', function () {
-    register_rest_route( 'wp/v2', '/post', array(
+    register_rest_route( 'wp/v2', '/post/(?P<url>\S+)', array(
         'methods' => WP_REST_Server::READABLE,
         'callback' => array('THS_API', 'get_posts_from_url'),
         'args'     => array(
@@ -186,6 +186,92 @@ remove_action( 'template_redirect', 'rest_output_link_header', 11, 0 );
     add_action( 'edit_form_after_editor', 'custom_page_templates_init' );
     add_action( 'load-post.php', 'custom_page_templates_init_post' );
     add_action( 'load-post-new.php', 'custom_page_templates_init_post' );
+
+    add_action('add_meta_boxes','wp_add_post_custom_template');
+    add_action('save_post','wp_save_custom_post_template',10,2);
+    add_filter('single_template','wp_get_custom_post_template_for_template_loader');
+
+function wp_add_post_custom_template($postType) {
+    
+    if(get_option('wp_custom_post_template') == ''){ //get option value
+        $postType_title = 'post';
+        $postType_arr[] = $postType_title;
+    }else{
+        $postType_title = get_option('wp_custom_post_template');
+        $postType_arr = explode(',',$postType_title);
+    }
+    if(in_array($postType, $postType_arr)){
+        add_meta_box(
+                'postparentdiv',
+                __('WP Post Template'),
+                'wp_custom_post_template_meta_box',
+                $postType,
+                'side', 
+                'core'
+        );
+    }
+}
+function wp_custom_post_template_meta_box($post) {
+    if ( $post->post_type != 'page' && 0 != count( wp_get_post_custom_templates() ) ) {
+        $template = get_post_meta($post->ID,'_post_template',true);
+    ?>
+        <label class="screen-reader-text" for="post_template"><?php _e('Post Template') ?></label>
+        <select name="post_template" id="post_template">
+            <option value='news'><?php _e('Default Template'); ?></option>
+            <?php wp_custom_post_template_dropdown($template); ?>
+        </select>
+        <p><i><?php _e( 'Some themes have custom templates you can use for single posts template selecting from dropdown.'); ?></i></p>
+    <?php
+    }
+}?>
+<?php 
+function wp_get_post_custom_templates() {
+  if(function_exists('wp_get_themes')){
+        $themes = wp_get_themes();
+    }else{
+        $themes = get_themes();
+    }           
+    
+  $theme = wp_get_theme();
+  $templates = array(
+            'home-page'  => 'Home Page',
+            'template-a' => 'Template A',
+            'template-b' => 'Template B' ,
+            'template-c' => 'Template C' ,
+        );
+
+  return $templates;
+}
+
+function wp_custom_post_template_dropdown( $default = '' ) {
+  $templates = array_flip( (array) wp_get_post_custom_templates() );
+  ksort( $templates );
+  foreach (array_keys( $templates ) as $template )
+    : if ( $default == $templates[$template] )
+      $selected = " selected='selected'";
+    else
+      $selected = '';
+  echo "\n\t<option value='".$templates[$template]."' $selected>$template</option>";
+  endforeach;
+}
+
+function wp_save_custom_post_template($post_id,$post) {
+  if ($post->post_type !='page' && !empty($_POST['post_template']))
+    update_post_meta($post->ID,'_post_template',$_POST['post_template']);
+}
+
+function wp_get_custom_post_template_for_template_loader($template) {
+  global $wp_query;
+  $post = $wp_query->get_queried_object();
+  if ($post) {
+    $post_template = get_post_meta($post->ID,'_post_template',true);
+
+  //  if (!empty($post_template) && $post_template!='default')
+    //  $template = get_stylesheet_directory() . "/{$post_template}";
+  }
+  
+  return $template;
+}
 
 /* ------------
     6. ADD REQUIRED PLUGINS

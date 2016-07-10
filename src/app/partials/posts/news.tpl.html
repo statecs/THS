@@ -15,7 +15,7 @@
                     </div>
                 </span>
                 <div class="post-list-entry">
-                    <h2><a ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="post-list-title">{{ post.title.rendered | decodeHtmlCodes  }}</a></h2>
+                    <h2><a ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="post-list-title">{{ post.title  }}</a></h2>
 
                     <ul class="tags">
                         <li ng-repeat="tag in post.terms.post_tag">
