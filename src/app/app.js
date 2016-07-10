@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'angular-scroll-animate']);
 
 
 function initializeApp($rootScope, localStorageService, $http ){
@@ -149,6 +149,17 @@ function AppController($rootScope, $window, $location, $timeout, MetadataService
         vm.activeSection = toState.name;
         vm.showMobileMenu = false;
     });
+
+    $rootScope.animateElementIn = function($el) {
+        $el.removeClass('hidden');
+        $el.addClass('u-fadeInUp is-animated'); // this example leverages animate.css classes
+    };
+
+   $rootScope.animateElementOut = function($el) {
+   //$el.addClass('hidden');
+   // $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
+   }; 
+
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();

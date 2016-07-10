@@ -11,9 +11,9 @@ function PageCtrl($scope, $stateParams, $window, $anchorScroll, $timeout, $locat
 
         console.log(vm.page);
         
-   // $window.location.href = vm.link;
+       // $window.location.href = vm.page.link;
 
-/*
+        /*
         getTemplate Logic
         If Default Set Default
         If Single Post or Category Don't Override

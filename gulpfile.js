@@ -39,7 +39,10 @@ var VENDOR_SCRIPTS = [
     'bower_components/alertifyjs/dist/js/ngAlertify.js',
     'bower_components/ngprogress/build/ngprogress.min.js',
     'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
-    'bower_components/angular-resource/angular-resource.js'
+    'bower_components/angular-resource/angular-resource.js',
+    'bower_components/angular-scroll-animate/dist/angular-scroll-animate.js',
+
+
 ];
 
 var log = function(message) {

@@ -30,8 +30,6 @@ function HomeCtrl($scope, ApiService, $http, MetadataService, SocialService) {
         type: null // "facebook" or "instagram" or "news"
       };
 
-
-
     var socialTiles = [];
     var tile;
 
@@ -63,17 +61,6 @@ function HomeCtrl($scope, ApiService, $http, MetadataService, SocialService) {
     console.log(vm.socialTiles);
     vm.loaded = true;
     }
-
-     $scope.animateElementIn = function($el) {
-    $el.removeClass('hidden');
-    $el.addClass('animated fadeInUp'); // this example leverages animate.css classes
-  };
-
-   $scope.animateElementOut = function($el) {
-   // $el.addClass('hidden');
-   // $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
-  }; 
-
 
     // pass an empty object to use the defaults.
     MetadataService.setMetadata({});

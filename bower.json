@@ -23,7 +23,7 @@
     "angular-utils-pagination": "~0.6.0",
     "angular-animate": "~1.5.7",
     "angular-facebook-api-factory": "~0.5.0",
-    "angular-scroll-animate": "~0.9.8",
+    "angular-scroll-animate": "^0.9.9",
     "animate.css": "~3.5.2",
     "angular-spinners": "~3.1.2",
     "alertifyjs": "^1.0.11",

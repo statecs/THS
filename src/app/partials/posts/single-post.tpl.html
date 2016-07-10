@@ -5,7 +5,7 @@
         <div ng-bind-html="post.content.rendered | to_trusted"></div>
     </div>
 </div>-->
-<div class="pure-g page-content u-fadeInUp is-animated" style=" visibility: visible; animation-delay: 1.0s; animation-name: fadeInUp;">
+<div class="pure-g page-content" >
     <div class="pure-u-1">
     <h1>{{ vm.post.title }}</h1>
 
@@ -19,7 +19,8 @@
                 </li>
             </ul>
         </div>
-
-        <div class="post-body u-fadeInUp is-animated" style=" visibility: visible; animation-delay: 1.0s; animation-name: fadeInUp;" ng-bind-html="vm.post.content"></div>
+<div>
+        <div class="fadeInUp animated"  ng-bind-html="vm.post.content"></div>
+        </div>
     </div>
 </div>
