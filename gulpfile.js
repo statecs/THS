@@ -33,14 +33,12 @@ var VENDOR_SCRIPTS = [
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
     'bower_components/angular-utils-pagination/dirPagination.js',
-    'bower_components/angular-facebook-api-factory/dist/angular-facebook-api-factory.js',
-    'bower_components/angular-scroll-animate/dist/angular-scroll-animate.js',
     'bower_components/angular-spinners/dist/angular-spinners.min.js',
     'bower_components/alertifyjs/dist/js/ngAlertify.js',
     'bower_components/ngprogress/build/ngprogress.min.js',
     'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
     'bower_components/angular-resource/angular-resource.js',
-    'bower_components/angular-scroll-animate/dist/angular-scroll-animate.js',
+    'bower_components/wow/dist/wow.min.js',
 
 
 ];
@@ -131,7 +129,7 @@ gulp.task('styles', function() {
             .pipe(less())
             .pipe(autoprefixer());
 
-        vendorStyles = gulp.src(['bower_components/pure/pure.css', 'bower_components/pure/grids-responsive.css',  'bower_components/ngprogress/ngProgress.css', 'bower_components/animate.css/animate.css']);
+        vendorStyles = gulp.src(['bower_components/ngprogress/ngProgress.css', 'bower_components/animate.css/animate.css', 'bower_components/normalize-css/normalize.css']);
 
         merge(vendorStyles, appStyles)
             .pipe(gulp.dest('build/styles'))

@@ -1,8 +1,16 @@
 <div class="row">
     <div class="col-xs-12">
-        <h1>{{vm.page.title}} - Default</h1>
 
-        <div ng-bind-html="vm.page.content"></div>
+          <h1 class="o-heading -h1 js-wow fadeInUp animated">
+            <span class="o-heading_line">
+                <span class="o-heading_text js-wow u-slideUp is-animated" data-wow-delay="0.1s">{{vm.page.title}} - Default</span>
+            </span>
+            
+        </h1>
+
+        <h1></h1>
+
+        <div class="js-wow fadeInUp animated" data-wow-delay="0.2s" ng-bind-html="vm.page.content"></div>
     </div>
 </div>
 

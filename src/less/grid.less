@@ -1,6 +1,7 @@
 /******************** 
     Grid Flexbox
 **********************/
+
 .o-grid {
     font-size: 0;
     margin-left: 0
@@ -163,7 +164,6 @@
 }
 @media (min-width: 700px) {
     .c-block {
-        padding: 3.75rem;
         height: 25rem;
     }
 }
@@ -180,6 +180,9 @@
 @media (min-width: 1600px) {
     .c-block {
         height: 27.5rem
+    }
+    .c-block.-video {
+        height: 57.5rem
     }
 }
 .c-block.-full {
@@ -214,11 +217,7 @@
         z-index: 800
     }
 }
-.c-block.-center:before,
-.c-block.-link::after,
-.c-block_category::before {
-    content: ""
-}
+
 .c-block.-link:hover {
     z-index: 100
 }

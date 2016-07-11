@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'angular-scroll-animate']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource']);
 
 
 function initializeApp($rootScope, localStorageService, $http ){
@@ -25,6 +25,13 @@ function initializeApp($rootScope, localStorageService, $http ){
  * @ngInject
  */
 function routesConfig($stateProvider, $locationProvider, paginationTemplateProvider, $urlRouterProvider, localStorageServiceProvider) {
+    
+    var wow;
+    wow = new WOW({ boxClass:     'js-wow',      // default
+                    animateClass: 'is-animated', // default
+                })
+    wow.init();
+
     localStorageServiceProvider.setPrefix('wp');
     paginationTemplateProvider.setPath('common/directives/pagination/dirPagination.tpl.html');
 
@@ -149,17 +156,6 @@ function AppController($rootScope, $window, $location, $timeout, MetadataService
         vm.activeSection = toState.name;
         vm.showMobileMenu = false;
     });
-
-    $rootScope.animateElementIn = function($el) {
-        $el.removeClass('hidden');
-        $el.addClass('u-fadeInUp is-animated'); // this example leverages animate.css classes
-    };
-
-   $rootScope.animateElementOut = function($el) {
-   //$el.addClass('hidden');
-   // $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
-   }; 
-
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();

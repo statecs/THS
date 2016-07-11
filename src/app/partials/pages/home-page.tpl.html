@@ -2,19 +2,30 @@
     <div class="o-content">
     <div class="o-container" data-widget="block">
         <div class="o-grid">
-            <div when-visible="animateElementIn"
-    when-not-visible="animateElementOut" class="o-whole wrap hidden" id="content-area" ng-if="vm.loaded == true">
-                <div class="c-block -link " style="background-color: rgb(255, 255, 255);">
+            <div class="o-whole wrap" id="content-area" ng-if="vm.loaded == true">
+                <div class="c-block -video " style="background-color: rgb(255, 255, 255);">
                 <span class="c-block_background-wrap">
                 <iframe style="position: absolute; top: 0; left: 0;" id="player" data-id="vjfpKmPmSTw" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="100%" src="https://www.youtube.com/embed/vjfpKmPmSTw?vq=hd720&amp;autoplay=0&amp;loop=1&amp;playlist=vjfpKmPmSTw&amp;modestbranding=1&amp;controls=0&amp;enablejsapi=1&amp;"></iframe></span>
-                  <article class="c-block_container"><h1 class="c-block_category">THS - Your Students' Union</h1></article>
+                  <!--<article class="c-block_container"><h1 class="c-block_category">THS - Your Students' Union</h1></article>-->
                 </div>
             </div>
 
-              <div when-visible="animateElementIn"
-    when-not-visible="animateElementOut" delay-percent="0.50" class="hidden o-third" ng-repeat="tile in vm.socialTiles">
-                <a id="fadein-trigger" class="c-block -link " target=_"blank" href="{{ tile.link }}" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover;">
+
+
+              <div ng-repeat="tile in vm.socialTiles" class="js-wow o-third fadeInUp" >
+                <a id="fadein-trigger" class="c-block -link " target=_"blank" href="{{ tile.link }}">
+                <div class="c_item_background-wrap o-background ">
+                        <div class="c_item_background o-background -overflow" style="background-image: url('{{ tile.imageUrl }}');"></div>
+                    </div>
+                <div class="c_item_content-background o-background" style="background-color: #FFFFFF;"></div>
                     <div class="o-ripple" style="background-color: #F65846;"></div>
+                     <div class="c_item_content" style="color: #EF5C5C">
+                        <div class="c_item_text">
+                            <h3 class="c_item_title">{{ tile.description  | limitHtml: 100 }}</h3>
+                            <div class="c_item_line"></div>
+                            <p class="c_item_category"></p>
+                        </div>
+                    </div>
                 </a>
             </div>
         </div>
