@@ -1,0 +1,26 @@
+<!--<div class="row">
+    <div class="col-xs-12">
+        <h1>{{post.title.rendered}} - Single Post</h1>
+
+        <div ng-bind-html="post.content.rendered | to_trusted"></div>
+    </div>
+</div>-->
+<div class="pure-g page-content" >
+    <div class="pure-u-1">
+    <h1>{{ vm.post.title }}</h1>
+
+        <div class="post-meta">
+            <div class="date">
+                {{ vm.post.date | date:'dd MMM yyyy' }}
+            </div>
+            <ul class="tags">
+                <li ng-repeat="tag in vm.post.terms.post_tag">
+                    <a ui-sref="postsByTag({ tag: tag.slug })">{{ tag.name }}</a>
+                </li>
+            </ul>
+        </div>
+<div>
+        <div class="fadeInUp animated"  ng-bind-html="vm.post.content"></div>
+        </div>
+    </div>
+</div>

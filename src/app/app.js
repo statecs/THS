@@ -1,4 +1,21 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'angular-scroll-animate']);
+
+
+function initializeApp($rootScope, localStorageService, $http ){
+    console.log('app init');
+    $rootScope.posts_per_page = config.POSTS_PAGE;
+    console.log(config.POSTS_PAGE);
+    console.log(config.API_URL);
+
+     /** Localize Categories **/
+        $http.get(config.API_URL + 'wp/v2/categories' ).then(function(res){
+            var cats = [];
+            angular.forEach( res.data, function( value, key ) {
+                cats.push(value);
+            });
+            localStorageService.set( 'cats', cats );
+        });
+}
 
 /**
  *
@@ -7,90 +24,89 @@ angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPag
  * @param $urlRouterProvider
  * @ngInject
  */
-function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
-    $stateProvider
-        .state('home', {
-            url: "/",
-            views: {
-                'main': {
-                    templateUrl: 'home/home.tpl.html',
-                    controller: 'HomeController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('blog', {
-            url: "/blog",
-            views: {
-                'main': {
-                    templateUrl: 'blog/blog.tpl.html',
-                    controller: 'BlogController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('postsByTag', {
-            url: "/tag/:tag",
-            views: {
-                'main': {
-                    templateUrl: 'blog/blog.tpl.html',
-                    controller: 'BlogController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('postsBySearch', {
-            url: "/search/:searchTerm",
-            views: {
-                'main': {
-                    templateUrl: 'blog/blog.tpl.html',
-                    controller: 'BlogController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('post', {
-            url: '/:id/:title',
-            views: {
-                'main': {
-                    templateUrl: 'blog/post.tpl.html',
-                    controller: 'PostController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('pages', {
-            url: "/pages",
-            views: {
-                'main': {
-                    templateUrl: 'pages/pages.tpl.html',
-                    controller: 'PagesController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('pagesBySearch', {
-            url: "/pages/search/:searchTerm",
-            views: {
-                'main': {
-                    templateUrl: 'pages/pages.tpl.html',
-                    controller: 'PageController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('page', {
-            url: "/:slug",
-            views: {
-                'main': {
-                    templateUrl: 'pages/page.tpl.html',
-                    controller: 'PageController',
-                    controllerAs: 'vm'
-                }
-            }
-        });
-         
+function routesConfig($stateProvider, $locationProvider, paginationTemplateProvider, $urlRouterProvider, localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix('wp');
+    paginationTemplateProvider.setPath('common/directives/pagination/dirPagination.tpl.html');
 
+    $urlRouterProvider.otherwise('/');
+    $stateProvider
+        .state('root', {
+                url: '',
+                abstract: true,
+                views: {
+                    'header': {
+                        templateUrl: 'partials/layout/head.tpl.html',
+                        controller: 'HeaderCtrl'
+                    }
+                }
+            })
+            .state('root.home', {
+                url: '/',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/home-page.tpl.html',
+                        controller: 'HomeCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+
+            })
+            .state('root.news', {
+            url: "/news",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/news.tpl.html',
+                        controller: 'NewsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.newsBySearch', {
+                url: "/news/search/:searchTerm",
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/news.tpl.html',
+                        controller: 'NewsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.newsPost',{
+                url: '/news/:id/:title',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/single-post.tpl.html',
+                        controller: 'PostCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('category',{
+                url:'/category/:term',
+                controller: 'termView',
+                templateUrl: 'partials/category/list.html'
+            })
+            .state('404', {
+                url: '/404',
+                views: {
+                    'container@': {
+                        controller: 'PageCtrl',
+                        controllerAs: 'vm',
+                        templateUrl: 'partials/pages/404.tpl.html' // Make Dynamic
+                    }
+                }
+            })
+            .state('root.single', {
+                url: '*path',
+                views: {
+                    'container@': {
+                        controller: 'PageCtrl',
+                        controllerAs: 'vm',
+                        template: '<div ng-include="getTemplateUrl()"></div>' // Make Dynamic
+                    }
+                }
+            });
+       
     $locationProvider.html5Mode(true).hashPrefix('!');
 
     $urlRouterProvider.rule(function ($injector, $location) {
@@ -115,7 +131,8 @@ function routesConfig($stateProvider, $locationProvider, $urlRouterProvider) {
 var config = {
     // global constant config values live here
     ROOT_URL: '%%ROOT_URL%%',
-    API_URL: '%%API_URL%%'
+    API_URL: '%%API_URL%%',
+    POSTS_PAGE: '%%POSTS_PAGE%%'
 };
 
 function AppController($rootScope, $window, $location, $timeout, MetadataService) {
@@ -132,6 +149,17 @@ function AppController($rootScope, $window, $location, $timeout, MetadataService
         vm.activeSection = toState.name;
         vm.showMobileMenu = false;
     });
+
+    $rootScope.animateElementIn = function($el) {
+        $el.removeClass('hidden');
+        $el.addClass('u-fadeInUp is-animated'); // this example leverages animate.css classes
+    };
+
+   $rootScope.animateElementOut = function($el) {
+   //$el.addClass('hidden');
+   // $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
+   }; 
+
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();
@@ -153,6 +181,7 @@ function AppController($rootScope, $window, $location, $timeout, MetadataService
 
 angular
     .module('app')
+    .run(initializeApp)
     .config(routesConfig)
     .constant('config', config)
     .controller('AppController', AppController);

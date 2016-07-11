@@ -1,0 +1,12 @@
+{{meta.title}}
+ <nav class="navbar">
+            <ul class="nav nav-pills" ng-controller="HeaderCtrl">
+                <li ng-class="{ selected: activeSection === 'root.type'}" ng-repeat="link in nav"><a ng-href={{link.url}}>{{link.title}}</a>
+                    <ul>
+                        <li ng-repeat="subItem in link.children">
+                            <a ng-href={{subItem.url}}><span>---{{subItem.title}}</span></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+</nav>
