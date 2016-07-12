@@ -33,21 +33,25 @@
     transform: scale(1.05);
 } 
 /* FadeInUp Animation on-hover - disabled */
-@media (max-width: 1199px) {
+@media screen and (max-width: 1199px) {
   .c-block .c_item_content-background  {
-    display: none; } }
+    display: none; 
+  } 
+}
 
 /* FadeInUp Animation on-hover */
-@media (min-width: 1200px) {
+@media screen and (min-width: 1200px) {
   .c-block .c_item_content-background {
     overflow: hidden;
     transform: scaleY(0);
     transform-origin: center bottom;
-    transition: opacity 0s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); } 
+    transition: opacity 0s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    } 
 }
 
 .c-block:hover .c_item_content-background {
-  transform: scaleY(1); }
+  transform: scaleY(1); 
+  }
 
 .c_item_background{
     transition: transform .3s cubic-bezier(.4,0,.2,1);
@@ -62,7 +66,7 @@
     left: 0;
 }
 
-@media (min-width: 1200px){
+@media screen and (min-width: 1200px){
 .c_item_content {
     display: flex;
     align-items: center;

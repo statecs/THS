@@ -27,7 +27,21 @@
     <div class="o-container" data-widget="block">
         <div class="o-grid">
 
-              <div ng-repeat="tile in vm.socialTiles" class="js-wow o-third fadeInUp" >
+    <div class="o-third js-wow fadeInUp animated" ng-repeat="tile in vm.socialTiles">
+                <a id="fadein-trigger" class="c-block -link " target=_"blank" href="{{ tile.link }}" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover;">
+                      <div class="c_item_content-background o-background" style="background-color: #FFFFFF;"></div>
+                    <div class="o-ripple" style="background-color: #F65846;"></div>
+                     <div class="c_item_content" style="color: #EF5C5C">
+                        <div class="c_item_text">
+                            <h3 class="c_item_title">{{ tile.description  | limitHtml: 100 }}</h3>
+                            <div class="c_item_line"></div>
+                            <p class="c_item_category"></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+              <!--<div ng-repeat="tile in vm.socialTiles" class="o-third hidden js-wow fadeInUp animated" data-wow-delay="0.5s">
                 <a id="fadein-trigger" class="c-block -link " target=_"blank" href="{{ tile.link }}">
                 <div class="c_item_background-wrap o-background ">
                         <div class="c_item_background o-background -overflow" style="background-image: url('{{ tile.imageUrl }}');"></div>
@@ -42,7 +56,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>
