@@ -1,12 +1,44 @@
-{{meta.title}}
- <nav class="navbar">
-            <ul class="nav nav-pills" ng-controller="HeaderCtrl">
-                <li ng-class="{ selected: activeSection === 'root.type'}" ng-repeat="link in nav"><a ng-href={{link.url}}>{{link.title}}</a>
-                    <ul>
-                        <li ng-repeat="subItem in link.children">
-                            <a ng-href={{subItem.url}}><span>---{{subItem.title}}</span></a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-</nav>
+<div class="no-touch js-wow slideUp animated" data-wow-delay="0.3s">
+	<header class="global-header theme-transparent {{menuClass}}" ng-controller="HeaderCtrl">
+			<div class="global-header_action-bar">
+				<a href="/" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
+				
+				<button ng-click="openMenu()" class="icon-menu js-global-icon-menu">
+					<span>menu</span>
+				</button>
+				
+				<div class="global-header_search">
+					<i class="material-icons">search</i>
+					<!--<form class="global-header_search-form" action="/search.html" method="get">
+						<input type="text" class="global-header_search-input" placeholder="Type to search..." name="q" autocomplete="off" />
+						<div class="icon-x js-close-search">✕</div>
+					</form>-->
+				</div>	
+			</div>
+
+			<nav class="global-header_nav" role="navigation">
+				<div class="nav-primary js-global-nav-control">
+					<div class="nav-section nav-section--theme-{{ $index+1 }}" ng-repeat="link in nav">
+					<div ng-click="setActive($index)" ng-class="{'js-open-section' : $index === activeMenu}" class="nav-link-level-1"><a ng-click="closeMenu()" ng-href={{link.url}}>{{link.title}}</a></div>
+
+					<div class="nav-menu" >
+						<div class="nav-sub-section" ng-repeat="subItem in link.children">
+
+							<div ng-click="setSubActive($index)" ng-class="{'js-open-section' : $index === activeSubMenu}" class="nav-link-level-2"><a ng-click="closeMenu()" ng-href={{subItem.url}}> {{subItem.title}}</a></div>
+
+							<a ng-repeat="subsubItem in subItem.children" ng-click="closeMenu()" href="{{subsubItem.url}}" class="nav-link-level-3">{{subsubItem.title}}</a> 
+
+						</div>
+					</div>
+
+				</div>
+				</div>
+
+				<div class="nav-secondary">
+					<div class="nav-section no-menu"><a href="http://thstudent.upright.se" class="nav-link-action">Pay Union Fee</a></div>
+					<div class="nav-section no-menu"><a href="http://campuscompetence.se" class="nav-link-action">Campus Competence</a></div>
+					<div class="nav-section no-menu"><a href="/support" class="nav-link-action">Support</a></div>
+				</div>
+			</nav>
+		</header>
+</div>

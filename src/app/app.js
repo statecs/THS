@@ -88,12 +88,12 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
-            .state('category',{
+            .state('root.category',{
                 url:'/category/:term',
                 controller: 'termView',
                 templateUrl: 'partials/category/list.html'
             })
-            .state('404', {
+            .state('root.404', {
                 url: '/404',
                 views: {
                     'container@': {

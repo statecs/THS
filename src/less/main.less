@@ -1,15 +1,29 @@
 @import "vars";
 @import "home";
-@import "blog";
-@import "wp";
-@import "icons";
+@import "news";
+@import "navbar";
+@import "fonts";
 @import "animate";
 @import "grid";
+@import "page";
 
 html {
   font-family: "Roboto", sans-serif;
   line-height: 1.4;
-  color: #222222; }
+  color: #222222; 
+  height: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
+}
+
+body {
+    background-color: #e5e5e5;
+    margin: 0;
+    min-height: 100%;
+    line-height: 1;
+    vertical-align: baseline;
+    -webkit-tap-highlight-color: transparent
+}
 
 .hidden {
   visibility: hidden;
@@ -22,7 +36,7 @@ html {
 
 .content {
   margin: 0 auto;
-  padding: 10px;
+  padding: 0;
   position: relative;
   max-width: 1600px;
   font-size: 0.85em;
@@ -30,6 +44,46 @@ html {
     font-size: 1em;
   }
 }
+
+.o-heading {
+    font-family: "Quarto Bold",serif;
+    font-weight: 700;
+    margin-top: 0;
+    line-height: .9;
+}
+
+@media (min-width: 1600px){
+.o-heading.-h1 {
+    font-size: 8.125rem;
+}
+}
+@media (max-width: 1599px) and (min-width: 1200px){
+.o-heading.-h1 {
+    font-size: 7.875rem;
+}
+}
+@media (max-width: 1199px) and (min-width: 1000px){
+.o-heading.-h1 {
+    font-size: 7.375rem;
+}
+}
+@media (max-width: 999px) and (min-width: 700px){
+.o-heading.-h1 {
+    font-size: 7rem;
+}
+}
+@media (max-width: 699px){
+.o-heading.-h1 {
+    font-size: 60px;
+}
+}
+.o-heading.-h1 {
+    letter-spacing: -.01em;
+}
+.o-heading.-h2 {
+    font-size: 3.75rem;
+}
+
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;

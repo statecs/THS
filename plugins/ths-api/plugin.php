@@ -273,6 +273,80 @@ function wp_get_custom_post_template_for_template_loader($template) {
   return $template;
 }
 
+// Add custom post template rule to dropdown
+add_filter('acf/location/rule_types', 'acf_location_rules_types');
+function acf_location_rules_types( $choices ){
+  $choices['Post']['cpt'] = 'Post Template';
+  $choices['Page']['cpa'] = 'Page Template';
+  return $choices;
+}
+
+// Add custom post template names to value dropdown
+add_filter('acf/location/rule_values/cpt', 'acf_location_rules_values_cpt');
+function acf_location_rules_values_cpt( $choices ){
+  $templates = wp_get_post_custom_templates();
+    foreach($templates as $k => $v){
+      $choices[$k] = $v;
+    }
+  return $choices;
+}
+// Add custom post template names to value dropdown
+add_filter('acf/location/rule_values/cpa', 'acf_location_rules_values_cpa');
+function acf_location_rules_values_cpa( $choices ){
+  $templates = get_custom_page_templates();
+    foreach($templates as $k => $v){
+      $choices[$k] = $v;
+    }
+  return $choices;
+}
+
+// Match location rule and show ACFs
+add_filter('acf/location/rule_match/cpt', 'acf_location_rules_match_cpt', 10, 3);
+function acf_location_rules_match_cpt( $match, $rule, $options ){
+  global $post;
+  if(isset($options['cpt'])){
+    $current_post_template = $options['cpt'];   
+  }else{
+    $current_post_template = get_post_meta($post->ID,'_post_template',true);
+  }
+  $selected_post_template = $rule['value'];
+  if($rule['operator'] == "=="){
+    $match = ( $current_post_template == $selected_post_template );
+  }elseif($rule['operator'] == "!="){
+    $match = ( $current_post_template != $selected_post_template );
+  }
+  return $match;
+}
+
+// Match location rule and show ACFs
+add_filter('acf/location/rule_match/cpa', 'acf_location_rules_match_cpa', 10, 3);
+function acf_location_rules_match_cpa( $match, $rule, $options ){
+  global $post;
+  if(isset($options['cpa'])){
+    $current_post_template = $options['cpa'];   
+  }else{
+    $current_post_template = get_post_meta($post->ID,'_wp_page_template',true);
+  }
+  $selected_post_template = $rule['value'];
+  if($rule['operator'] == "=="){
+    $match = ( $current_post_template == $selected_post_template );
+  }elseif($rule['operator'] == "!="){
+    $match = ( $current_post_template != $selected_post_template );
+  }
+  return $match;
+}
+
+/**
+ * Add automatic image sizes
+ */
+if ( function_exists( 'add_image_size' ) ) { 
+      add_image_size( 'image640', 640, 640, true ); //(cropped)
+      add_image_size( 'image960', 960, 400, false ); //(scaled)
+      add_image_size( 'image1280', 1280, 400, false ); //(scaled)
+      add_image_size( 'image1600', 1600, 550, false ); //(scaled)
+       add_image_size( 'image1920', 1920, 550, false ); //(scaled)
+}
+
 /* ------------
     6. ADD REQUIRED PLUGINS
 --------------- */
