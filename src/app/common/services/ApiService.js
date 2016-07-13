@@ -39,8 +39,8 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
             .then(function(response) {
                 if (typeof response.data ==='object' && response.data instanceof Array) {
                      if(!response.data.length){
-                        $location.path('/404');
-                        //alertify.error("Error: Not Found 404");
+                        //$location.path('/404');
+                        alertify.error("Error: Not Found 404");
                         throw "Error: Not Found 404";
                      } else{
                         var items = response.data.map(function(item) {
@@ -56,8 +56,8 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
             })
             .catch(function (e) {
                     console.log("error", e);
-                    //alertify.error("Error: Bad Request 400");
-                    $location.path('/404');
+                    alertify.error("Error: Not Found 404");
+                    //$location.path('/404');
                     throw e;
                     
             })

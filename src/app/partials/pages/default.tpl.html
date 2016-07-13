@@ -12,8 +12,8 @@
     		</div>
 		</div>
 	</div>
-
- <style>
+</div>
+ <style ng-if="vm.page.acf.hero_image.url">
       .hero-block {
         background-image: url('{{vm.page.acf.hero_image.sizes.image640}}');
       }
@@ -42,16 +42,21 @@
         }
       } 
     </style>
+    <style ng-if="!vm.page.acf.hero_image.url">
+	.hero-block {
+        background-image: url('assets/images/big-banner.jpg');
+      }
+    </style>
 
 <div class="main-view" >
     <div class="content">
         <div class="row">
     		<div class="col-xs-12">
-        		<div class="js-wow fadeInUp animated" data-wow-delay="0.2s" ng-bind-html="vm.page.content"></div>
+        		<div class="js-wow fadeInUp animated page-content" data-wow-delay="0.2s" ng-bind-html="vm.page.content"></div>
     		</div>
 		</div>
 	</div>
 </div>
-</div>
+
 
 

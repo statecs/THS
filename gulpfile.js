@@ -129,7 +129,7 @@ gulp.task('styles', function() {
             .pipe(less())
             .pipe(autoprefixer());
 
-        vendorStyles = gulp.src(['bower_components/ngprogress/ngProgress.css', 'bower_components/animate.css/animate.css', 'bower_components/normalize-css/normalize.css']);
+        vendorStyles = gulp.src(['bower_components/ngprogress/ngProgress.css', 'bower_components/animate.css/animate.css']);
 
         merge(vendorStyles, appStyles)
             .pipe(gulp.dest('build/styles'))

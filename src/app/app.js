@@ -68,6 +68,16 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.social', {
+            url: "/connect",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/connect.tpl.html',
+                        controller: 'HomeCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.newsBySearch', {
                 url: "/news/search/:searchTerm",
                 views: {
