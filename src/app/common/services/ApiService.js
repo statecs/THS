@@ -34,6 +34,7 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
     function getData(url) {
         spinnerService.show('loadingSpinner');
         $rootScope.progressbar.start();
+        $rootScope.progressbar.setColor('#fff');
         return $http
             .get(config.API_URL + url, { cache: true })
             .then(function(response) {
