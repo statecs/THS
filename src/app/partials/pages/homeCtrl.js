@@ -1,5 +1,8 @@
 function HomeCtrl($scope, ApiService, $http, MetadataService, SocialService) {
     var vm = this;
+
+    vm.page = {};
+
     var apiCallFunction;
     var instagramData, facebookData;
     
@@ -8,6 +11,19 @@ function HomeCtrl($scope, ApiService, $http, MetadataService, SocialService) {
     vm.posts = [];
 
     vm.featuredPosts = [];
+
+    ApiService.postByURL('/home').then(function(page) {
+        vm.page = page[0].boxes.acf[0];
+
+        console.log(vm.page);
+        
+
+        MetadataService.setMetadata({
+            title: vm.page.title,
+            description: page.excerpt
+        });
+    });
+    
 
    SocialService.instagramPosts().then(function(posts) {
         instagramData = posts.data;

@@ -102,12 +102,12 @@ class THS_API  {
       'template'     => get_page_template_slug( $post->ID ),
       'featured_image' => $thumbnail[0],
       'categories' => get_the_category( $post->ID ),
-    );
 
+    );
 
     if ( $postdata['template'] === false ) {
       if (!empty( get_post_meta($post->ID,'_post_template',true))) {
-        $postdata['template'] = get_post_meta($post->ID,'_post_template',true);
+          $postdata['template'] = get_post_meta($post->ID,'_post_template',true);
       } else {
         $postdata['template'] = "news";
       }
@@ -132,6 +132,13 @@ class THS_API  {
       $postdata['excerpt'] = array(
         'rendered' => wp_trim_words( $post->post_content, 50, ' <a href="'. get_permalink( $post->ID ) .'">read more</a>' )
       );
+
+
+      if ( $postdata['template'] === 'home-page' ) {
+          $postdata['boxes'] = array(
+            'boxes' => get_field('box_layout', 'option'),
+          );
+ }
 
       $response = rest_ensure_response( $postdata );
 

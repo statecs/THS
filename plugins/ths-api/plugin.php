@@ -25,6 +25,24 @@
 * Shortcode
 */
 
+if( function_exists('acf_add_options_page') ) {
+  
+  acf_add_options_page(array(
+    'page_title'  => 'Box General Settings',
+    'menu_title'  => 'Box Settings',
+    'menu_slug'   => 'add_meta_box-general-settings',
+    'capability'  => 'edit_posts',
+    'redirect'    => false
+  ));
+  
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Boxes Settings',
+    'menu_title'  => 'Boxes',
+    'parent_slug' => 'boxes-general-settings',
+  ));
+  
+}
+
 /* include static class */
 include_once( __DIR__.'/inc/class-ths-postypes.php' );
 /* add_shortcode('dummy', array( 'THS_Shortcode', 'seances') );
@@ -53,6 +71,7 @@ add_action( 'rest_api_init', function() {
 				   'http://ths.kth.se',
         			'http://dev.ths.kth.se',
         			'http://localhost:3000',
+                    'http://192.168.1.17:3000',
 			) ) ) {
 			header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
 			header( 'Access-Control-Allow-Methods: GET' );
@@ -234,7 +253,7 @@ function wp_get_post_custom_templates() {
     
   $theme = wp_get_theme();
   $templates = array(
-            'home-page'  => 'Home Page',
+            'news'  => 'News',
             'template-a' => 'Template A',
             'template-b' => 'Template B' ,
             'template-c' => 'Template C' ,
