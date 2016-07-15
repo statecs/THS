@@ -15,6 +15,26 @@ function initializeApp($rootScope, localStorageService, $http ){
             });
             localStorageService.set( 'cats', cats );
         });
+         /** Localize posts **/
+        $http.get(config.API_URL + 'wp/v2/posts' ).then(function(res){
+            var posts = [];
+
+            angular.forEach( res.data, function( value, key ) {
+                posts.push(value);
+            });
+            console.log(posts);
+            localStorageService.set( 'posts', posts );
+        });
+
+          /** Localize menu **/
+        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/header_menu' ).then(function(res){
+            var nav = [];
+
+            angular.forEach( res.data, function( value, key ) {
+                nav.push(value);
+            });
+            localStorageService.set( 'nav', nav );
+        });
 }
 
 /**

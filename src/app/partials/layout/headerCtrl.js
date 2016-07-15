@@ -1,11 +1,17 @@
-function HeaderCtrl($scope, config, $http) {
+function HeaderCtrl($scope, config, $http, localStorageService ) {
 
 
- $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/header_menu').success(function(res) {
-    $scope.nav = res;
-    console.log($scope.nav);
-});
 
+$scope.nav = localStorageService.get('nav');
+$scope.cats = localStorageService.get('cats');
+$scope.posts = localStorageService.get('posts');
+
+$scope.openArticlesMenu = function(){
+    if ($scope.menuArticleClass === "is-open")
+      $scope.menuArticleClass = "";
+    else
+      $scope.menuArticleClass = "is-open";
+  };
 
 $scope.openMenu = function(){
     if ($scope.menuClass === "js-open-nav")
@@ -15,6 +21,7 @@ $scope.openMenu = function(){
   };
 $scope.closeMenu = function(){
       $scope.menuClass = "";
+      $scope.menuArticleClass = "";
   };
  $scope.setActive = function($index) {
    if($scope.activeMenu === $index){

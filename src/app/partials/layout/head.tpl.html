@@ -1,3 +1,4 @@
+<div class="usabilla_live_button_container" tabindex="0" aria-hidden="true" style="top:67%;margin-top:-47px;position:fixed;width:38px;height:94px;z-index:2;right:0"><a href="http://goo.gl/forms/znyZ6DWkIs" target="_blank"><img src="http://dev.ths.kth.se/public/images/feedback.png" width="38" height="94"></a></div>
 
 <div class="no-touch js-wow slideUp animated" data-wow-delay="0.3s">
 <div class="lang-container"><div class="lang-ctn">
@@ -27,13 +28,47 @@
 	<header class="global-header theme-transparent {{menuClass}}">
 			<div class="global-header_action-bar">
 				<a href="/" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
-
-				<button ng-click="openMenu()" class="icon-menu js-global-icon-menu">
-					<span>menu</span>
+				
+	<button ng-click="openMenu()" class="icon-menu js-global-icon-menu">
+					Menu <span>menu</span>
 				</button>
+
+				<a ng-click="openArticlesMenu()" class="js-global-icon-menu article-menu">
+                        <i class="material-icons">local_library</i> </a>
+
+			
 				
 				
 			</div>
+
+			<ul class="c-sidebar_submenu -news js-submenu-news {{menuArticleClass}}" data-widget="dropdownCategories">
+                        <div class="c-dropdown">
+                            
+                            <span class="c-dropdown_label c-dropdown_item js-dropdown-label" data-idcat="all">
+
+                            <select class="c-dropdown_label">
+
+                               <option class="c-dropdown_item" data-idcat="20" ng-repeat="cat in cats">
+                                   <span>{{cat.name}}</span>
+                               </option>
+                            </select>
+
+                            </span>
+                            
+                        </div>
+
+<li class="c-sidebar-news_item" ng-repeat="post in posts">
+    <article class="c-sidebar-news_content">
+        <a ng-click="closeMenu()" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
+        <p class="c-sidebar-news_infos">
+                {{ post.date | date:'dd MMM yyyy' }} | &nbsp; {{author.name}}| 
+        </p>
+        <h1 class="c-sidebar-news_title">{{ post.title.rendered }}</h1>
+
+            <p class="c-sidebar-news_summary"></p>
+        </a>
+    </article>
+</li>               </ul>
 
 			<nav class="global-header_nav" role="navigation">
 				<div class="nav-primary js-global-nav-control">
