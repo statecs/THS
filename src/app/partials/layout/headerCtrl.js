@@ -1,10 +1,33 @@
-function HeaderCtrl($scope, config, $http, localStorageService ) {
+function HeaderCtrl($anchorScroll, $scope, $state, config, $http, localStorageService, ApiService ) {
+	var vm = this;
+
+	var apiCallFunction;
+	var posts = [];
+
+	ApiService.allPosts().then(function(posts) {
+		$scope.posts = posts;
+	});
+
+	$scope.search = function(term) {
+       apiCallFunction = ApiService.allPostsBySearchTerm(term);
+        
+       apiCallFunction.then(function(posts) {
+        	$scope.posts = posts;
+        	$scope.searchTrue = true;
+    	});
+    };
+
+    $scope.clearSearch = function() {
+        ApiService.allPosts().then(function(posts) {
+			$scope.posts = posts;
+			$scope.searchTrue = false;
+		});
+    };
 
 
-
-$scope.nav = localStorageService.get('nav');
-$scope.cats = localStorageService.get('cats');
-$scope.posts = localStorageService.get('posts');
+$scope.scrollToTop = function() {
+        $anchorScroll();
+    };
 
 $scope.openArticlesMenu = function(){
     if ($scope.menuArticleClass === "is-open")

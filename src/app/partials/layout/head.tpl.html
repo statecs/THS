@@ -36,19 +36,22 @@
 				<a ng-click="openArticlesMenu()" class="js-global-icon-menu article-menu">
                         <i class="material-icons">local_library</i> </a>
 
-			
-				
-				
 			</div>
 
 			<ul class="c-sidebar_submenu -news js-submenu-news {{menuArticleClass}}" data-widget="dropdownCategories">
                         <div class="c-dropdown">
                             
-                            <span class="c-dropdown_label c-dropdown_item js-dropdown-label" data-idcat="all">
+                            <span class="c-dropdown_item js-dropdown-label" data-idcat="all">
 
-                            <select class="c-dropdown_label">
 
-                               <option class="c-dropdown_item" data-idcat="20" ng-repeat="cat in cats">
+  		<div class="search-container">
+            <revealing-search-input search-callback="search(term)"></revealing-search-input>
+        </div>        <i ng-if="searchTrue == true" ng-click="clearSearch()" class="material-icons">clear</i>
+
+                            <select class="c-dropdown_label" ng-model="query">
+								 <option ng-selected="true" disabled selected value>---Please select---</option>
+								 <option value>All Categories</option>
+                               <option class="c-dropdown_item" data-idcat="20" ng-repeat="cat in cats" value="{{cat.slug}}">
                                    <span>{{cat.name}}</span>
                                </option>
                             </select>
@@ -57,18 +60,25 @@
                             
                         </div>
 
-<li class="c-sidebar-news_item" ng-repeat="post in posts">
-    <article class="c-sidebar-news_content">
-        <a ng-click="closeMenu()" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
-        <p class="c-sidebar-news_infos">
-                {{ post.date | date:'dd MMM yyyy' }} | &nbsp; {{author.name}}| 
-        </p>
-        <h1 class="c-sidebar-news_title">{{ post.title.rendered }}</h1>
+					<li class="c-sidebar-news_item" dir-paginate="post in posts | itemsPerPage: 10 | filter:query:true" >
 
-            <p class="c-sidebar-news_summary"></p>
-        </a>
-    </article>
-</li>               </ul>
+					    <article class="c-sidebar-news_content">
+					        <a ng-click="closeMenu()" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
+					        <p class="c-sidebar-news_infos" ng-if="post.date">
+					                {{ post.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in post.category">{{cat.name}} | </span> {{author.name}}
+					        </p>
+					        <h1 class="c-sidebar-news_title">{{post.title}}</h1>
+
+					            <p class="c-sidebar-news_summary"></p>
+					        </a>
+					    </article>
+					</li>    
+					  <div class="c-sidebar-news_item list-pagination">
+            <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
+            </dir-pagination-controls>
+        </div>      
+        <div class="c-sidebar-news_item" ng-if="query.length != 0">No results</div> 
+				</ul>
 
 			<nav class="global-header_nav" role="navigation">
 				<div class="nav-primary js-global-nav-control">

@@ -8,32 +8,18 @@ function initializeApp($rootScope, localStorageService, $http ){
     console.log(config.API_URL);
 
      /** Localize Categories **/
-        $http.get(config.API_URL + 'wp/v2/categories' ).then(function(res){
+        $http.get(config.API_URL + 'wp/v2/categories/?per_page=30', { cache: true }).success(function(res){
             var cats = [];
-            angular.forEach( res.data, function( value, key ) {
-                cats.push(value);
-            });
+            $rootScope.cats = res;
             localStorageService.set( 'cats', cats );
         });
-         /** Localize posts **/
-        $http.get(config.API_URL + 'wp/v2/posts' ).then(function(res){
-            var posts = [];
-
-            angular.forEach( res.data, function( value, key ) {
-                posts.push(value);
-            });
-            console.log(posts);
-            localStorageService.set( 'posts', posts );
-        });
-
+        
           /** Localize menu **/
-        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/header_menu' ).then(function(res){
+        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/header_menu', { cache: true }).success(function(res){
             var nav = [];
+            $rootScope.nav = res;
+           localStorageService.set( 'nav', nav );
 
-            angular.forEach( res.data, function( value, key ) {
-                nav.push(value);
-            });
-            localStorageService.set( 'nav', nav );
         });
 }
 
