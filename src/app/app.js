@@ -79,7 +79,7 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
             views: {
                     'container@': {
                         templateUrl: 'partials/pages/connect.tpl.html',
-                        controller: 'HomeCtrl',
+                        controller: 'ConnectCtrl',
                         controllerAs: 'vm'
                     }
                 }
