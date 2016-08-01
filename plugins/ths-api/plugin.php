@@ -28,20 +28,59 @@
 if( function_exists('acf_add_options_page') ) {
   
   acf_add_options_page(array(
-    'page_title'  => 'Box General Settings',
-    'menu_title'  => 'Box Settings',
-    'menu_slug'   => 'add_meta_box-general-settings',
+    'page_title'  => 'Card General Settings',
+    'menu_title'  => 'Cards',
+    'menu_slug'   => 'card-general-settings',
     'capability'  => 'edit_posts',
     'redirect'    => false
   ));
-  
+
+   acf_add_options_sub_page(array(
+    'page_title'  => 'Standard Card',
+    'menu_title'  => 'Standard Card',
+    'parent_slug' => 'card-general-settings'
+  ));
+
   acf_add_options_sub_page(array(
-    'page_title'  => 'Boxes Settings',
-    'menu_title'  => 'Boxes',
-    'parent_slug' => 'boxes-general-settings',
+    'page_title'  => 'Membership Card',
+    'menu_title'  => 'Membership Card',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Nymble Menu Card',
+    'menu_title'  => 'Nymble Menu Card',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Events Card',
+    'menu_title'  => 'Events Card',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'FAQ Card',
+    'menu_title'  => 'FAQ Card',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+    acf_add_options_sub_page(array(
+    'page_title'  => 'News Card',
+    'menu_title'  => 'News Card',
+    'parent_slug' => 'card-general-settings'
   ));
   
 }
+
+// 2. Include field type for ACF5
+// $version = 5 and can be ignored until ACF6 exists
+function include_field_types_unique_id( $version ) {
+  include_once(__DIR__.'/inc/acf-unique_id-v5.php');
+}
+
+add_action('acf/include_field_types', 'include_field_types_unique_id');
+
 
 /* include static class */
 include_once( __DIR__.'/inc/class-ths-postypes.php' );

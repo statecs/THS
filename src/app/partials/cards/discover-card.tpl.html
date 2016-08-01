@@ -1,0 +1,14 @@
+<div ng-repeat="tile in vm.socialTiles|limitTo:1">
+                <a id="fadein-trigger" class="c-block -link " target=_"blank" href="{{ tile.link }}" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover;">
+                <h1 class="c-block_category">{{mCard.title}}</h1>
+                      <div class="c_item_content-background o-background" style="background-color: #FFFFFF;"></div>
+                    <div class="o-ripple" style="background-color: #F65846;"></div>
+                     <div class="c_item_content" style="color: #EF5C5C">
+                        <div class="c_item_text">
+                            <h3 class="c_item_title">{{ tile.description  | limitHtml: 100 }}</h3>
+                            <div class="c_item_line"></div>
+                            <p class="c_item_category"></p>
+                        </div>
+                    </div>
+                </a>
+            </div>

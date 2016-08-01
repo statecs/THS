@@ -48,15 +48,41 @@
       }
     </style>
 
-<div class="main-view" >
-    <div class="content">
-        <div class="row">
-    		<div class="col-xs-12">
-        		<div class="js-wow fadeInUp animated page-content" data-wow-delay="0.2s" ng-bind-html="vm.page.content"></div>
-    		</div>
-		</div>
-	</div>
+        <div class="pure-g page-content container" >
+    <div class="o-content">
+    <div class="o-container" data-widget="block">
+
+        <div class="o-grid">
+
+<div class="two-third js-wow fadeInUp animated" ng-bind-html="vm.page.content">
+
+	Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />
+    		Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}
+
 </div>
+
+<div class="o-third js-wow fadeInUp animated">
+
+
+<div ng-repeat="mCard in cards.cards[0].card_content | filter:{order:{template:'default'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="{{mCard.flexbox}}-page js-wow fadeInUp animated" style="background-color:{{mCard.bg_color}};background-image:url({{mCard.bg_img}});background-size: cover;opacity: 0.05;">
+
+ <div default-card></div>
+
+</div></div>
+
+
+
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+</div>
+</div>
+
 
 
 

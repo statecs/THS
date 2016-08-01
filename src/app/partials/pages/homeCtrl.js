@@ -6,7 +6,7 @@ function HomeCtrl(ApiService, $http, MetadataService, SocialService) {
     var apiCallFunction;
 
     ApiService.postByURL('/home').then(function(page) {
-        vm.page = page[0].boxes.acf[0];
+        vm.page = page[0];
 
         console.log(vm.page);
         
@@ -15,8 +15,6 @@ function HomeCtrl(ApiService, $http, MetadataService, SocialService) {
             description: page.excerpt
         });
     });
-    
-
 
     // pass an empty object to use the defaults.
     MetadataService.setMetadata({});

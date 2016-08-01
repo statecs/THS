@@ -3,8 +3,8 @@
 <div class="grid-control js-animate-blocks">
 <div class="col-12">
 
-<div class="hero-block js-hero-video-clip hero-block--tall js-hero-video-clip--active">
-        <!--<img src="/assets/images/bg.png" class="o-background hero-block_image js-img-swap"> <video autoplay="" loop="" muted="" class="hero-block_video">
+<div class="js-wow fadeIn hero-block hero-block-video--top-gradient js-hero-video-clip hero-block--tall js-hero-video-clip--active" data-wow-delay="1s" >
+        <!--<img src="/assets/images/bg.png" class="o-background hero-block_image js-img-swap"> <video loop="" muted="" class="hero-block_video">
           <source type="video/mp4" src="/assets/images/overview_3x_loop.mp4">
       </video>-->
   <iframe class="js-wow fadeIn" style="position: absolute; top: -35px; left: 0;z-index:1" id="player" data-id="vjfpKmPmSTw" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="100%" src="https://www.youtube.com/embed/vjfpKmPmSTw?vq=hd720&amp;autoplay=0&amp;loop=1&amp;playlist=vjfpKmPmSTw&amp;modestbranding=1&amp;controls=0&amp;enablejsapi=1&amp;"></iframe>
@@ -20,14 +20,18 @@
 
 </div></div></div>
 
-
-
-<div class="pure-g page-content" >{{vm.page.membership_box}} {{vm.page.discover_box}} {{vm.page.events_box}}
+<div class="pure-g page-content" >
     <div class="o-content">
     <div class="o-container" data-widget="block">
-        <div class="o-grid">
-       
-        </div>
+
+        <div class="o-grid fadeInUp " data-wow-delay="0.5s">
+
+<div ng-repeat="mCard in cards.cards[0].card_content track by $index" class="{{mCard.flex_layout}} js-wow fadeInUp animated"  style="background-color:{{mCard.bg_color}};background-image:url({{mCard.bg_img}});background-size: cover;opacity: 0.05;">
+
+    <div default-card></div>
+
+</div>
+
     </div>
 </div>
 </div>

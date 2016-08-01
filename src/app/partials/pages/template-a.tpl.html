@@ -1,9 +1,78 @@
-<div class="row">
-    <div class="col-xs-12">
-        <h1>{{vm.page.title}} - Template A</h1>
+<div class="content js-wow fadeIn animated">
+	<div class="col-12">
+		<div class="hero-block hero-block--darken hero-block--top-gradient">
+		<img class="hero-block_image js-img-swap" data-osrc="/image/1486/b8/0.5,0.48/small">	
+    		<div class="hero-block_content">
+        	<div class="hero-block_category sub-title"></div>
+           		<h1 class="hero-block_title o-heading -h1 js-wow fadeInUp animated">
+            		<span class="o-heading_line">
+                		<span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">{{vm.page.title}} - Template A</span>
+            		</span>
+        		</h1>
+    		</div>
+		</div>
+	</div>
+</div>
+ <style ng-if="vm.page.acf.hero_image.url">
+      .hero-block {
+        background-image: url('{{vm.page.acf.hero_image.sizes.image640}}');
+      }
+      @media (min-width: 640px) {
+        .hero-block {
+          background-image: url('{{vm.page.acf.hero_image.sizes.image960}}');
+        }
+      }
+      @media (min-width: 960px) {
+        .hero-block {
+          background-image: url('{{vm.page.acf.hero_image.sizes.image1280}}');
+        }
+      }
+       @media (min-width: 1280px),
+      (-webkit-min-device-pixel-ratio: 2) and (min-width: 640px),
+        (min-resolution: 192dpi) and (min-width: 640px) {
+        .hero-block{
+          background-image: url('{{vm.page.acf.hero_image.sizes.image1600}}');
+        }
+      }
+      @media (min-width: 1600px),
+        (-webkit-min-device-pixel-ratio: 2) and (min-width: 960px),
+        (min-resolution: 192dpi) and (min-width: 960px) {
+        .hero-block {
+          background-image: url('{{vm.page.acf.hero_image.sizes.image1920}}');
+        }
+      } 
+    </style>
+    <style ng-if="!vm.page.acf.hero_image.url">
+	.hero-block {
+        background-image: url('assets/images/big-banner.jpg');
+      }
+    </style>
 
-        <div ng-bind-html="vm.page.content"></div>
-    </div>
+        <div class="pure-g page-content container" >
+    <div class="o-content">
+    <div class="o-container" data-widget="block">
+
+        <div class="o-grid">
+
+<div class="two-third js-wow fadeInUp animated" ng-bind-html="vm.page.content">
+
+	Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />
+    Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}
+
 </div>
 
+<div class="o-third js-wow fadeInUp animated">
+{{cardss}}
+<div ng-repeat="mCard in cards.cards[0].card_content | filter:{order:{template:'template-a'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp animated" style="background-color:{{mCard.bg_color}};background-image:url({{mCard.bg_img}});background-size: cover;opacity: 0.05;">
 
+ <div default-card></div>
+
+</div>
+
+</div>
+
+    </div>
+</div>
+</div>
+
+</div>

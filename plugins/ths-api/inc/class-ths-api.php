@@ -133,13 +133,6 @@ class THS_API  {
         'rendered' => wp_trim_words( $post->post_content, 50, ' <a href="'. get_permalink( $post->ID ) .'">read more</a>' )
       );
 
-
-      if ( $postdata['template'] === 'home-page' ) {
-          $postdata['boxes'] = array(
-            'boxes' => get_field('box_layout', 'option'),
-          );
- }
-
       $response = rest_ensure_response( $postdata );
 
    // $schema = WP_REST_Posts_Controller::get_item_schema();

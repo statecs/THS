@@ -21,6 +21,14 @@ function initializeApp($rootScope, localStorageService, $http ){
            localStorageService.set( 'nav', nav );
 
         });
+
+           /** Cards **/
+        $http.get('http://ths.kth.se/api/acf/v2/options', { cache: true }).success(function(res){
+            var options = [];
+            $rootScope.cards = res.acf;
+            localStorageService.set( 'options', options );
+        });
+
 }
 
 /**
