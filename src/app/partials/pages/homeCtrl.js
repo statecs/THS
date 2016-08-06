@@ -5,10 +5,10 @@ function HomeCtrl(ApiService, $http, MetadataService, SocialService) {
 
     var apiCallFunction;
 
-    ApiService.postByURL('/home').then(function(page) {
+  /*  ApiService.postByURL('/home').then(function(page) {
         vm.page = page[0];
 
-        console.log(vm.page);
+       // console.log(vm.page);
         
         MetadataService.setMetadata({
             title: vm.page.title,
@@ -18,7 +18,7 @@ function HomeCtrl(ApiService, $http, MetadataService, SocialService) {
 
     // pass an empty object to use the defaults.
     MetadataService.setMetadata({});
-
+*/
 }
 
 angular

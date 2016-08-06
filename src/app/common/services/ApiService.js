@@ -7,7 +7,7 @@
  * @returns {{allPosts: allPosts, allPostsByTag: allPostsByTag, allPostsBySearchTerm: allPostsBySearchTerm, featuredPosts: featuredPosts, post: post}}
  * @constructor
  */
-function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, ngProgressFactory, $location) {
+function ApiService($http, $rootScope, $sce, $state, config, spinnerService, alertify, ngProgressFactory, $location) {
 
     $rootScope.progressbar = ngProgressFactory.createInstance();
 
@@ -32,6 +32,7 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
     }
 
     function getData(url) {
+        $rootScope.loaded = false;
         spinnerService.show('loadingSpinner');
         $rootScope.progressbar.start();
         $rootScope.progressbar.setColor('#fff');
@@ -41,11 +42,12 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
                 if (typeof response.data ==='object' && response.data instanceof Array) {
                      if(!response.data.length){
                         //$location.path('/404');
-                        alertify.error("Error: Not Found 404");
+                         $state.transitionTo('root.404');
+                        //alertify.error("Error: Not Found 404");
                         throw "Error: Not Found 404";
                      } else{
                         var items = response.data.map(function(item) {
-                            console.log(item);
+                            //console.log(item);
                             return decorateResult(item);
                         });
                         return items;
@@ -56,8 +58,8 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
                 }
             })
             .catch(function (e) {
-                    console.log("error", e);
-                    alertify.error("Error: Not Found 404");
+                    $state.transitionTo('root.404');
+                    //alertify.error("Error: Not Found 404");
                     //$location.path('/404');
                     throw e;
                     
@@ -65,6 +67,7 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
             .finally(function(response) {
                  spinnerService.hide('loadingSpinner');
                   $rootScope.progressbar.complete();
+                  $rootScope.loaded = true;
             });
     }
 

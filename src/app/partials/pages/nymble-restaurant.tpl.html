@@ -6,7 +6,7 @@
         	<div class="hero-block_category sub-title"></div>
            		<h1 class="hero-block_title o-heading -h1 js-wow fadeInUp animated">
             		<span class="o-heading_line">
-                		<span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">{{vm.page.title}} - Template A</span>
+                		<span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">{{vm.page.title}}</span>
             		</span>
         		</h1>
     		</div>
@@ -53,20 +53,20 @@
 
         <div class="o-grid">
 
-<div class="two-third js-wow fadeInUp animated" ng-bind-html="vm.page.content">
+<div class="two-third left-o" ng-bind-html="acf.meal_of_the_day[0].full_text  | sanitizeHtml ">
 
 	Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />
     Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}
 
 </div>
 
-<div class="o-third js-wow fadeInUp animated">
-{{cardss}}
+<!--<div class="o-third js-wow fadeInUp animated">
+
 <div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'template-a'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp animated" style="background-color:{{mCard.bg_color}};background-image:url({{mCard.bg_img}});background-size: cover;opacity: 0.05;">
 
  <div default-card></div>
 
-</div>
+</div>-->
 
 </div>
 

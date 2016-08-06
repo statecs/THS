@@ -16,10 +16,10 @@
 }
 
 .page-content {
-    padding:40px 0;
-    font-size: 18px;
+    font-size: 1.1rem;
     line-height: 33px;
     font-weight: 400;
+    padding:0px 30px;
 }
 @media screen and (max-width: 1600px) {
   .row{
@@ -27,14 +27,7 @@
 }
 }
 
-.related-link-item {
-    padding: 10px;
-    font-family: 'Source Serif Pro Regular', sans-serif;
-    color: #00406c;
-}
-.related-links-block{
-  margin-bottom:50px;
-}
+
  .hero-block {
   width: 100%;
   background-size: cover;
@@ -121,7 +114,7 @@
     margin-bottom: 0;
     margin-top: 16px
 }
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 480px) {
     .hero-block--tall {
         height: calc(62.5vw)
     }
@@ -161,4 +154,108 @@
     left: 0;
     font-size: 0;
     text-align: center;
+}
+
+.link-container a {
+    display: block;
+    letter-spacing: .25px;
+    line-height: 1.2;
+    margin: 0 0 17px 0;
+    padding-left: 10px;
+}
+.link-container a:hover {
+    text-decoration:underline;
+}
+
+.link-container a:before {
+    right: 0px;
+    line-height: 1.2;
+    overflow: hidden;
+    position: absolute;
+    font-size:1.5em;
+    font-family: 'Material Icons';
+    margin-top: -5px;
+    padding-right: 10px;
+    content: '\E315';
+}
+.link-container a:before img{
+  display:none !important;
+}
+.two-third a:hover{
+    text-decoration: underline;
+}
+
+.related-link-item {
+    padding: 10px;
+    font-family: 'Source Serif Pro Regular', sans-serif;
+    color: #00406c;
+}
+.related-links-block{
+  margin-bottom:50px;
+}
+@media screen and (max-width: 640px) {
+  .related-links-block{
+          padding: 0 20px;
+}
+.link-container a{
+  padding-left: 0px; 
+}
+}
+
+.cover-img{
+    max-width: 100%;
+    min-height: 200px;
+    margin: 0 40px;
+}
+@media (max-width: 1000px){
+  .cover-img{
+    margin: 0;
+}
+}
+.y-video{
+  position: absolute; 
+  top: -35px; 
+  left: 0;
+  z-index:1;
+}
+@media (max-width: 480px){
+.y-video{
+   top: -55px; 
+}
+}
+
+.tag--news{
+  background-color: #00406c;
+}
+
+.feature-blockNews_content {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #00406c;
+    left: 0;
+    padding: 20px;
+    margin-top:80px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+.feature-blockNewsImg_content {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #ffffff;
+    left: 0;
+    padding: 20px;
+    margin-top:80px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+.feature-block_category {
+    margin-bottom: 0;
+}
+.feature-block_title {
+    margin-bottom: 0;
+    line-height:1.6em;
+    margin-top: 8px;
+    margin:20px 0;
 }

@@ -21,7 +21,7 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
 
     SocialService.facebookPosts().then(function(posts) {
         facebookData = posts[121470594571005].data;
-        console.log(facebookData);
+        //console.log(facebookData);
          setUpPosts();
     });
 
@@ -42,8 +42,8 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
         instagramData.forEach(function (instaObj) {
             tile = Object.create(SocialTile);
             tile.link = instaObj.link;
-            tile.date = instaObj.created_time * 1000;
-            tile.type = "instagram";
+            tile.date = instaObj.created_time*1000;
+            tile.type = "Instagram";
             tile.description = instaObj.caption.text;
             tile.imageUrl = instaObj.images.standard_resolution.url;
             socialTiles.push(tile);
@@ -55,14 +55,14 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
               tile.imageUrl = feedObj.full_picture ;
               tile.description = feedObj.message;
               tile.date = feedObj.created_time;
-              tile.type = "facebook";
+              tile.type = "Facebook";
               tile.link = feedObj.link;
               socialTiles.push(tile);
             }
           });
 
     vm.socialTiles = socialTiles;
-    console.log(vm.socialTiles);
+    //console.log(vm.socialTiles);
     vm.loaded = true;
     
     }

@@ -4,8 +4,8 @@ angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPag
 function initializeApp($rootScope, localStorageService, $http ){
     console.log('app init');
     $rootScope.posts_per_page = config.POSTS_PAGE;
-    console.log(config.POSTS_PAGE);
-    console.log(config.API_URL);
+    //console.log(config.POSTS_PAGE);
+    //console.log(config.API_URL);
 
      /** Localize Categories **/
         $http.get(config.API_URL + 'wp/v2/categories/?per_page=30', { cache: true }).success(function(res){
@@ -24,9 +24,9 @@ function initializeApp($rootScope, localStorageService, $http ){
 
            /** Cards **/
         $http.get('http://ths.kth.se/api/acf/v2/options', { cache: true }).success(function(res){
-            var options = [];
-            $rootScope.cards = res.acf;
-            localStorageService.set( 'options', options );
+            var acf = [];
+            $rootScope.acf = res.acf;
+            localStorageService.set( 'acf', acf );
         });
 
 }
@@ -57,6 +57,10 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                 views: {
                     'header': {
                         templateUrl: 'partials/layout/head.tpl.html',
+                        controller: 'HeaderCtrl'
+                    },
+                    'footer': {
+                        templateUrl: 'partials/layout/footer.tpl.html',
                         controller: 'HeaderCtrl'
                     }
                 }
@@ -92,22 +96,22 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.events', {
+            url: "/events",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/events.tpl.html',
+                        controller: 'EventsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.newsBySearch', {
                 url: "/news/search/:searchTerm",
                 views: {
                  'container@': {
                         templateUrl: 'partials/posts/news.tpl.html',
                         controller: 'NewsCtrl',
-                        controllerAs: 'vm'
-                    }
-                }
-            })
-            .state('root.newsPost',{
-                url: '/news/:id/:title',
-                views: {
-                    'container@': {
-                        templateUrl: 'partials/posts/single-post.tpl.html',
-                        controller: 'PostCtrl',
                         controllerAs: 'vm'
                     }
                 }
@@ -121,8 +125,6 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                 url: '/404',
                 views: {
                     'container@': {
-                        controller: 'PageCtrl',
-                        controllerAs: 'vm',
                         templateUrl: 'partials/pages/404.tpl.html' // Make Dynamic
                     }
                 }
@@ -133,7 +135,17 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     'container@': {
                         controller: 'PageCtrl',
                         controllerAs: 'vm',
-                        template: '<div ng-include="getTemplateUrl()"></div>' // Make Dynamic
+                        template: '<div ng-include="pageTemplate()"></div>' // Make Dynamic
+                    }
+                }
+            })
+            .state('root.newsPost',{
+                url: '/:id/:title',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/single-post.tpl.html',
+                        controller: 'PostCtrl',
+                        controllerAs: 'vm'
                     }
                 }
             });
@@ -168,18 +180,6 @@ var config = {
 
 function AppController($rootScope, $window, $location, $timeout, MetadataService) {
     var vm = this;
-
-    vm.showMobileMenu = false;
-
-    vm.toggleMobileMenu = function(e) {
-        e.preventDefault();
-        vm.showMobileMenu = !vm.showMobileMenu;
-    };
-
-    $rootScope.$on('$stateChangeSuccess', function(e, toState) {
-        vm.activeSection = toState.name;
-        vm.showMobileMenu = false;
-    });
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();

@@ -1,44 +1,48 @@
-<div class="usabilla_live_button_container" tabindex="0" aria-hidden="true" style="top:67%;margin-top:-47px;position:fixed;width:38px;height:94px;z-index:2;right:0"><a href="http://goo.gl/forms/znyZ6DWkIs" target="_blank"><img src="http://dev.ths.kth.se/public/images/feedback.png" width="38" height="94"></a></div>
+<div class="usabilla_live_button_container" tabindex="0" aria-hidden="true" style="top:67%;margin-top:-47px;position:fixed;width:38px;height:94px;z-index:2;right:0"><a href="http://goo.gl/forms/znyZ6DWkIs" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/feedback.png" width="38" height="94"></a></div>
 
 <div class="no-touch js-wow slideUp animated" data-wow-delay="0.3s">
 <div class="lang-container"><div class="lang-ctn">
 
 <div class="lang-bar-2">
-<img src="http://dev.ths.kth.se/public/images/1.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/2.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/3.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/4.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/5.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/6.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/7.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/8.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/9.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/10.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/11.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/12.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/13.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/14.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/15.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/16.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/17.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/18.png" class="section-img">
-<img src="http://dev.ths.kth.se/public/images/19.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/1.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/2.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/3.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/4.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/5.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/6.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/7.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/8.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/9.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/10.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/11.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/12.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/13.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/14.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/15.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/16.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/17.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/18.png" class="section-img">
+<img src="http://ths.kth.se/wp-content/uploads/2016/08/19.png" class="section-img">
 </div>
 </div></div>
-	<header class="global-header theme-transparent {{menuClass}}">
+
+
+	<header class="global-header theme-transparent" ng-class="{ 'js-open-nav': showMobileMenu }">
 			<div class="global-header_action-bar">
 				<a href="/" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
 				
-	<button ng-click="openMenu()" class="icon-menu js-global-icon-menu">
-					Menu <span>menu</span>
-				</button>
-
-				<a ng-click="openArticlesMenu()" class="js-global-icon-menu article-menu">
-                        <i class="material-icons">local_library</i> </a>
+				<a ng-click="openArticlesMenu()" class="js-global-icon-menu ">
+                        <p class="article-menu">News</p> </a>
+                             <button ng-click="toggleMobileMenu($event)" type="button" class="icon-menu-o open">		
+								<span class="cls"></span>
+								<span class="cls"></span>
+								<span class="cls"></span>
+                    </button>
 
 			</div>
 
 			<ul class="c-sidebar_submenu -news js-submenu-news {{menuArticleClass}}" data-widget="dropdownCategories">
+
                         <div class="c-dropdown">
                             
                             <span class="c-dropdown_item js-dropdown-label" data-idcat="all">
@@ -59,6 +63,7 @@
                             </span>
                             
                         </div>
+			<div class="scroll-content">
 
 					<li class="c-sidebar-news_item" dir-paginate="post in posts | itemsPerPage: 10 | filter:query:true" >
 
@@ -72,12 +77,13 @@
 					            <p class="c-sidebar-news_summary"></p>
 					        </a>
 					    </article>
-					</li>    
+					</li>
 					  <div class="c-sidebar-news_item list-pagination">
             <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
             </dir-pagination-controls>
         </div>      
-        <div class="c-sidebar-news_item" ng-if="query.length != 0">No results</div> 
+        <!--<div class="c-sidebar-news_item" ng-if="query.length != 0">No results</div>-->
+         </div>    
 				</ul>
 
 			<nav class="global-header_nav" role="navigation">
@@ -90,7 +96,7 @@
 
 							<div ng-click="setSubActive($index)" ng-class="{'js-open-section' : $index === activeSubMenu}" class="nav-link-level-2"><a ng-click="closeMenu()" ng-href={{subItem.url}}> {{subItem.title}}</a></div>
 
-							<a ng-repeat="subsubItem in subItem.children" ng-click="closeMenu()" href="{{subsubItem.url}}" class="nav-link-level-3">{{subsubItem.title}}</a> 
+							<a ng-repeat="subsubItem in subItem.children" ng-click="closeMenu()" ng-href="{{subsubItem.url}}" class="nav-link-level-3">{{subsubItem.title}}</a> 
 
 						</div>
 					</div>
@@ -99,8 +105,9 @@
 				</div>
 
 				<div class="nav-secondary">
-				<div class="nav-section no-menu nav-link-action-company"><a ng-href="/business"><i class="material-icons">work</i></a></div>
+				
 					<div class="nav-section no-menu"><a href="http://thstudent.upright.se" target="_blank" class="white-btn">Pay Union Fee</a></div>
+					<!--<div class="nav-section no-menu"><a ng-href="/business" class="business-btn">Business</a></div>-->
 					<div class="nav-section no-menu"><a href="http://campuscompetence.se"><img width="114" src="assets/images/campuscompetence_logo.png"></a></div>
 				
 				</div>

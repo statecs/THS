@@ -1,0 +1,16 @@
+<div class="default-card"><h1 class="h2-white news-item">Latest news</h1><div ng-repeat="post in posts|limitTo:3">
+	<a ui-sref="root.newsPost({ id: post.id, title: post.slug })">
+		<div class="news-item-list">
+			<div class="calendar-card-date">
+			<h1 class="calendar-date-week">{{ post.date | date:'MMM' }}</h1>
+			<h1 class="calendar-card-date-n">{{ post.date | date:'dd' }}</h1></div>
+				<div class="news-h4 two-third"><p>{{post.category[0].name}}</p>
+				<h4>{{post.title}}</h4></div>
+		</div>
+	</a>
+
+</div>
+	
+</div>
+
+<div class="w-button btn-o-blue"><a ng-href="/news">View all news </a></div>

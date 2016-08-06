@@ -4,7 +4,8 @@
 
 .o-grid {
     font-size: 0;
-    margin-left: 0
+    margin-left: 0;
+    overflow:hidden;
 }
 .o-grid.-margin {
     margin-left: -3.75rem
@@ -42,7 +43,7 @@
     display: inline-block;
     width: 100%;
     vertical-align: top;
-    font-size: 1rem;
+    font-size: 1.05rem;
     padding-left: 0
 }
 .c-header-main_nav-button_label,
@@ -132,11 +133,27 @@
     }
 }
 @media (min-width: 1000px) {
+    .o-third {
+        width: 50%;
+        max-height:440px;
+    }
+    .page .two-third {
+        width: 66.66%;
+    }
+    .page .o-third {
+        width: 33.33%;
+    }
+}
+@media (min-width: 1200px) {
     .o-half {
         width: 50%
     }
+    o-container.o-third {
+        width: 33.33%;
+        max-height:440px;
+    }
     .o-third {
-        width: 33.33%
+        width: 33.33%;
     }
     .two-third {
         width: 66.66%
@@ -172,7 +189,7 @@
 }
 @media (max-width: 699px) {
     .c-block {
-        height: 300px;
+        height: 25rem;
     }
 }
 @media (min-width: 700px) {
@@ -182,12 +199,12 @@
 }
 @media (min-width: 900px) and (max-width: 1200px) {
     .c-block {
-        height: 15.25rem
+        height: 27.5rem
     }
 }
 @media (min-width: 1201px) and (max-width: 1599px) {
     .c-block {
-        height: 21.25rem
+        height: 27.5rem
     }
 }
 @media (min-width: 1600px) {

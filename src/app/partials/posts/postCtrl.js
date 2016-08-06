@@ -1,16 +1,16 @@
 function PostCtrl($stateParams, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
     var vm = this;
-    console.log(vm);
+   // console.log(vm);
 
     vm.post = {};
 
-  console.log($stateParams);
+ // console.log($stateParams);
 
     ApiService.postById($stateParams.id).then(function(post) {
-        console.log($stateParams);
+       // console.log($stateParams);
         vm.post = post;
 
-        console.log(post);
+       // console.log(post);
 
         MetadataService.setMetadata({
             title: post.title.rendered,

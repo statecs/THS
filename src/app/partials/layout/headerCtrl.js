@@ -29,6 +29,19 @@ $scope.scrollToTop = function() {
         $anchorScroll();
     };
 
+    $scope.showMobileMenu = false;
+
+    $scope.toggleMobileMenu = function(e) {
+        e.preventDefault();
+        $scope.showMobileMenu = !$scope.showMobileMenu;
+    };
+
+    $scope.$on('$stateChangeSuccess', function(e, toState) {
+        $scope.activeSection = toState.name;
+        $scope.showMobileMenu = false;
+    });
+
+
 $scope.openArticlesMenu = function(){
     if ($scope.menuArticleClass === "is-open")
       $scope.menuArticleClass = "";
@@ -36,14 +49,7 @@ $scope.openArticlesMenu = function(){
       $scope.menuArticleClass = "is-open";
   };
 
-$scope.openMenu = function(){
-    if ($scope.menuClass === "js-open-nav")
-      $scope.menuClass = "";
-    else
-      $scope.menuClass = "js-open-nav";
-  };
 $scope.closeMenu = function(){
-      $scope.menuClass = "";
       $scope.menuArticleClass = "";
   };
  $scope.setActive = function($index) {
@@ -54,7 +60,7 @@ $scope.closeMenu = function(){
     }
  };
   $scope.setSubActive = function($index) {
- 	console.log($index);
+ 	//console.log($index);
  	if($scope.activeSubMenu === $index){
  		$scope.activeSubMenu = "";
  	} else{

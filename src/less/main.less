@@ -8,8 +8,8 @@
 @import "page";
 
 html {
-  font-family: "Roboto", sans-serif;
-  line-height: 1.4;
+  font-family: Lato,sans-serif;
+  line-height: 2em;
   color: #222222; 
   height: 100%;
   -ms-text-size-adjust: 100%;
@@ -17,12 +17,12 @@ html {
 }
 
 body {
-    background-color: #e5e5e5;
+    background-color: #f2f2f2;
     margin: 0;
     min-height: 100%;
     line-height: 1;
     vertical-align: baseline;
-    -webkit-tap-highlight-color: transparent
+    -webkit-tap-highlight-color: transparent;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -45,14 +45,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-view {
   background: @colour-main-view-bg;
-  min-height: 100vh;
 }
 
 .content {
   margin: 0 auto;
   padding: 0;
   position: relative;
-  max-width: 1600px;
+  max-width: 1440px;
   font-size: 0.85em;
   @media (min-width: 48em) {
     font-size: 1em;
@@ -62,35 +61,36 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 1600px){
 .o-heading.-h1 {
-    font-size: 8.125rem;
+    font-size: 4.125rem;
 }
 }
 @media (max-width: 1599px) and (min-width: 1200px){
 .o-heading.-h1 {
-    font-size: 7.875rem;
+    font-size: 4.125rem;
 }
 }
 @media (max-width: 1199px) and (min-width: 1000px){
 .o-heading.-h1 {
-    font-size: 7.375rem;
+    font-size: 3.375rem;
 }
 }
 @media (max-width: 999px) and (min-width: 700px){
 .o-heading.-h1 {
-    font-size: 7rem;
+    font-size: 3rem;
 }
 }
 @media (max-width: 699px){
 .o-heading.-h1 {
     font-size: 60px;
 }
+.o-heading.-h2 {
+    font-size: 3rem;
+}
 }
 .o-heading.-h1 {
     letter-spacing: -.01em;
 }
-.o-heading.-h2 {
-    font-size: 3.75rem;
-}
+
 
 
 
@@ -125,7 +125,7 @@ code {
 
 
 p, li {
-  line-height: 1.5em;
+  line-height: 2em;
 }
 
 blockquote {
@@ -154,9 +154,11 @@ a:hover {
   animation: fadeIn 0.6s;
 }
 
-p.lead {
-  font-size: 24px;
+.lead {
+  margin:10px 10px;
+  font-size: 1rem;
 }
+
 
 
 /******************** 

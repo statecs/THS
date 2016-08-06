@@ -31,47 +31,82 @@ if( function_exists('acf_add_options_page') ) {
     'page_title'  => 'Card General Settings',
     'menu_title'  => 'Cards',
     'menu_slug'   => 'card-general-settings',
-    'capability'  => 'edit_posts',
+    'capability'  => 'publish_posts',
     'redirect'    => false
   ));
 
-   acf_add_options_sub_page(array(
-    'page_title'  => 'Standard Card',
-    'menu_title'  => 'Standard Card',
-    'parent_slug' => 'card-general-settings'
-  ));
-
-  acf_add_options_sub_page(array(
+    acf_add_options_sub_page(array(
     'page_title'  => 'Membership Card',
     'menu_title'  => 'Membership Card',
-    'parent_slug' => 'card-general-settings'
-  ));
-
-  acf_add_options_sub_page(array(
-    'page_title'  => 'Nymble Menu Card',
-    'menu_title'  => 'Nymble Menu Card',
+    'capability'  => 'publish_posts',
     'parent_slug' => 'card-general-settings'
   ));
 
   acf_add_options_sub_page(array(
     'page_title'  => 'Events Card',
     'menu_title'  => 'Events Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Nymble Menu Card',
+    'menu_title'  => 'Nymble Menu Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+
+   acf_add_options_sub_page(array(
+    'page_title'  => 'Restrictions Card',
+    'menu_title'  => 'Restrictions Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Gallery Card',
+    'menu_title'  => 'Gallery Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Kårbokhandel Card',
+    'menu_title'  => 'Kårbokhandel Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+    acf_add_options_sub_page(array(
+    'page_title'  => 'Campus Competence Card',
+    'menu_title'  => 'Campus Competence Card',
+    'capability'  => 'publish_posts',
     'parent_slug' => 'card-general-settings'
   ));
 
   acf_add_options_sub_page(array(
     'page_title'  => 'FAQ Card',
     'menu_title'  => 'FAQ Card',
+    'capability'  => 'publish_posts',
     'parent_slug' => 'card-general-settings'
   ));
 
     acf_add_options_sub_page(array(
-    'page_title'  => 'News Card',
-    'menu_title'  => 'News Card',
+    'page_title'  => 'KarX Card',
+    'menu_title'  => 'Karx Card',
+    'capability'  => 'publish_posts',
     'parent_slug' => 'card-general-settings'
   ));
   
 }
+
+function foo_register_alt_version_features($features) {
+  $features['custom-fields'] = array();
+  return $features;
+}
+
+add_filter('bu_alt_versions_feature_support', 'foo_register_alt_version_features');
 
 // 2. Include field type for ACF5
 // $version = 5 and can be ignored until ACF6 exists
@@ -180,6 +215,7 @@ add_action( 'rest_api_init', function () {
             'template-a' => 'Template A',
             'template-b' => 'Template B' ,
             'template-c' => 'Template C' ,
+            'nymble-restaurant' => 'Nymble Restaurant' ,
         );
         return array_merge( $now_templates, $templates );
     } );

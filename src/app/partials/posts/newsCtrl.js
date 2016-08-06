@@ -22,6 +22,22 @@ function NewsCtrl($anchorScroll, $stateParams, $state, ApiService, MetadataServi
         apiCallFunction = ApiService.allPosts();
     }
 
+    vm.search = function(term) {
+       apiCallFunction = ApiService.allPostsBySearchTerm(term);
+        
+       apiCallFunction.then(function(posts) {
+            vm.posts = posts;
+            vm.searchTrue = true;
+        });
+    };
+
+    vm.clearSearch = function() {
+        ApiService.allPosts().then(function(posts) {
+            vm.posts = posts;
+            vm.searchTrue = false;
+        });
+    };
+
 
     apiCallFunction.then(function(posts) {
         vm.posts = posts;

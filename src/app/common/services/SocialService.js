@@ -24,7 +24,7 @@ function SocialService($http, $sce, config, spinnerService, alertify, ngProgress
         return $http
             .get(config.API_URL + url, { cache: true })
             .then(function(response) {
-                console.log(response.data);
+                //console.log(response.data);
                 if (typeof response.data ==='object' && response.data instanceof Array) {
                      if(!response.data.length){
                         alertify.error("Error: Not Found 404");
