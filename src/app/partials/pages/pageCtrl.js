@@ -135,9 +135,64 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
 
 }
 
+function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiService) {
+    var vm = this;
+    vm.page = {};
 
+       ApiService.postByURL('/contact').then(function(page) {
+        vm.page = page[0];
+        
+        MetadataService.setMetadata({
+            title: vm.page.title,
+            description: page.excerpt
+        });
+    });
+
+        vm.publicKey = "6Lf68iYTAAAAAIFMPKffFO9vYNJ7KRgQVWP9H_ac";
+
+               vm.signup = function(){
+                   /* vcRecaptchaService.getResponse() gives you the g-captcha-response */
+            
+            if(vm.name == null || vm.email == null || vm.message == null || vm.subject_to == null ){ //if string is empty
+                vm.error = "Please fill in the required fields";
+                //alert("Please resolve the captcha and submit!")
+            } else if (vcRecaptchaService.getResponse() === "" ){
+                vm.error = "Please resolve the captcha and submit!";
+            } else {
+                var post_data = {  //prepare payload for request
+                    'name':vm.name,
+                    'email':vm.email,
+                    'message':vm.message,
+                    'subject_to':vm.subject_to,
+                    'pnumber':vm.pnumber,
+                    'g-recaptcha-response':vcRecaptchaService.getResponse()  //send g-captcah-reponse to our server
+                }
+
+                /* MAKE AJAX REQUEST to our server with g-captcha-string */
+                $http.post('http://dev.ths.kth.se/assets/scripts/xhr-contact-form.php',post_data).success(function(response){
+                    if(response.error === 0){
+                        vm.success = "Email sent! We will get back to you shortly!"
+                        vm.error = "";
+                        //alert("Successfully verified and signed up the user");
+                        console.log(response);
+                    }else{
+                        vm.error = "Error email not sent";
+                        vm.success = "";
+                        //alert("User verification failed");
+                    }
+                })
+                .error(function(error){
+                
+                })
+                
+            }
+
+        }
+    
+}
 
 angular
     .module('app')
     .controller('PageCtrl', PageCtrl)
-    .controller('EventsCtrl', EventsCtrl);
+    .controller('EventsCtrl', EventsCtrl)
+    .controller('ContactCtrl', ContactCtrl);

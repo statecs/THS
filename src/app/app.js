@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'vcRecaptcha']);
 
 
 function initializeApp($rootScope, localStorageService, $http ){
@@ -102,6 +102,16 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     'container@': {
                         templateUrl: 'partials/pages/events.tpl.html',
                         controller: 'EventsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.contact', {
+            url: "/contact",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/contact.tpl.html',
+                        controller: 'ContactCtrl',
                         controllerAs: 'vm'
                     }
                 }

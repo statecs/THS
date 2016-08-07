@@ -1,0 +1,177 @@
+<div class="content js-wow fadeIn animated">
+  <div class="col-12">
+    <div class="hero-block hero-block--darken hero-block--top-gradient">
+    <img class="hero-block_image js-img-swap" data-osrc="/image/1486/b8/0.5,0.48/small">  
+        <div class="hero-block_content">
+          <div class="hero-block_category sub-title"></div>
+              <h1 class="hero-block_title o-heading -h1 js-wow fadeInUp animated">
+                <span class="o-heading_line">
+                    <span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">{{vm.page.title}}</span>
+                </span>
+            </h1>
+        </div>
+    </div>
+  </div>
+ <style ng-if="vm.page.acf.hero_image.url">
+      .hero-block {
+        background-image: url('{{vm.page.acf.hero_image.sizes.image640}}');
+      }
+      @media (min-width: 640px) {
+        .hero-block {
+          background-image: url('{{vm.page.acf.hero_image.sizes.image960}}');
+        }
+      }
+      @media (min-width: 960px) {
+        .hero-block {
+          background-image: url('{{vm.page.acf.hero_image.sizes.image1280}}');
+        }
+      }
+       @media (min-width: 1280px),
+      (-webkit-min-device-pixel-ratio: 2) and (min-width: 640px),
+        (min-resolution: 192dpi) and (min-width: 640px) {
+        .hero-block{
+          background-image: url('{{vm.page.acf.hero_image.sizes.image1600}}');
+        }
+      }
+      @media (min-width: 1600px),
+        (-webkit-min-device-pixel-ratio: 2) and (min-width: 960px),
+        (min-resolution: 192dpi) and (min-width: 960px) {
+        .hero-block {
+          background-image: url('{{vm.page.acf.hero_image.sizes.image1920}}');
+        }
+      } 
+    </style>
+    <style ng-if="!vm.page.acf.hero_image.url">
+  .hero-block {
+        background-image: url('assets/images/big-banner.jpg');
+     }
+  </style> 
+
+      <div class="o-container page" data-widget="block">
+
+        <div class="o-grid">
+
+<div class="two-third left-o">
+
+ <div class="col-md-6 col-md-offset-3 signupform">
+
+<form name="vm.signupForm" ng-submit="vm.signup()" >
+
+ <div class="vf-core">
+    <div class="vfDirekt-container">
+
+
+        <div class="content-block-solid" ng-bind-html="vm.page.content">
+
+        </div>
+        <div ng-if="vm.error" class="alert alert-danger mb20" id="error" ng-focus>{{vm.error}}</div>
+        <div ng-if="vm.success" class="alert alert-success mb20" id="success" ng-focus>{{vm.success}}</div>
+
+        <div class="content-block" ng-hide="vm.success">
+            <div class="content-block-top">
+                <h1 class="c-block_title ng-binding">Send your question</h1>
+            </div>
+            <div class="content-block-content">
+                We respond as quickly as we can.
+                <div class="core-divider"></div>
+                <label>Your Question</label>
+                <label>Subject *</label>
+                <select name="subject" ng-model="vm.subject_to" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                <option value="">---</option>
+                <option value="karx@ths.kth.se">Membership</option>
+                <option value="studiesocialt@ths.kth.se">Social activities</option>
+                <option value="utbildning@ths.kth.se">Education</option>
+                <option value="naringsliv@ths.kth.se">Business relations</option>
+                <option value="studiesocialt@ths.kth.se">Study environment</option>
+                <option value="kommunikation@ths.kth.se">Information</option>
+                <option value="karx@ths.kth.se">Student ID card</option>
+                <option value="lokalbokning@ths.kth.se">Booking inquiries</option>
+                <option value="event@ths.kth.se">Party related</option>
+                <option value="roger2@kth.se">Report a fault in Nymble</option><option value="naringsliv@ths.kth.se">Advertising</option>
+                <option value="webmaster@ths.kth.se">Webmaster</option>
+                <option value="kommunikation@ths.kth.se">Övrigt/Other</option></select>
+
+                <label>Message *</label>
+                <textarea ng-model="vm.message" rows="4" id="message" required></textarea>
+
+                <!--<label>Attach file (max 4 MB)</label>
+                <div class="row">
+                    <div class="col-sm-3 col-md-3">
+                        <div class="fileUpload">
+                            <span>Choose files</span>
+                            <input id="btnUpload" type="file" class="upload" multiple="">
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-md-9" id="selectedFiles">
+                    </div>
+                </div>-->
+                <div class="core-divider"></div>
+
+                <div class="o-grid">
+                    <div class="o-half o-padding">
+                        <label>Name *</label>
+                        <input type="text" id="name" ng-model="vm.name" required>
+                    </div>
+                    <div class="o-half o-padding">
+                        <label>Personal Number (YYMMDD-XXXX)</label>
+                        <input ng-model="vm.pnumber" type="text" id="personno">
+                    </div>
+                </div>
+
+                <div class="o-grid">
+                    <div class="o-whole o-padding">
+                        <label>E-mail *</label>
+                        <input type="email" id="email" ng-model="vm.email" required>
+                    </div>
+                </div>
+
+                <div class="cb-simple mt20" id="termsAccepted">
+                    <div class="cb-simple-box"></div><br />
+                    <div class="cb-simple-text">I accept that my personal data is saved in THS records. The data are treated according to the Personal Data Act. <a href="http://www.datainspektionen.se/in-english/legislation/the-personal-data-act/" target="_blank">Read more about the Personal Data Act</a></div>
+                </div>
+
+                <div class="cb"></div>
+                <div class="core-divider mt30"></div>
+
+                <div vc-recaptcha key="'6Lf68iYTAAAAAIFMPKffFO9vYNJ7KRgQVWP9H_ac'"></div>
+
+                <div class="right">
+                    <button ng-disabled="vm.success" type="submit" class="btn btn-default core-button">Send</button>
+                </div><br />
+                        <div ng-if="vm.error" class="alert alert-danger mb20" id="error">{{vm.error}}</div>
+        <div ng-if="vm.success" class="alert alert-success mb20" id="success">{{vm.success}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+
+</div>
+
+        </div>
+
+        <div class="o-third">
+
+<div ng-if="vm.page.acf.post_meta[0].related_links" class=" js-wow fadeInUp animated">
+  <div class="related-links-block"><h2 class="h2 border-top">Related links</h2>
+  <div class="link-container">
+
+  <div class="link-container" ng-bind-html="vm.page.acf.post_meta[0].related_links | sanitizeHtml">
+    
+  </div>
+
+  </div>
+
+</div></div>
+
+<div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'default'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp animated" style="background-color:{{mCard.bg_color}};background-image:url({{mCard.bg_img}});background-size: cover;opacity: 0.05;overflow:hidden">
+
+ <div default-card></div>
+
+</div>
+
+
+
+
+    </div></div></div></div>

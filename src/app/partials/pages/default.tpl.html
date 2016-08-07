@@ -54,7 +54,7 @@
 
 <div class="two-third left-o">
 
-<div ng-bind-html="vm.page.content"></div>
+<div ng-if="vm.page.content" ng-bind-html="vm.page.content"></div>
 
 <div ng-if="vm.page.acf.post_meta[0].col" ng-repeat="col in vm.page.acf.post_meta[0].col" class="o-half left-o">
 

@@ -29,6 +29,7 @@
     "angular-local-storage": "^0.2.7",
     "angular-resource": "^1.5.7",
     "wow": "wowjs#^1.1.2",
-    "normalize-css": "^4.2.0"
+    "normalize-css": "^4.2.0",
+    "angular-recaptcha": "^3.0.4"
   }
 }

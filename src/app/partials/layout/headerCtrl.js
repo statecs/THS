@@ -8,7 +8,9 @@ function HeaderCtrl($anchorScroll, $scope, $state, config, $http, localStorageSe
 		$scope.posts = posts;
 	});
 
+
 	$scope.search = function(term) {
+		console.log("search", term);
        apiCallFunction = ApiService.allPostsBySearchTerm(term);
         
        apiCallFunction.then(function(posts) {

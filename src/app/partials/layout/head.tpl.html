@@ -50,8 +50,14 @@
 
   		<div class="search-container">
             <revealing-search-input search-callback="search(term)"></revealing-search-input>
-        </div>        <i ng-if="searchTrue == true" ng-click="clearSearch()" class="material-icons">clear</i>
+                        <a ng-click="clearSearch()"><div class="search-btn -close"><i ng-if="searchTrue == true" class="material-icons">clear</i></div></a>
+        </div>        
 
+
+							<!--
+							 <select class="c-dropdown_label" ng-model="query" ng-options="cat.name for cat in cats track by cat.slug">
+                            </select>
+                            -->
                             <select class="c-dropdown_label" ng-model="query">
 								 <option ng-selected="true" disabled selected value>---Please select---</option>
 								 <option value>All Categories</option>
