@@ -5,7 +5,7 @@ function HomeCtrl(ApiService, $http, MetadataService, SocialService) {
 
     var apiCallFunction;
 
-  /*  ApiService.postByURL('/home').then(function(page) {
+    /* ApiService.postByURL('/home').then(function(page) {
         vm.page = page[0];
 
        // console.log(vm.page);
@@ -14,11 +14,11 @@ function HomeCtrl(ApiService, $http, MetadataService, SocialService) {
             title: vm.page.title,
             description: page.excerpt
         });
-    });
+    });*/
 
     // pass an empty object to use the defaults.
     MetadataService.setMetadata({});
-*/
+
 }
 
 angular

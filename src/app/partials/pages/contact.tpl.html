@@ -51,7 +51,7 @@
 
         <div class="o-grid">
 
-<div class="two-third left-o">
+<div class="two-third">
 
  <div class="col-md-6 col-md-offset-3 signupform">
 
@@ -59,6 +59,22 @@
 
  <div class="vf-core">
     <div class="vfDirekt-container">
+     <article class="page no-article-survey">
+        <nav class="accordion-homepage" data-tracking-cat="accordion-homepage">
+            <h1>Frequently Asked Questions</h1>
+            <section ng-repeat="fCard in acf.faq_card track by $index" ng-click="openFaq($index)" ng-class="{'selected' : $index === faqClass}" class="parent" data-id="3382296" data-tracking-idx=
+            "posidx:1|5"ng-repeat="fCard in acf.faq_card track by $index">
+                <h2 id="{{$index}}" aria-expanded="false" tabindex="0" ng-bind-html="fCard.question | sanitizeHtml"></h2>
+                <div class="overflow">
+                    <div aria-hidden="true" class="children">
+                        <div class="child">
+                            <a ng-bind-html="fCard.answer | sanitizeHtml"></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </nav>
+    </article>
 
 
         <div class="content-block-solid" ng-bind-html="vm.page.content">
@@ -170,6 +186,7 @@
  <div default-card></div>
 
 </div>
+
 
 
 

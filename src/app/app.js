@@ -2,7 +2,7 @@ angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPag
 
 
 function initializeApp($rootScope, localStorageService, $http ){
-    console.log('app init');
+    //console.log('app init');
     $rootScope.posts_per_page = config.POSTS_PAGE;
     //console.log(config.POSTS_PAGE);
     //console.log(config.API_URL);

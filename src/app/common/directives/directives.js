@@ -53,7 +53,6 @@ function discoverCard() {
       scope.element = element;
       scope.elementParent = scope.element.parent();
       scope.slidesContainer = angular.element(scope.element.find('ul')[0]);
-      console.log(scope.slidesContainer);
      
       scope.currentWidth = scope.element.prop('offsetWidth');
       scope.currentHeight = scope.element.prop('offsetHeight');

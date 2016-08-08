@@ -40,6 +40,23 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
             disqus_url: vm.page.link,
             };
 
+    $scope.openFaq = function($index) {
+          //console.log($index);
+          if($scope.faqClass === $index){
+            $scope.faqClass = "";
+          } else{
+              $scope.faqClass = $index;
+            }
+         };
+         $scope.openSubFaq = function($index) {
+          //console.log($index);
+          if($scope.faqSubClass === $index){
+            $scope.faqSubClass = "";
+          } else{
+              $scope.faqSubClass = $index;
+            }
+         };
+
 
        
         MetadataService.setMetadata({
@@ -147,6 +164,24 @@ function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiServ
             description: page.excerpt
         });
     });
+
+    $scope.openFaq = function($index) {
+          //console.log($index);
+          if($scope.faqClass === $index){
+            $scope.faqClass = "";
+          } else{
+              $scope.faqClass = $index;
+            }
+         };
+         $scope.openSubFaq = function($index) {
+          //console.log($index);
+          if($scope.faqSubClass === $index){
+            $scope.faqSubClass = "";
+          } else{
+              $scope.faqSubClass = $index;
+            }
+         };
+
 
         vm.publicKey = "6Lf68iYTAAAAAIFMPKffFO9vYNJ7KRgQVWP9H_ac";
 

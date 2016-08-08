@@ -212,9 +212,7 @@ add_action( 'rest_api_init', function () {
     add_filter( 'custom_page_templates', function( $now_templates ) {
         $templates = array(
             'home-page'  => 'Home Page',
-            'template-a' => 'Template A',
-            'template-b' => 'Template B' ,
-            'template-c' => 'Template C' ,
+            'faq'  => 'FAQ',
             'nymble-restaurant' => 'Nymble Restaurant' ,
         );
         return array_merge( $now_templates, $templates );
@@ -329,9 +327,6 @@ function wp_get_post_custom_templates() {
   $theme = wp_get_theme();
   $templates = array(
             'news'  => 'News',
-            'template-a' => 'Template A',
-            'template-b' => 'Template B' ,
-            'template-c' => 'Template C' ,
         );
 
   return $templates;

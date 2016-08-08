@@ -192,7 +192,6 @@
 
 .related-link-item {
     padding: 10px;
-    font-family: 'Source Serif Pro Regular', sans-serif;
     color: #00406c;
 }
 .related-links-block{
@@ -270,20 +269,17 @@
     margin-bottom: 30px;
     background-color: @color-blue;
     color: #fff;
-    font-family: Lato, Arial, Sans-serif;
     font-size: 18px;
 }
 .vf-core .content-block-solid .content-block-top-header {
-    font-family: AvenirNextLTProBold;
     font-size: 27px;
     color: #fff;
     margin-bottom: 15px;
 }
 
 .vf-core .vfDirekt-container {
-    max-width: 800px;
+    max-width: 860px;
     color: #505050;
-    font: 1em Arial, Helvetica, sans-serif;
 }
 .vf-core div {
     -moz-box-sizing: border-box;
@@ -302,7 +298,6 @@
     padding: 15px;
     border: 1px solid transparent;
     border-radius: 4px;
-    font-family: Lato, Arial, Sans-serif;
     font-size: 16px;
 }
 
@@ -322,8 +317,6 @@
 .vf-core .content-block .content-block-content {
     border-top: none;
     padding: 20px 30px 45px;
-    background-color: #f3f3f4;
-    font-family: Lato, Arial, Sans-serif;
     font-size: 18px;
     line-height: 25px;
 }
@@ -340,7 +333,6 @@
     display: block;
     margin-top: 20px;
     color: #444444;
-    font: 17px Lato, Arial, Helvetica, sans-serif;
     font-weight: bold;
     margin-bottom: 7px;
 }
@@ -349,11 +341,11 @@
     border: solid 1px #d9d9d9;
     border-radius: 3px;
     width: 100%;
-    font: 17px Lato, Arial, Helvetica, sans-serif;
     color: #444444;
     box-sizing: border-box;
     padding: 9px 10px 8px 10px;
     min-height: 40px;
+    font-size: 1.1em;
 }
 .vf-core textarea {
     overflow: auto;
@@ -375,7 +367,6 @@
   border: 0;
   background-color: @color-blue;
   color: #fff;
-  font-family: AvenirNextLTProDemi, Arial, Sans-serif;
   font-size: 17px;
   padding: 8px 20px;
   border-radius: 4px;
@@ -383,3 +374,126 @@
   -webkit-appearance: none;
   height: 40px;
 }
+
+
+@media (min-width: 771px){
+.page.no-article-survey {
+    min-height: 460px;
+}
+}
+
+.accordion-homepage h1 {
+    display: none;
+}
+
+@media (min-width: 771px){
+.accordion-homepage h1 {
+    display: block;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    margin: 0;
+    padding: 16px 16px 16px 72px;
+}
+}
+
+@media (min-width: 771px){
+.hcfe h1 {
+    font-size: 34px;
+    line-height: 40px;
+    margin: 0 0 26px;
+}
+}
+.accordion-homepage .parent {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 0;
+}
+@media (min-width: 771px){
+.accordion-homepage .parent {
+    position: relative;
+}
+}
+
+
+
+.accordion-homepage h2 {
+    font-size: 15px;
+    font-weight:400;
+    line-height: 26px;
+    margin: 0;
+    padding: 12px 72px;
+}
+@media (min-width: 771px){
+.accordion-homepage h2 {
+    font-size: 17px;
+}
+}
+
+.accordion-homepage .overflow {
+    overflow: hidden;
+}
+.accordion-homepage .children {
+    margin-bottom: -9999px;
+    transition: margin-bottom 0s .5s,margin-top .5s;
+              -webkit-transition:all 0.5s ease;
+    -moz-transition:all 0.5s ease;
+    -o-transition:all 0.5s ease;
+    transition:all 0.5s ease;
+}
+
+.accordion-homepage .parent.selected {
+    background: @color-blue;
+    padding-bottom: 10px;
+}
+
+.accordion-homepage .parent {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 0;
+                  -webkit-transition:all 0.5s ease;
+    -moz-transition:all 0.5s ease;
+    -o-transition:all 0.5s ease;
+    transition:all 0.5s ease;
+}
+@media (min-width: 771px){
+.accordion-homepage .parent {
+    position: relative;
+}
+}
+.accordion-homepage .parent.selected h2:before {
+    color: #fff;
+    content: '-';
+    left: 22px;
+}
+.accordion-homepage h2:before {
+    color: @color-blue;
+    content: '+';
+    font-size: 24px;
+    left: 20px;
+    position: absolute;
+}
+.accordion-homepage .parent.selected h2 {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+
+.accordion-homepage .parent.selected .children {
+    margin-bottom: 0;
+    transition: margin-top .5s;
+}
+
+.accordion-homepage a {
+    display: block;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+    padding: 12px 16px 12px 72px;
+    text-decoration: none !important;
+}
+.accordion-homepage .parent a {
+    color: #fff;
+}
+

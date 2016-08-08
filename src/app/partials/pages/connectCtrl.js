@@ -117,7 +117,6 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
     };
 
     vm.applyMarginLeft = function() {
-      console.log(vm.currentMarginLeftValue);
       vm.slidesContainer.css( '-webkit-transform', 'translate(' + vm.currentMarginLeftValue + 'px, 0px)', 'transform', 'translate(' + vm.currentMarginLeftValue + 'px, 0px)');
     };
 
