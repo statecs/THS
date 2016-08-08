@@ -4,16 +4,18 @@
 
 <div ng-repeat="meal in acf.meal_of_the_day[0].menu[0] track by $index" ng-if="$index+1 == day" >
 
-  <div ng-bind-html="meal | sanitizeHtml" ></div>
+  <div ng-bind-html="meal | sanitizeHtml" ></div><br />
 
  </div>
 
-    <div ng-if="$index+1 != day"><p>Resturant closed for the weekend</p> <p>Opening hours<p>Mon-Thr 11.30-17.30 <br /> Fri 11.30-15.30</p>
+<div ng-repeat="meal in acf.meal_of_the_day[0].menu|limitTo:1 track by $index" ng-if="$index+1 != day" >
 
+    <p>Restaurant closed for the weekend</p> <p>Opening hours<p>Mon-Thr 11.30-17.30 <br /> Fri 11.30-15.30</p>
 
+    </div>
 
-</div>
 
 <a href="{{acf.meal_of_the_day[0].link}}"><div class="btn-standard -dark">Menu week {{date | date : 'ww'}}</div></a>
 
+</div>
 </div></div></div>

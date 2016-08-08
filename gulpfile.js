@@ -40,6 +40,7 @@ var VENDOR_SCRIPTS = [
     'bower_components/angular-resource/angular-resource.js',
     'bower_components/wow/dist/wow.min.js',
     'bower_components/angular-recaptcha/release/angular-recaptcha.min.js',
+    'bower_components/angular-touch/angular-touch.min.js',
 
 
 ];

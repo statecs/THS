@@ -15,6 +15,10 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
         return getData('wp/v2/posts?per_page=20');
     }
 
+    function allSearchTerm(searchResult) {
+        return getData('wp/v2/search?s=' + searchResult);
+    }
+
     function allPostsBySearchTerm(searchTerm) {
         return getData('wp/v2/posts?per_page=20&filter[s]=' + searchTerm);
     }
@@ -90,6 +94,7 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
         allPostsBySearchTerm: allPostsBySearchTerm,
         featuredPosts: featuredPosts,
         postById: postById,
+        allSearchTerm: allSearchTerm,
         postByURL: postByURL,
     };
 }

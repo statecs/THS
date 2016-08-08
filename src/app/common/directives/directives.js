@@ -50,7 +50,14 @@ function discoverCard() {
         // I bind the JavaScript events to the scope.
         function link( scope, element, attributes ) {
 
-            //console.log( "DiscoverCard directive linking." );
+      scope.element = element;
+      scope.elementParent = scope.element.parent();
+      scope.slidesContainer = angular.element(scope.element.find('ul')[0]);
+      console.log(scope.slidesContainer);
+     
+      scope.currentWidth = scope.element.prop('offsetWidth');
+      scope.currentHeight = scope.element.prop('offsetHeight');
+
 
         }
 }

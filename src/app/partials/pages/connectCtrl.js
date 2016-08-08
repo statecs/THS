@@ -44,6 +44,7 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
             tile.link = instaObj.link;
             tile.date = instaObj.created_time*1000;
             tile.type = "Instagram";
+            tile.user = instaObj.user.username;
             tile.description = instaObj.caption.text;
             tile.imageUrl = instaObj.images.standard_resolution.url;
             socialTiles.push(tile);
@@ -56,16 +57,69 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
               tile.description = feedObj.message;
               tile.date = feedObj.created_time;
               tile.type = "Facebook";
+              tile.user = feedObj.from.name;
               tile.link = feedObj.link;
               socialTiles.push(tile);
             }
           });
 
     vm.socialTiles = socialTiles;
-    //console.log(vm.socialTiles);
     vm.loaded = true;
     
     }
+
+    vm.currentMarginLeftValue = 0;
+    vm.currentIndex = 0;
+
+    vm.getCurrentWidth = function (currentWidth) {
+        var currentWidth = $scope.currentWidth;
+        return {'width': currentWidth + 'px'};
+    };
+
+    vm.getElementWidth = function (currentWidth) {
+        var currentWidth = $scope.currentWidth;
+        return {'width':currentWidth*5+'px'};
+    };
+
+
+    vm.restartFromLastItem = function() {
+        vm.currentIndex = 4;
+        vm.currentMarginLeftValue = (4 * $scope.currentWidth) * -1;
+        vm.applyMarginLeft();
+        
+    };
+
+     vm.restartFromFirstItem = function() {
+      vm.currentIndex = 0;
+      vm.currentMarginLeftValue = 0;
+      vm.applyMarginLeft();
+    };
+
+    vm.navigateLeft = function() {
+      vm.currentIndex--;
+      vm.slidesContainer = $scope.slidesContainer;
+      vm.currentMarginLeftValue += $scope.currentWidth;
+      vm.applyMarginLeft();
+      if (vm.currentIndex === -1) {
+        vm.restartFromLastItem();
+      }
+    };
+
+
+    vm.navigateRight = function() {
+      vm.currentIndex++;
+      vm.slidesContainer = $scope.slidesContainer;
+      vm.currentMarginLeftValue -= $scope.currentWidth;
+      vm.applyMarginLeft();
+      if (vm.currentIndex === 5) {
+          vm.restartFromFirstItem();
+      }
+    };
+
+    vm.applyMarginLeft = function() {
+      console.log(vm.currentMarginLeftValue);
+      vm.slidesContainer.css( '-webkit-transform', 'translate(' + vm.currentMarginLeftValue + 'px, 0px)', 'transform', 'translate(' + vm.currentMarginLeftValue + 'px, 0px)');
+    };
 
     // pass an empty object to use the defaults.
     MetadataService.setMetadata({});

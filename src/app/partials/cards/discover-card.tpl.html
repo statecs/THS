@@ -1,18 +1,26 @@
- <div class="js-wow fadeInUp animated" ng-repeat="tile in vm.socialTiles|limitTo:1">
-  <div class="feature-block animate-block">
+<div class="feature-block_slideshow glide--carousel ">
 
-    <a target="_blank" href="{{ tile.link }}" class="c-block feature-block_link" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover; min-height: 450px">
+<div class="glide__arrows">
+			<span class="glide__arrow prev" ng-click="vm.navigateLeft()" data-glide-dir="<"><i class="material-icons">chevron_left</i></span>
+			<span class="glide__arrow next" ng-click="vm.navigateRight()" data-glide-dir=">"><i class="material-icons">chevron_right</i></span>
+		</div>
+<div class="glide__wrapper ">
 
-     <div class="tag tag--date">
+<ul class="glide__track" ng-style="vm.getElementWidth()" style="transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);" >
+  <li ng-style="vm.getCurrentWidth()" class="feature-block glide__slide" ng-repeat="tile in vm.socialTiles|limitTo:5" ng-swipe-left="vm.navigateRight()" ng-swipe-right="vm.navigateLeft()">
+
+    <a target="_blank" href="{{ tile.link }}" class="c-block feature-block_link js-wow fadeInUp animated" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover; min-height: 450px">
+
+     <div class="tag tag--date fadeIn animated js-wow">
           <div class="tag_month">{{ tile.date | date:'MMM' }}</div>
           <div class="tag_day">{{ tile.date | date:'dd' }}</div>
-        </div><!-- End .tag -->
+        </div>
         
       <div class="feature-block_content">
         <div ng-if="tile.description" class="feature-block_category sub-title">{{ tile.description  | limitHtml: 100 }}</div>
-        <h3 class="feature-block_title">{{ tile.type  | limitHtml: 100 }}</h3>
-      </div><!-- End .feature-block_content -->
-    </a><!-- End .feature-block_link -->
-
-  </div><!-- End .feature-block -->
+        <h3 class="feature-block_title">{{ tile.type  | limitHtml: 100 }} @{{tile.user}}</h3>
+      </div>
+    </a>
+</li>
+  </ul></div>
 </div>

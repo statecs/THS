@@ -8,6 +8,14 @@ function HeaderCtrl($anchorScroll, $scope, $state, config, $http, localStorageSe
 		$scope.posts = posts;
 	});
 
+    $scope.change = function(searchResult) {
+        var valtosend = $scope.searchText;
+         apiCallFunction = ApiService.allSearchTerm(valtosend);
+         apiCallFunction.then(function(results) {
+          $scope.searchResults = results;
+      });
+
+        };
 
 	$scope.search = function(term) {
 		console.log("search", term);
@@ -44,6 +52,14 @@ $scope.scrollToTop = function() {
     });
 
 
+
+$scope.openSearch = function(){
+    if ($scope.searchClass === "modal-open")
+      $scope.searchClass = "";
+    else
+      $scope.searchClass = "modal-open";
+  };
+
 $scope.openArticlesMenu = function(){
     if ($scope.menuArticleClass === "is-open")
       $scope.menuArticleClass = "";
@@ -53,6 +69,7 @@ $scope.openArticlesMenu = function(){
 
 $scope.closeMenu = function(){
       $scope.menuArticleClass = "";
+      $scope.searchClass = "";
   };
  $scope.setActive = function($index) {
    if($scope.activeMenu === $index){
