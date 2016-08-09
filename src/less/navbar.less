@@ -32,7 +32,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 10
+    z-index: 99;
 }
 .global-header.ios-fix {
     position: absolute
@@ -338,7 +338,8 @@
     .no-touch .global-header_nav {
         display: block;
         height: 60px;
-        padding: 0 30px
+        padding-left: 40px;
+        padding-right: 40px
     }
     .no-touch .global-header--stick .global-header_nav {
         background-color: #fff;
@@ -880,7 +881,7 @@
 	.lang-container {
 	height:55px;
 	position:fixed;
-	z-index:1;
+	z-index:99;
 	}
 	.col-12{
 	  padding-top: 55px !important;
@@ -938,7 +939,7 @@
 .article-menu{
 	color:#ffffff;
     height: 40px;
-    margin: -40px 110px 0 0;
+    margin: -40px 117px 0 0;
     padding: 9px 30px;
     cursor: pointer;
     display: block;
@@ -946,14 +947,14 @@
     position: absolute;
     right: 0;
 }
-@media screen and (min-width: 1023px) {
+@media screen and (min-width: 1024px) {
 	.article-menu{
 		display:none;
 	}
 }
 .search-menu{
     color:#ffffff;
-    margin: -30px 65px 0 0;
+    margin: -32px 66px 0 0;
     cursor: pointer;
     display: block;
     overflow: hidden;
@@ -961,11 +962,11 @@
     right: 0;
 }
 .search-menu i{
-    font-size:1.8em;
+    font-size:2em;
 }
-@media screen and (min-width: 1023px) {
+@media screen and (min-width: 1024px) {
     .search-menu{
-        margin: 0 285px 0 0;
+        margin: -2px 285px 0 0;
     }
     .search-menu i{
         font-size:2em;
@@ -973,14 +974,14 @@
 }
 @media screen and (min-width: 1440px) {
     .search-menu{
-        margin: 0 295px 0 0;
+        margin: -2px 295px 0 0;
     }
 }
 .article-menu:after{
 	font-family: 'Material Icons';
     content:'local_library';
     font-size: 1.8em;
-	margin-top: -1px;
+    margin-top: -1px;
     right: 0;
     position: absolute;
 }
@@ -1298,7 +1299,6 @@
 /* Footer */
 
 .footer-section {
-	margin-top: 50px;
 	padding-top: 23px;
     padding-bottom: 40px;
     background-color: #00406c;
@@ -1341,13 +1341,18 @@
 }
 .footer-divblock {
     margin-left: 85px;
+    @media screen and (max-width: 1200px) {
+        margin-left: 40px;
+    }
 }
-@media screen and (max-width: 640px) {
-	.footer-divblock {
-    margin-left: 40px;
+@media screen and (max-width: 999px) {
+.footer-divblock {
+ margin-left: 0px;
+    width:100%;
 }
 .footer-container{
 	margin-top:0px;
+    padding:20px;
 }
 }
 .footer-divblock a {
@@ -1601,8 +1606,8 @@ ul.heading-tabs{
     line-height: 1;
     color: #000000;
     text-shadow: 0 1px 0 #ffffff;
-    opacity: 0.2;
-    filter: alpha(opacity=20);
+    background: 0 0;
+    border: 0;
 }
 @media (max-width: 767px){
 .modal-open .modal .modal-dialog .modal-header .close{
@@ -1720,16 +1725,19 @@ background: #ffffff;
     margin: 0 5px 10px;
 }
 }
-@media (max-width: 1024px){
+@media (max-width: 1023px){
 .no-menu{
     margin: 10px;
 }
-.no-menu a{
-    width: 100px;
-}
 .no-menu img{
-    margin: 10px;
+    margin: 13px 50px;
+    position: absolute;
 }
+.no-menu a.white-btn{
+    width: 100px;
+    margin-top:10px;
+}
+
 }
 @media (min-width: 1024px){
 .js-open-nav .global-header_nav{

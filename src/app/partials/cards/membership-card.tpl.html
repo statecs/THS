@@ -1,9 +1,9 @@
 <div class="flex-item student-union-card ">
             <div class="container-card">
-        <h1 class="c-block_title">{{mCard.title}}</h1>
+        <h1 class="c-block_join">{{mCard.title}}</h1>
               <div ng-bind-html="acf.membership_card[0].content | sanitizeHtml" class="p-large-white"></div>
-              <a href="{{acf.membership_card[0].link_1}}"><div class="btn-standard -home">{{acf.membership_card[0].link_1_text}}</div></a>
-              <a target="_blank" href="{{acf.membership_card[0].link_2}}"><div class="btn-standard -home">{{acf.membership_card[0].link_2_text}}</div></a>
+              <a ng-click="gotoElement(top)" href="{{acf.membership_card[0].link_1}}"><div class="btn-standard -home">{{acf.membership_card[0].link_1_text}}</div></a>
+              <a ng-click="gotoElement(top)" target="_blank" href="{{acf.membership_card[0].link_2}}"><div class="btn-standard -home">{{acf.membership_card[0].link_2_text}}</div></a>
               <!--<div class="flex-grid-btn"><a href="{{acf.membership_card[0].link_1}}" class="w-button btn btn-trans-white-big">{{acf.membership_card[0].link_1_text}}</a><a href="{{acf.membership_card[0].link_2}}" target="_blank" class="w-button btn btn-trans-white-big">{{acf.membership_card[0].link_2_text}}</a></div>-->
             </div>
 

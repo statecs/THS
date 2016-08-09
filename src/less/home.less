@@ -132,6 +132,9 @@
       }
       line-height: 2em;
 }
+.left-o ul{
+      margin: 0px 20px;
+}
 
 .left-o h1, .left-o h2, .left-o h3{
       padding: 10px 40px;
@@ -166,7 +169,12 @@
 }
 .c-block_title {
     font-weight: 700;
-    margin-top: 40px !important;
+    line-height: .9;
+    max-width: 25.625rem;
+    color: #ffffff;
+}
+.c-block_join {
+    font-weight: 700;
     line-height: .9;
     max-width: 25.625rem;
     color: #ffffff;
@@ -174,6 +182,7 @@
 @media (max-width: 699px){
 .c-block_title {
     font-size: 2.5rem;
+    padding-top: 40px;
 }
 }
 @media (min-width: 1600px){
@@ -211,7 +220,6 @@
     letter-spacing: 2px;
 }
 .calendar-date-week {
-    margin-left: 4px;
     color: #00406c;
     font-size: 20px;
     text-align: center;
@@ -223,7 +231,7 @@
     padding-bottom: 12px;
     -webkit-box-flex: 0;
     -moz-box-flex: 0;
-    width:20%;
+    width:10%;
     -webkit-flex: 0 auto;
     -ms-flex: 0 auto;
     flex: 0 auto;
@@ -250,21 +258,14 @@
 }
 .news-card {
     max-width: 1200px;
-    padding: 37px;
-}
-
-@media screen and (max-width: 640px) {
-  .news-card {      
-    padding: 1px;
-  }
+    padding: 17px;
 }
 
 .p-large-white {
     position: relative;
-    z-index: 1;
     margin-bottom: 20px;
     color: #fff;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 30px;
     font-weight: 300;
     text-align: left;
@@ -273,13 +274,14 @@
 
 .calendar-card-heading {
     position: static;
+    margin-left:40px;
     margin-top: -10px;
-    margin-left: 18px;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -moz-box-flex: 0;
-    width:60% !important;
+    width:70% !important;
     -ms-flex: 1;
+    font-size:1rem !important;
     flex: 1;
 }
 
@@ -312,7 +314,7 @@
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
     width: 60px;
-    z-index: 2;
+    z-index: 1;
 }
 .glide__arrow {
     cursor: pointer;
@@ -413,14 +415,17 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    margin-top:0;
 }
 
 .news-h4{
   color:#000000;
   padding-left: 25px;
-  margin-left: 25px;
-  width:60% !important;
-
+  margin-left: 35px;
+  width:70% !important;
+@media screen and (max-width: 640px){
+    margin-bottom: 10px;
+}
 }
 .news-h4 p{
   font-size:0.9rem;
@@ -437,20 +442,28 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    margin-top: 221px;
+    margin-top: 270px;
     padding: 3px 30px 2px;
     background-image: -webkit-linear-gradient(270deg, #fff, #fff);
     background-image: linear-gradient(180deg, #fff, #fff);
     opacity: 0.95;
+    @media screen and (max-width: 640px){
+    padding: 20px;
+    margin-top: 100px;
+    }
 }
+news-item-heading
 .news-item-heading h4{
   margin-top:10px;
   line-height:1.1em;
 }
 .news-item-heading {
     margin-top: 28px;
-    margin-left: 25px;
-    width:66% !important;
+    margin-left: 35px;
+    @media screen and (max-width: 640px){
+     padding: 0;
+     margin:0;
+    }
 }
 .news-iteambtn {
     margin-top: 32px;
@@ -509,10 +522,8 @@
     font-size: 24px;
 }
 
-@media screen and (max-width: 699px) {
 .calendar-card-heading h4, .calendar-text {
-  font-size:0.9rem;
-}
+  margin-bottom: 10px;
 }
 
 .news-item {
@@ -559,7 +570,6 @@
 }
 
 .btn-standard{
-  display: inline-block;
   padding:20px 50px;
   border-radius: 5000px;
   border: 1px solid #ffffff;
@@ -567,6 +577,8 @@
   margin-top:50px;
   font-family: CenturyGothic,sans-serif;
   font-weight: 700;
+  display: block;
+  max-width: 100px;
 }
 
 .btn-standard.-home{
@@ -574,6 +586,7 @@
   color:#ffffff;
   text-align: center;
   display: block;
+  max-width: 800px;
 }
 
 .btn-standard.-dark{
@@ -582,4 +595,5 @@
   text-align: center;
   border: 1px solid @color-blue;
   display: block;
+  max-width: 800px;
 }

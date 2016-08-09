@@ -188,8 +188,18 @@ var config = {
     POSTS_PAGE: '%%POSTS_PAGE%%'
 };
 
-function AppController($rootScope, $window, $location, $timeout, MetadataService) {
+function AppController($rootScope, $window, $location, $timeout, MetadataService, $anchorScroll) {
     var vm = this;
+
+     $rootScope.gotoElement = function (eID){
+      // set the location.hash to the id of
+      // the element you wish to scroll to.
+      $location.hash(eID);
+ 
+      // call $anchorScroll()
+      $anchorScroll();
+      
+    };
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();

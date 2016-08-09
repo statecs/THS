@@ -8,11 +8,11 @@
     <div class="calendar-card-heading two-third"><h4>{{ ::event.summary }}</h4>
 
   <div class="p calendar-text" data-ng-if="gcConfig.sanitize && gcConfig.htmlDesc" data-ng-bind-html="event.description"></div>
-  <div class="p calendar-text" data-ng-if="!(gcConfig.sanitize && gcConfig.htmlDesc)">{{event.description  | limitHtml: 40 }}</div>
+  <div class="p calendar-text" data-ng-if="!(gcConfig.sanitize && gcConfig.htmlDesc)">{{event.description  | limitHtml: 60 }}</div>
 </div>
 
 
 </div>
-<div class="lead"><a ng-href="/events">View all events </a></div>
+<div class="lead"><a ng-click="gotoElement(top)" ng-href="/events">View all events </a></div>
 
 </div>

@@ -51,7 +51,9 @@
                             
                             <span class="c-dropdown_item js-dropdown-label" data-idcat="all">
 
-
+ <button ng-click="closeMenu()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span>
+            <i class="material-icons">clear</i>
+          </span></button>
   		<!--<div class="search-container">
             <revealing-search-input search-callback="search(term)"></revealing-search-input>
                        <a ng-click="clearSearch()"><div class="search-btn -close"><i ng-if="searchTrue == true" class="material-icons">clear</i></div></a>
@@ -78,7 +80,7 @@
 					<li class="c-sidebar-news_item" dir-paginate="post in posts | itemsPerPage: 10 | filter:query:true" >
 
 					    <article class="c-sidebar-news_content">
-					        <a ng-click="closeMenu()" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
+					        <a ng-click="closeMenu();gotoElement(top);" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
 					        <p class="c-sidebar-news_infos" ng-if="post.date">
 					                {{ post.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in post.category">{{cat.name}} | </span> {{author.name}}
 					        </p>
@@ -99,12 +101,12 @@
 			<nav class="global-header_nav" role="navigation">
 				<div class="nav-primary js-global-nav-control">
 					<div class="nav-section nav-section--theme-{{ $index+1 }}" ng-repeat="link in nav">
-					<div ng-click="setActive($index)" ng-class="{'js-open-section' : $index === activeMenu}" class="nav-link-level-1"><a ng-click="closeMenu()" ng-href={{link.url}}>{{link.title}}</a></div>
+					<div ng-click="setActive($index)" ng-class="{'js-open-section' : $index === activeMenu}" class="nav-link-level-1"><a ng-click="closeMenu();gotoElement(top)" ng-href={{link.url}}>{{link.title}}</a></div>
 
 					<div class="nav-menu" >
 						<div class="nav-sub-section" ng-repeat="subItem in link.children">
 
-							<div ng-click="setSubActive($index)" ng-class="{'js-open-section' : $index === activeSubMenu}" class="nav-link-level-2"><a ng-click="closeMenu()" ng-href={{subItem.url}}> {{subItem.title}}</a></div>
+							<div ng-click="setSubActive($index)" ng-class="{'js-open-section' : $index === activeSubMenu}" class="nav-link-level-2"><a ng-click="closeMenu();gotoElement(top)" ng-href={{subItem.url}}> {{subItem.title}}</a></div>
 
 							<a ng-repeat="subsubItem in subItem.children" ng-click="closeMenu()" ng-href="{{subsubItem.url}}" class="nav-link-level-3">{{subsubItem.title}}</a> 
 
@@ -124,7 +126,7 @@
 		</header>
 </div>
 <div class="{{searchClass}}">
-<div class="modal fadeIn js-wow animated" id="searchBox" tabindex="-1" role="dialog">
+<div class="modal fadeIn js-wow animated"  data-wow-duration="0.3s" id="searchBox" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -136,27 +138,27 @@
           <div class="modal-body__inner">
           <div class="u-paddingBottom40 u-xs-paddingBottom20 u-xs-paddingRight20 u-xs-paddingLeft20">
           <header class="col heading">
-          <form>
+          <form action ng-submit="$event.preventDefault()" touch-submit>
           	<input ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" class="js-searchInput textInput textInput--underlined textInput--jumbo" type="search" placeholder="Search..">
           </form>
 <ul class="heading-tabs">
           <p>Search tips!</p>
           		<li class="heading-tabsItem u-inlineBlock js-tabsItem is-active">
           			<span class="heading-title u-inlineBlock">
-          				<a ng-click="closeMenu()" class="button button--unstyled" href="/student-life/leisure-and-fun/nymble-restaurant">Nymble Menu</a></span>
+          				<a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" href="/student-life/leisure-and-fun/nymble-restaurant">Nymble Menu</a></span>
           		</li>
           		<li class="heading-tabsItem u-inlineBlock js-tabsItem">
           			<span class="heading-title u-inlineBlock">
-          				<a ng-click="closeMenu()" class="button button--unstyled" href="student-life/new-at-kth/international-student">International Student</a>
+          				<a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" href="student-life/new-at-kth/international-student">International Student</a>
           			</span></li>
           			<li class="heading-tabsItem u-inlineBlock js-tabsItem">
           			<span class="heading-title u-inlineBlock">
-          				<a ng-click="closeMenu()" class="button button--unstyled" href="/contact/faq">FAQ</a>
+          				<a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" href="/contact/faq">FAQ</a>
           			</span></li>
           		<li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
-          			<a ng-click="closeMenu()" class="button button--unstyled" ng-click="closeMenu()" href="/about-ths/ths-central/policy-documents-and-meeting-protocols">Policy and meeting protocols</a></span></li>
+          			<a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" ng-click="closeMenu()" href="/about-ths/ths-central/policy-documents-and-meeting-protocols">Policy and meeting protocols</a></span></li>
           		<li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
-          			<a class="button button--unstyled" ng-click="closeMenu()" href="/contact/student-union-office/booking-premises">Booking premises</a></span></li>
+          			<a class="button button--unstyled" ng-click="closeMenu();gotoElement(top);" href="/contact/student-union-office/booking-premises">Booking premises</a></span></li>
           	</ul>
           </header></div>
 

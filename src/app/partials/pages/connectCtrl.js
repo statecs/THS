@@ -4,7 +4,7 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
     vm.page = {};
 
     var apiCallFunction;
-    var instagramData, facebookData;
+    var instagramData, facebookData, facebookDataTHS;
     
     vm.loaded = false;
 
@@ -20,15 +20,14 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
     });
 
     SocialService.facebookPosts().then(function(posts) {
-        facebookData = posts[121470594571005].data;
+        facebookData = posts;
         //console.log(facebookData);
-         setUpPosts();
+        setUpPostsFacebook();
     });
 
       var SocialTile = {
         date: null, // Date created
         imageUrl: null, // URL to image
-        description: 'description', // Any relevant description text
         link: "", // Link to the content
         title: "", // A title (probably only relevant for news items)
         type: null // "facebook" or "instagram" or "news"
@@ -50,23 +49,46 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
             socialTiles.push(tile);
           });
 
-          facebookData.forEach(function (feedObj) {
-          if (feedObj.full_picture != null) {
+    }
+
+    function setUpPostsFacebook() {
+
+    facebookDataTHS = facebookData['121470594571005'].data;
+
+      angular.forEach(facebookDataTHS, function(item) {
+        if (item.full_picture != null && item.message != null) {
               tile = Object.create(SocialTile);
-              tile.imageUrl = feedObj.full_picture ;
-              tile.description = feedObj.message;
-              tile.date = feedObj.created_time;
+              tile.imageUrl = item.full_picture;
+              tile.description = item.message;
+              tile.date = item.created_time*1000;
               tile.type = "Facebook";
-              tile.user = feedObj.from.name;
-              tile.link = feedObj.link;
+              tile.user = item.from.name;
+              tile.link = item.link;
               socialTiles.push(tile);
             }
-          });
+        else if (item.full_picture == null ){
+              tile = Object.create(SocialTile);
+              tile.imageUrl = "http://ths.kth.se/wp-content/uploads/2016/08/welcome-to-kth-bgw.jpg";
+              tile.news = item.message;
+              tile.date = item.created_time*1000;
+              tile.type = "Facebook";
+              tile.user = item.from.name;
+              tile.link = item.link;
+              socialTiles.push(tile);
+        }
+      });
+
 
     vm.socialTiles = socialTiles;
     vm.loaded = true;
+
+    vm.sortSocial = function(tile) {
+      var date = new Date(tile.date);
+      return date;
+    };
     
     }
+
 
     vm.currentMarginLeftValue = 0;
     vm.currentIndex = 0;

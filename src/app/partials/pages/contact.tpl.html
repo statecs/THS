@@ -1,4 +1,4 @@
-<div class="content js-wow fadeIn animated">
+<div class="content js-wow fadeIn animated" id="top">
   <div class="col-12">
     <div class="hero-block hero-block--darken hero-block--top-gradient">
     <img class="hero-block_image js-img-swap" data-osrc="/image/1486/b8/0.5,0.48/small">  
@@ -59,11 +59,10 @@
 
  <div class="vf-core">
     <div class="vfDirekt-container">
-     <article class="page no-article-survey">
+     <article class="no-article-survey">
         <nav class="accordion-homepage" data-tracking-cat="accordion-homepage">
             <h1>Frequently Asked Questions</h1>
-            <section ng-repeat="fCard in acf.faq_card track by $index" ng-click="openFaq($index)" ng-class="{'selected' : $index === faqClass}" class="parent" data-id="3382296" data-tracking-idx=
-            "posidx:1|5"ng-repeat="fCard in acf.faq_card track by $index">
+            <section ng-repeat="fCard in acf.faq_card track by $index" ng-click="openFaq($index)" ng-class="{'selected' : $index === faqClass}" class="parent"ng-repeat="fCard in acf.faq_card track by $index">
                 <h2 id="{{$index}}" aria-expanded="false" tabindex="0" ng-bind-html="fCard.question | sanitizeHtml"></h2>
                 <div class="overflow">
                     <div aria-hidden="true" class="children">

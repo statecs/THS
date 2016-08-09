@@ -1,5 +1,5 @@
-<div class="default-card"><h1 class="h2-white news-item">Latest news</h1><div ng-repeat="post in posts|limitTo:3">
-	<a ui-sref="root.newsPost({ id: post.id, title: post.slug })">
+<div class="news-card"><h1 class="h2-white news-item">Latest news</h1><div ng-repeat="post in posts|limitTo:3">
+	<a ng-click="gotoElement(top)" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
 		<div class="news-item-list">
 			<div class="calendar-card-date">
 			<h1 class="calendar-date-week">{{ post.date | date:'MMM' }}</h1>
@@ -13,4 +13,4 @@
 	
 </div>
 
-<div class="w-button btn-o-blue"><a ng-href="/news">View all news </a></div>
+<div class="w-button btn-o-blue"><a ng-click="gotoElement(top)" ng-href="/news">View all news </a></div>

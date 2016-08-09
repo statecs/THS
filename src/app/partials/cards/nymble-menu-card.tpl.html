@@ -8,14 +8,6 @@
 
  </div>
 
-<div ng-repeat="meal in acf.meal_of_the_day[0].menu|limitTo:1 track by $index" ng-if="$index+1 != day" >
+<a ng-click="gotoElement(top)" href="{{acf.meal_of_the_day[0].link}}"><div class="btn-standard -dark">Menu week {{date | date : 'ww'}}</div></a>
 
-    <p>Restaurant closed for the weekend</p> <p>Opening hours<p>Mon-Thr 11.30-17.30 <br /> Fri 11.30-15.30</p>
-
-    </div>
-
-
-<a href="{{acf.meal_of_the_day[0].link}}"><div class="btn-standard -dark">Menu week {{date | date : 'ww'}}</div></a>
-
-</div>
 </div></div></div>
