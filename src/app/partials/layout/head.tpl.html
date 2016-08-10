@@ -141,7 +141,7 @@
           <form action ng-submit="$event.preventDefault()" touch-submit>
           	<input ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" class="js-searchInput textInput textInput--underlined textInput--jumbo" type="search" placeholder="Search..">
           </form>
-<ul class="heading-tabs">
+<ul class="heading-tabs" ng-if="!searchText">
           <p>Search tips!</p>
           		<li class="heading-tabsItem u-inlineBlock js-tabsItem is-active">
           			<span class="heading-title u-inlineBlock">

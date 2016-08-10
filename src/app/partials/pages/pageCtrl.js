@@ -10,8 +10,13 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
         vm.page.title.rendered = $sce.getTrustedHtml(vm.page.title);
         vm.page.excerpt.rendered = $sce.getTrustedHtml(vm.page.excerpt);
 
-       // $window.location.href = vm.page.link;
-            
+      /* TODO  if (typeof vm.redirect !== 'undefined'){
+          console.log(vm.redirect);
+            $window.location.href = vm.redirect;
+
+        } */
+
+         
             //console.log(vm.page);       
         /*
         getTemplate Logic

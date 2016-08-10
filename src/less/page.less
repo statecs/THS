@@ -197,9 +197,13 @@
 .event-card {
     line-height:22px;
 }
-@media screen and (max-width: 1024px) {
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) 
+and (-webkit-min-device-pixel-ratio: 1) {
     .event-card {
-    line-height:37px;
+    line-height:40px;
 }
 }
 @media screen and (max-width: 699px) {
@@ -511,6 +515,7 @@
     font-weight: bold;
     margin-bottom: 1px;
 }
+
 
 
 .accordion-homepage .parent.selected .children {
