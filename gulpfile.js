@@ -68,7 +68,7 @@ gulp.task('scripts', function() {
     var deferred = Q.defer();
     var appScripts;
 
-    clean(['!./build/scripts/templates.js', './build/scripts/app/**/*.js', './dist/scripts/main.js']).then(function() {
+    clean(['!/build/scripts/templates.js', '/build/scripts/app/**/*.js', '/dist/scripts/main.js']).then(function() {
         log('building javascript');
         appScripts = gulp.src('src/app/**/*.js')
             // run jshint
@@ -106,7 +106,7 @@ gulp.task('scripts', function() {
 gulp.task('vendor-scripts', function() {
     var deferred = Q.defer();
 
-    clean([ './build/scripts/bower_components/**/*.js', './dist/scripts/vendor.js']).then(function() {
+    clean([ '/build/scripts/bower_components/**/*.js', '/dist/scripts/vendor.js']).then(function() {
         log('building vendor javascript');
 
         gulp.src(VENDOR_SCRIPTS, { base: '.' })
@@ -125,7 +125,7 @@ gulp.task('styles', function() {
     var deferred = Q.defer();
     var vendorStyles, appStyles;
 
-    clean(['./build/**/*.css', './dist/**/*.css']).then(function() {
+    clean(['/build/**/*.css', '/dist/**/*.css']).then(function() {
         log('building CSS');
         appStyles = gulp.src('src/less/main.less')
             .pipe(less())
@@ -148,9 +148,9 @@ gulp.task('styles', function() {
 gulp.task('templates', function() {
     var deferred = Q.defer();
 
-    clean(['./build/scripts/templates.js']).then(function() {
+    clean(['/build/scripts/templates.js']).then(function() {
         log('compiling templates');
-        return gulp.src('./src/app/**/*.tpl.html')
+        return gulp.src('/src/app/**/*.tpl.html')
             .pipe(templateCache('templates.js', { module: 'app'}))
             .pipe(gulp.dest('build/scripts/'))
             .pipe(uglify())
@@ -167,17 +167,17 @@ gulp.task('templates', function() {
 gulp.task('static-assets', function() {
     var deferred = Q.defer();
 
-    clean(['./build/assets', './dist/assets']).then(function() {
+    clean(['/build/assets', '/dist/assets']).then(function() {
         var detritus, staticPage, htaccess, assets;
         log('copying static assets');
 
         // contents of the assets folder
-        assets = gulp.src('./src/assets/**/*.*')
+        assets = gulp.src('/src/assets/**/*.*')
             .pipe(gulp.dest('build/assets/'))
             .pipe(gulp.dest('dist/assets/'));
 
         // .htaccess file
-        htaccess =  gulp.src('./src/app/.htaccess')
+        htaccess =  gulp.src('/src/app/.htaccess')
             .pipe(replace(/%%SITE_URL%%/, PATHS['build'].siteUrl))
             .pipe(gulp.dest('build'))
             .pipe(replace(PATHS['build'].siteUrl, PATHS['dist'].siteUrl))
