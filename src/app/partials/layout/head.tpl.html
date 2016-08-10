@@ -1,12 +1,188 @@
-{{meta.title}}
- <nav class="navbar">
-            <ul class="nav nav-pills" ng-controller="HeaderCtrl">
-                <li ng-class="{ selected: activeSection === 'root.type'}" ng-repeat="link in nav"><a ng-href={{link.url}}>{{link.title}}</a>
-                    <ul>
-                        <li ng-repeat="subItem in link.children">
-                            <a ng-href={{subItem.url}}><span>---{{subItem.title}}</span></a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-</nav>
+<div class="usabilla_live_button_container" tabindex="0" aria-hidden="true" style="top:67%;margin-top:-47px;position:fixed;width:38px;height:94px;z-index:2;right:0"><a href="http://goo.gl/forms/znyZ6DWkIs" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/feedback.png" width="38" height="94"></a></div>
+
+<div class="no-touch js-wow slideUp animated" data-wow-delay="0.3s">
+<div class="lang-container"><div class="lang-ctn">
+
+<div class="lang-bar-2">
+<a title="Open" href="http://www.opensektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/2.png" class="section-img"></a>
+<a title="Sektionen för Medicinsk Informatik och teknik (MiT)" href="http://mit-kth.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/3.png" class="section-img"></a>
+<a title="Sektionen för Mediateknik" href="http://www.medieteknik.com/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/4.png" class="section-img"></a>
+<a title="Maskinsektionen (M)" href="http://www.maskinsektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/5.png" class="section-img"></a>
+<a title="Sektionen för Informations- och Nanoteknik (IN)" href="http://insektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/6.png" class="section-img"></a>
+<a title="Samhällsbyggnadssektionen (S) " href="http://s-sektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/7.png" class="section-img"></a>
+<a title="Kemisektionen (K) " href="http://kongligkemi.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/8.png" class="section-img"></a>
+<a title="Ingenjörsektionen - Haninge (IsH)" href="http://ishaninge.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/9.png" class="section-img"></a>
+<a title="Sektionen för Industriell ekonomi (I)" href="http://www.iare.nu/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/10.png" class="section-img"></a>
+<a title="Flysektionen (T)" href="http://flygsektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/11.png" class="section-img"></a>
+<a title="Fysiksektionen (F)" href="https://f.kth.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/12.png" class="section-img"></a>
+<a title="Energi och Miljö (W)" href="http://w-sektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/13.png" class="section-img"></a>
+<a title="Elektrosektionen (E)" href="http://elektrosektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/14.png" class="section-img"></a>
+<a title="Datasektionen (D)" href="http://datasektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/15.png" class="section-img"></a>
+<a title="PhD Chapter (Dr)" href="http://www.kthphdchapter.com/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/16.png" class="section-img"></a>
+<a title="Sektionen för Civilingenjörer och lärare (CL)" href="http://cl-sektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/17.png" class="section-img"></a>
+<a title="Bergsektionen (B)" href="http://bergssektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/18.png" class="section-img"></a>
+<a title="Arkitektursektionen (A)" href="http://arkitektursektionen.se/" target="_blank"><img src="http://ths.kth.se/wp-content/uploads/2016/08/19.png" class="section-img"></a>
+</div>
+</div></div>
+
+
+	<header class="global-header theme-transparent" ng-class="{ 'js-open-nav': showMobileMenu }">
+			<div class="global-header_action-bar">
+				<a href="/" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
+				
+				<a href="#" ng-click="openSearch()" data-toggle="modal" data-target="#searchBox" class="search-menu ">
+            <i class="material-icons">search</i>
+          </a>
+
+
+				<a ng-click="openArticlesMenu()" class="js-global-icon-menu ">
+                        <p class="article-menu"></p> </a>
+                             <button ng-click="toggleMobileMenu($event)" type="button" class="icon-menu-o open">		
+								<span class="cls"></span>
+								<span class="cls"></span>
+								<span class="cls"></span>
+                    </button>
+
+			</div>
+
+			<ul class="c-sidebar_submenu -news js-submenu-news {{menuArticleClass}}" data-widget="dropdownCategories">
+
+                        <div class="c-dropdown">
+                            
+                            <span class="c-dropdown_item js-dropdown-label" data-idcat="all">
+
+ <button ng-click="closeMenu()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span>
+            <i class="material-icons">clear</i>
+          </span></button>
+  		<!--<div class="search-container">
+            <revealing-search-input search-callback="search(term)"></revealing-search-input>
+                       <a ng-click="clearSearch()"><div class="search-btn -close"><i ng-if="searchTrue == true" class="material-icons">clear</i></div></a>
+        </div>-->        
+
+
+							<!--
+							 <select class="c-dropdown_label" ng-model="query" ng-options="cat.name for cat in cats track by cat.slug">
+                            </select>
+                            -->
+                            <select class="c-dropdown_label" ng-model="query">
+								 <option ng-selected="true" disabled selected value>---Please select---</option>
+								 <option value>All Categories</option>
+                               <option class="c-dropdown_item" data-idcat="20" ng-repeat="cat in cats" value="{{cat.slug}}">
+                                   <span>{{cat.name}}</span>
+                               </option>
+                            </select>
+
+                            </span>
+                            
+                        </div>
+			<div class="scroll-content">
+
+					<li class="c-sidebar-news_item" dir-paginate="post in posts | itemsPerPage: 10 | filter:query:true" >
+
+					    <article class="c-sidebar-news_content">
+					        <a ng-click="closeMenu();gotoElement(top);" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
+					        <p class="c-sidebar-news_infos" ng-if="post.date">
+					                {{ post.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in post.category">{{cat.name}} | </span> {{author.name}}
+					        </p>
+					        <h1 class="c-sidebar-news_title">{{post.title}}</h1>
+
+					            <p class="c-sidebar-news_summary"></p>
+					        </a>
+					    </article>
+					</li>
+					  <div class="c-sidebar-news_item list-pagination">
+            <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
+            </dir-pagination-controls>
+        </div>      
+        <!--<div class="c-sidebar-news_item" ng-if="query.length != 0">No results</div>-->
+         </div>    
+				</ul>
+
+			<nav class="global-header_nav" role="navigation">
+				<div class="nav-primary js-global-nav-control">
+					<div class="nav-section nav-section--theme-{{ $index+1 }}" ng-repeat="link in nav">
+					<div ng-click="setActive($index)" ng-class="{'js-open-section' : $index === activeMenu}" class="nav-link-level-1"><a ng-click="closeMenu();gotoElement(top)" ng-href={{link.url}}>{{link.title}}</a></div>
+
+					<div class="nav-menu" >
+						<div class="nav-sub-section" ng-repeat="subItem in link.children">
+
+							<div ng-click="setSubActive($index)" ng-class="{'js-open-section' : $index === activeSubMenu}" class="nav-link-level-2"><a ng-click="closeMenu();gotoElement(top)" ng-href={{subItem.url}}> {{subItem.title}}</a></div>
+
+							<a ng-repeat="subsubItem in subItem.children" ng-click="closeMenu()" ng-href="{{subsubItem.url}}" class="nav-link-level-3">{{subsubItem.title}}</a> 
+
+						</div>
+					</div>
+
+				</div>
+				</div>
+
+				<div class="nav-secondary">
+					<div class="nav-section no-menu"><a href="http://thstudent.upright.se" target="_blank" class="white-btn">Pay Union Fee</a></div>
+					<!--<div class="nav-section no-menu"><a ng-href="/business" class="business-btn">Business</a></div>-->
+					<div class="nav-section no-menu"><a target="_blank" href="http://campuscompetence.se"><img width="114" src="assets/images/campuscompetence_logo.png"></a></div>
+				
+				</div>
+			</nav>
+		</header>
+</div>
+<div class="{{searchClass}}">
+<div class="modal fadeIn js-wow animated"  data-wow-duration="0.3s" id="searchBox" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button ng-click="openSearch()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span>
+            <i class="material-icons">clear</i>
+          </span></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body__inner">
+          <div class="u-paddingBottom40 u-xs-paddingBottom20 u-xs-paddingRight20 u-xs-paddingLeft20">
+          <header class="col heading">
+          <form action ng-submit="$event.preventDefault()" touch-submit>
+          	<input ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" class="js-searchInput textInput textInput--underlined textInput--jumbo" type="search" placeholder="Search..">
+          </form>
+<ul class="heading-tabs" ng-if="!searchText">
+          <p>Search tips!</p>
+          		<li class="heading-tabsItem u-inlineBlock js-tabsItem is-active">
+          			<span class="heading-title u-inlineBlock">
+          				<a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" href="/student-life/leisure-and-fun/nymble-restaurant">Nymble Menu</a></span>
+          		</li>
+          		<li class="heading-tabsItem u-inlineBlock js-tabsItem">
+          			<span class="heading-title u-inlineBlock">
+          				<a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" href="student-life/new-at-kth/international-student">International Student</a>
+          			</span></li>
+          			<li class="heading-tabsItem u-inlineBlock js-tabsItem">
+          			<span class="heading-title u-inlineBlock">
+          				<a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" href="/contact/faq">FAQ</a>
+          			</span></li>
+          		<li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
+          			<a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" ng-click="closeMenu()" href="/about-ths/ths-central/policy-documents-and-meeting-protocols">Policy and meeting protocols</a></span></li>
+          		<li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
+          			<a class="button button--unstyled" ng-click="closeMenu();gotoElement(top);" href="/contact/student-union-office/booking-premises">Booking premises</a></span></li>
+          	</ul>
+          </header></div>
+
+
+            <!--<input type="text"  ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" placeholder="Search" class="modal-body__inner__search">-->
+            <div class="modal-body__inner__search-results">
+<section>
+<article class="entry" dir-paginate="result in searchResults | itemsPerPage: 10 | filter:searchText">
+					        <a ng-click="closeMenu()" href="{{result.link}}"><p class="c-sidebar-news_infos" ng-if="result.date">
+					                {{ result.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}}
+					        </p>
+					        <h3 class="h2-white">{{result.title}}</h3>
+
+					            <p ng-if="result.excerpt" class="c-sidebar-news_summary">{{result.excerpt | limitHtml: 200}}"</p></a>
+</article>
+					  <!--<div class="c-sidebar-news_item list-pagination">
+            <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
+            </dir-pagination-controls>
+        </div> -->
+</section>
+
+            </div>
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div></div>

@@ -1,20 +1,34 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'jtt_facebook', 'angular-scroll-animate', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'angular-scroll-animate']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'vcRecaptcha', 'ngTouch']);
 
 
 function initializeApp($rootScope, localStorageService, $http ){
-    console.log('app init');
+    //console.log('app init');
     $rootScope.posts_per_page = config.POSTS_PAGE;
-    console.log(config.POSTS_PAGE);
-    console.log(config.API_URL);
+    //console.log(config.POSTS_PAGE);
+    //console.log(config.API_URL);
 
      /** Localize Categories **/
-        $http.get(config.API_URL + 'wp/v2/categories' ).then(function(res){
+        $http.get(config.API_URL + 'wp/v2/categories/?per_page=30', { cache: true }).success(function(res){
             var cats = [];
-            angular.forEach( res.data, function( value, key ) {
-                cats.push(value);
-            });
+            $rootScope.cats = res;
             localStorageService.set( 'cats', cats );
         });
+        
+          /** Localize menu **/
+        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/header_menu', { cache: true }).success(function(res){
+            var nav = [];
+            $rootScope.nav = res;
+           localStorageService.set( 'nav', nav );
+
+        });
+
+           /** Cards **/
+        $http.get('http://ths.kth.se/api/acf/v2/options', { cache: true }).success(function(res){
+            var acf = [];
+            $rootScope.acf = res.acf;
+            localStorageService.set( 'acf', acf );
+        });
+
 }
 
 /**
@@ -25,6 +39,13 @@ function initializeApp($rootScope, localStorageService, $http ){
  * @ngInject
  */
 function routesConfig($stateProvider, $locationProvider, paginationTemplateProvider, $urlRouterProvider, localStorageServiceProvider) {
+    
+    var wow;
+    wow = new WOW({ boxClass:     'js-wow',      // default
+                    animateClass: 'is-animated', // default
+                })
+    wow.init();
+
     localStorageServiceProvider.setPrefix('wp');
     paginationTemplateProvider.setPath('common/directives/pagination/dirPagination.tpl.html');
 
@@ -36,6 +57,10 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                 views: {
                     'header': {
                         templateUrl: 'partials/layout/head.tpl.html',
+                        controller: 'HeaderCtrl'
+                    },
+                    'footer': {
+                        templateUrl: 'partials/layout/footer.tpl.html',
                         controller: 'HeaderCtrl'
                     }
                 }
@@ -61,6 +86,36 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.social', {
+            url: "/connect",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/connect.tpl.html',
+                        controller: 'ConnectCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.events', {
+            url: "/events",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/events.tpl.html',
+                        controller: 'EventsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.contact', {
+            url: "/contact",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/contact.tpl.html',
+                        controller: 'ContactCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.newsBySearch', {
                 url: "/news/search/:searchTerm",
                 views: {
@@ -71,27 +126,15 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
-            .state('root.newsPost',{
-                url: '/news/:id/:title',
-                views: {
-                    'container@': {
-                        templateUrl: 'partials/posts/single-post.tpl.html',
-                        controller: 'PostCtrl',
-                        controllerAs: 'vm'
-                    }
-                }
-            })
-            .state('category',{
+            .state('root.category',{
                 url:'/category/:term',
                 controller: 'termView',
                 templateUrl: 'partials/category/list.html'
             })
-            .state('404', {
+            .state('root.404', {
                 url: '/404',
                 views: {
                     'container@': {
-                        controller: 'PageCtrl',
-                        controllerAs: 'vm',
                         templateUrl: 'partials/pages/404.tpl.html' // Make Dynamic
                     }
                 }
@@ -102,7 +145,17 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     'container@': {
                         controller: 'PageCtrl',
                         controllerAs: 'vm',
-                        template: '<div ng-include="getTemplateUrl()"></div>' // Make Dynamic
+                        template: '<div ng-include="pageTemplate()"></div>' // Make Dynamic
+                    }
+                }
+            })
+            .state('root.newsPost',{
+                url: '/:id/:title',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/single-post.tpl.html',
+                        controller: 'PostCtrl',
+                        controllerAs: 'vm'
                     }
                 }
             });
@@ -135,31 +188,18 @@ var config = {
     POSTS_PAGE: '%%POSTS_PAGE%%'
 };
 
-function AppController($rootScope, $window, $location, $timeout, MetadataService) {
+function AppController($rootScope, $window, $location, $timeout, MetadataService, $anchorScroll) {
     var vm = this;
 
-    vm.showMobileMenu = false;
-
-    vm.toggleMobileMenu = function(e) {
-        e.preventDefault();
-        vm.showMobileMenu = !vm.showMobileMenu;
+     $rootScope.gotoElement = function (eID){
+      // set the location.hash to the id of
+      // the element you wish to scroll to.
+      $location.hash(eID);
+ 
+      // call $anchorScroll()
+      $anchorScroll();
+      
     };
-
-    $rootScope.$on('$stateChangeSuccess', function(e, toState) {
-        vm.activeSection = toState.name;
-        vm.showMobileMenu = false;
-    });
-
-    $rootScope.animateElementIn = function($el) {
-        $el.removeClass('hidden');
-        $el.addClass('u-fadeInUp is-animated'); // this example leverages animate.css classes
-    };
-
-   $rootScope.animateElementOut = function($el) {
-   //$el.addClass('hidden');
-   // $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
-   }; 
-
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();

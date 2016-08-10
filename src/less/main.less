@@ -1,10 +1,43 @@
 @import "vars";
 @import "home";
-@import "blog";
-@import "wp";
-@import "icons";
+@import "news";
+@import "navbar";
+@import "fonts";
 @import "animate";
 @import "grid";
+@import "page";
+
+html {
+  font-family: BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  line-height: 2em;
+  color: #222222; 
+  height: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
+}
+
+body {
+    background-color: #efefef;
+    margin: 0;
+    min-height: 100%;
+    line-height: 1;
+    vertical-align: baseline;
+    -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: CenturyGothic, sans-serif;
+    font-weight: bold;
+    margin-top: 40px;
+    line-height: .9;
+}
+
+.o-heading {
+    font-family: CenturyGothic, sans-serif;
+    font-weight: bold;
+    margin-top: 40px;
+    line-height: .9;
+}
 
 .hidden {
   visibility: hidden;
@@ -12,26 +45,62 @@
 
 .main-view {
   background: @colour-main-view-bg;
-  min-height: 100vh;
 }
 
 .content {
   margin: 0 auto;
-  padding: 10px 50px;
-  @media (max-width: 48em) {
-    padding: 0;
-  }
+  padding: 0;
   position: relative;
-  max-width: 1600px;
+  max-width: 1440px;
   font-size: 0.85em;
   @media (min-width: 48em) {
     font-size: 1em;
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
+.page {
+    background-color: #f7f7f7;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }
+
+
+@media (min-width: 1600px){
+.o-heading.-h1 {
+    font-size: 4.125rem;
+}
+}
+@media (max-width: 1599px) and (min-width: 1200px){
+.o-heading.-h1 {
+    font-size: 4.125rem;
+}
+}
+@media (max-width: 1199px) and (min-width: 1000px){
+.o-heading.-h1 {
+    font-size: 3.375rem;
+}
+}
+@media (max-width: 999px) and (min-width: 700px){
+.o-heading.-h1 {
+    font-size: 3rem;
+}
+}
+@media (max-width: 699px){
+.o-heading.-h1 {
+    font-size: 60px;
+}
+.o-heading.-h2 {
+    font-size: 3rem;
+}
+h2{
+   font-size: 3rem;
+}
+}
+.o-heading.-h1 {
+    letter-spacing: -.01em;
+}
+
+
+
 
 h1 {
   @media (min-width: 48em) {
@@ -48,6 +117,7 @@ h2 {
 h3 {
   @media (min-width: 48em) {
     font-size: 1.6em;
+    line-height: 1.3em;
   }
 }
 
@@ -64,7 +134,7 @@ code {
 
 
 p, li {
-  line-height: 1.5em;
+  line-height: 2em;
 }
 
 blockquote {
@@ -93,9 +163,11 @@ a:hover {
   animation: fadeIn 0.6s;
 }
 
-p.lead {
-  font-size: 24px;
+.lead {
+  margin:10px 10px;
+  font-size: 1rem;
 }
+
 
 
 /******************** 

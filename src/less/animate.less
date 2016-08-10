@@ -6,431 +6,38 @@
   visibility: hidden;
 }
 
-[ui-view].ng-enter, [ui-view].ng-leave {
-  position: absolute;
-  left: 0;
-  right: 0;
-  -webkit-transition:all .5s ease-in-out;
-    -moz-transition:all .5s ease-in-out;
-    -o-transition:all .5s ease-in-out;
-    transition:all .5s ease-in-out;
-}
-[ui-view].ng-enter {
-  opacity: 0;
-          -webkit-transform:translate3d(0, 75%, 0);
-         -moz-transform:translate3d(0, 75%, 0);
-         transform:translate3d(0, 75%, 0);
-}
-
-[ui-view].ng-enter-active {
- opacity: 1;
-          -webkit-transform:translate3d(0, 75%, 0);
-         -moz-transform:translate3d(0, 75%, 0);
-        transform:translate3d(0, 75%, 0);
-        transform: none
-}
-
-[ui-view].ng-leave {
-  opacity: 1;
-    -webkit-transform:translate3d(0, 75%, 0);
-  -moz-transform:translate3d(0, 75%, 0);
-  transform:translate3d(0, 75%, 0);
-  transform: none
-}
-
-[ui-view].ng-leave-active {
-  opacity: 0;
-  -webkit-transform:translate3d(0, 75%, 0);
-  -moz-transform:translate3d(0, 75%, 0);
-  transform:translate3d(0, 75%, 0);
-}
-
 .is-animated {
-    animation-duration: .9s;
+    animation-duration: 0.9s;
     animation-fill-mode: both;
     animation-timing-function: cubic-bezier(.4, 0, .2, 1)
 }
-.is-animated.u-slow {
-    animation-duration: 1.2s
+
+
+[ui-view].ng-leave {
+  -webkit-transition:all 0.5s ease;
+    -moz-transition:all 0.5s ease;
+    -o-transition:all 0.5s ease;
+    transition:all 0.5s ease;
 }
-.u-animCheck.is-animated,
-.u-fadeInLeftTiny.is-animated {
-    animation-duration: .3s
+[ui-view].ng-enter {
+
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0
-    }
-    to {
-        opacity: 1
-    }
+[ui-view].ng-enter-active {
+
 }
-.u-fadeIn {
-    animation-name: fadeIn
+
+[ui-view].ng-leave {
+ opacity: 1;
 }
-@keyframes fadeOut {
-    from {
-        opacity: 1
-    }
-    to {
-        opacity: 0
-    }
-}
-.u-fadeOut {
-    animation-name: fadeOut
-}
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        -webkit-transform: translate3d(0, 75%, 0);
-        transform: translate3d(0, 75%, 0)
-    }
-    to {
-        opacity: 1;
-        -webkit-transform: translate3d(0, 75%, 0);
-        transform: none
-    }
-}
-.u-fadeInUp {
-    animation-name: fadeInUp
-}
-@keyframes fadeInUpHuge {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 125%, 0)
-    }
-    to {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-fadeInUpHuge {
-    animation-name: fadeInUpHuge
-}
-@keyframes fadeInUpBig {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 100%, 0)
-    }
-    to {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-fadeInUpBig {
-    animation-name: fadeInUpBig
-}
-@keyframes fadeInUpSmall {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 50%, 0)
-    }
-    to {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-fadeInUpSmall {
-    animation-name: fadeInUpSmall
-}
-@keyframes fadeInUpTiny {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 25%, 0)
-    }
-    to {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-fadeInUpTiny {
-    animation-name: fadeInUpTiny
-}
-@keyframes fadeInUpFixed {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 3.75rem, 0)
-    }
-    to {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-fadeInUpFixed {
-    animation-name: fadeInUpFixed
-}
-.u-fadeInLeft,
-.u-fadeInLeftBig {
-    animation-name: fadeInLeft
-}
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translate3d(-25%, 0, 0)
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-@keyframes fadeInLeftBig {
-    from {
-        opacity: 0;
-        transform: translate3d(-100%, 0, 0)
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translate3d(25%, 0, 0)
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-fadeInRight {
-    animation-name: fadeInRight
-}
-@keyframes fadeInRightLarge {
-    from {
-        opacity: 0;
-        transform: translate3d(50%, 0, 0)
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-fadeInRightLarge {
-    animation-name: fadeInRightLarge
-}
-@keyframes fadeInRightTiny {
-    from {
-        opacity: 0;
-        transform: translate3d(10%, 0, 0)
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-fadeInRightTiny {
-    animation-name: fadeInRightTiny
-}
-@keyframes fadeInLeftTiny {
-    from {
-        opacity: 0;
-        transform: translate3d(-5%, 0, 0)
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-fadeInLeftTiny {
-    animation-name: fadeInLeftTiny
-}
-@keyframes moveUp {
-    from {
-        transform: translate3d(0, 0, 0)
-    }
-    100% {
-        transform: translate3d(0, -100%, 0)
-    }
-}
-.u-moveUp {
-    animation-name: moveUp
-}
-@keyframes slideUp {
-    from {
-        transform: translate3d(0, 100%, 0)
-    }
-    100% {
-        transform: none
-    }
-}
-.u-slideUp {
-    animation-name: slideUp
-}
-@keyframes slideUpLeft {
-    0% {
-        opacity: 0;
-        transform: translate3d(50%, 100%, 0)
-    }
-    25% {
-        opacity: 1
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-slideUpLeft {
-    animation-name: slideUpLeft
-}
-@keyframes slideUpHover {
-    from {
-        transform: translate3d(0, 0, 0);
-        opacity: 1
-    }
-    25% {
-        transform: translate3d(0, -100%, 0);
-        opacity: 1
-    }
-    26% {
-        opacity: 0
-    }
-    50% {
-        transform: translate3d(0, 100%, 0);
-        opacity: 0
-    }
-    51% {
-        opacity: 1
-    }
-    100% {
-        transform: none;
-        opacity: 1
-    }
-}
-@keyframes slideUpOut {
-    from {
-        transform: translate3d(0, 0, 0);
-        opacity: 1
-    }
-    25% {
-        transform: translate3d(0, -100%, 0);
-        opacity: 1
-    }
-    26% {
-        opacity: 0
-    }
-    50% {
-        transform: translate3d(0, 100%, 0);
-        opacity: 0
-    }
-    51% {
-        opacity: 1
-    }
-    100% {
-        transform: none;
-        opacity: 1
-    }
-}
-@keyframes slideDownRight {
-    0% {
-        opacity: 0;
-        transform: translate3d(-100%, -100%, 0) rotate(10deg)
-    }
-    25% {
-        opacity: 1
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-slideDownRight {
-    animation-name: slideDownRight
-}
-@keyframes slideLeft {
-    0% {
-        opacity: 0;
-        transform: translate3d(100%, 0, 0)
-    }
-    25% {
-        opacity: 1
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-slideLeft {
-    animation-name: slideLeft
-}
-@keyframes bounceRight {
-    0%, 30%, 50% {
-        transform: translateX(0) scaleX(1)
-    }
-    10% {
-        transform: translateX(-10px) scaleX(.85)
-    }
-    20% {
-        transform: translateX(20px) scaleX(1)
-    }
-    40% {
-        transform: translateX(15px) scaleX(.9)
-    }
-}
-@keyframes bounceLeft {
-    0%, 30%, 50% {
-        transform: translateX(0) scaleX(1)
-    }
-    10% {
-        transform: translateX(10px) scaleX(.85)
-    }
-    20% {
-        transform: translateX(-20px) scaleX(1)
-    }
-    40% {
-        transform: translateX(-15px) scaleX(.9)
-    }
-}
-@keyframes floatDown {
-    0% {
-        opacity: 0;
-        transform: translate3d(0, -150%, 0) rotate(15deg)
-    }
-    10% {
-        opacity: 1
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-floatDown {
-    animation-name: floatDown
-}
-@keyframes animCheck {
-    0% {
-        opacity: 0;
-        transform: translateY(150%) scale(0) rotate(90deg)
-    }
-    100% {
-        opacity: 1;
-        transform: none
-    }
-}
-.u-animCheck {
-    animation-name: animCheck
-}
-@keyframes shake {
-    from, to {
-        transform: translate3d(0, 0, 0)
-    }
-    10%,
-    30%,
-    50%,
-    70%,
-    90% {
-        transform: translate3d(-10px, 0, 0)
-    }
-    20%,
-    40%,
-    60%,
-    80% {
-        transform: translate3d(10px, 0, 0)
-    }
-}
-.u-shake {
-    animation-name: shake
+
+[ui-view].ng-leave-active {
+ opacity: 0;
+    -webkit-animation: fadeOut 0.1s linear;
+    -moz-animation: fadeOut 0.1s linear;
+    -ms-animation: fadeOut 0.1s linear;
+    -o-animation: fadeOut 0.1s linear;
+    animation: fadeOut 0.1s linear;
 }
 
 /******************** 
@@ -520,12 +127,11 @@ html {
   display: block;
 }
 .ripple-wrap.goripple .ripple {
- -webkit-animation-name: RIPPLER;
- -webkit-animation-duration: 1s;
- -webkit-animation-fill-mode: forwards;
- animation-name: RIPPLER;
- animation-duration: 1s;
- animation-fill-mode: forwards;
+    -webkit-animation: ripple 0.65s linear;
+    -moz-animation: ripple 0.65s linear;
+    -ms-animation: ripple 0.65s linear;
+    -o-animation: ripple 0.65s linear;
+    animation: ripple 0.65s linear;
 
 }
 .o-ripple {
@@ -561,3 +167,15 @@ html {
     transition: transform .6s
 }
 
+@-webkit-keyframes ripple {
+    100% {opacity: 0; -webkit-transform: scale(2.5);}
+}
+@-moz-keyframes ripple {
+    100% {opacity: 0; -moz-transform: scale(2.5);}
+}
+@-o-keyframes ripple {
+    100% {opacity: 0; -o-transform: scale(2.5);}
+}
+@keyframes ripple {
+    100% {opacity: 0; transform: scale(2.5);}
+}

@@ -7,12 +7,16 @@
  * @returns {{allPosts: allPosts, allPostsByTag: allPostsByTag, allPostsBySearchTerm: allPostsBySearchTerm, featuredPosts: featuredPosts, post: post}}
  * @constructor
  */
-function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, ngProgressFactory) {
+function ApiService($http, $rootScope, $sce, $state, config, spinnerService, alertify, ngProgressFactory, $location) {
 
     $rootScope.progressbar = ngProgressFactory.createInstance();
 
     function allPosts() {
         return getData('wp/v2/posts?per_page=20');
+    }
+
+    function allSearchTerm(searchResult) {
+        return getData('wp/v2/search?s=' + searchResult);
     }
 
     function allPostsBySearchTerm(searchTerm) {
@@ -32,18 +36,22 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
     }
 
     function getData(url) {
+        $rootScope.loaded = false;
         spinnerService.show('loadingSpinner');
         $rootScope.progressbar.start();
+        $rootScope.progressbar.setColor('#fff');
         return $http
             .get(config.API_URL + url, { cache: true })
             .then(function(response) {
                 if (typeof response.data ==='object' && response.data instanceof Array) {
                      if(!response.data.length){
-                        alertify.error("Error: Not Found 404");
+                        //$location.path('/404');
+                         $state.transitionTo('root.404');
+                        //alertify.error("Error: Not Found 404");
                         throw "Error: Not Found 404";
                      } else{
                         var items = response.data.map(function(item) {
-                            console.log(item);
+                            //console.log(item);
                             return decorateResult(item);
                         });
                         return items;
@@ -54,14 +62,16 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
                 }
             })
             .catch(function (e) {
-                    console.log("error", e);
-                    alertify.error("Error: Bad Request 400");
+                    $state.transitionTo('root.404');
+                    //alertify.error("Error: Not Found 404");
+                    //$location.path('/404');
                     throw e;
                     
             })
             .finally(function(response) {
                  spinnerService.hide('loadingSpinner');
                   $rootScope.progressbar.complete();
+                  $rootScope.loaded = true;
             });
     }
 
@@ -84,6 +94,7 @@ function ApiService($http, $rootScope, $sce, config, spinnerService, alertify, n
         allPostsBySearchTerm: allPostsBySearchTerm,
         featuredPosts: featuredPosts,
         postById: postById,
+        allSearchTerm: allSearchTerm,
         postByURL: postByURL,
     };
 }

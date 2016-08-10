@@ -41,7 +41,7 @@ function makePage($data) {
         <!--<meta property="twitter:url" content="<?php echo $pageUrl; ?>" />-->
         <?php if (isset($data[0]->featured_image)) {
             ?>
-            <meta property="twitter:image" content="<?php echo $data[0]->featured_image->source; ?>" />
+            <meta property="twitter:image" content="<?php echo $data[0]->featured_image; ?>" />
         <?php
         }?>
 
@@ -52,7 +52,7 @@ function makePage($data) {
         <!--<meta property="og:url" content="<?php echo $pageUrl; ?>" />-->
         <?php if (isset($data[0]->featured_image)) {
             ?>
-            <meta property="og:image" content="<?php echo $data[0]->featured_image->source; ?>" />
+            <meta property="og:image" content="<?php echo $data[0]->featured_image; ?>" />
         <?php
         }?>
         <!-- inject:css -->

@@ -25,6 +25,98 @@
 * Shortcode
 */
 
+if( function_exists('acf_add_options_page') ) {
+  
+  acf_add_options_page(array(
+    'page_title'  => 'Card General Settings',
+    'menu_title'  => 'Cards',
+    'menu_slug'   => 'card-general-settings',
+    'capability'  => 'publish_posts',
+    'redirect'    => false
+  ));
+
+    acf_add_options_sub_page(array(
+    'page_title'  => 'Membership Card',
+    'menu_title'  => 'Membership Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Events Card',
+    'menu_title'  => 'Events Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Nymble Menu Card',
+    'menu_title'  => 'Nymble Menu Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+
+   acf_add_options_sub_page(array(
+    'page_title'  => 'Restrictions Card',
+    'menu_title'  => 'Restrictions Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Gallery Card',
+    'menu_title'  => 'Gallery Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Kårbokhandel Card',
+    'menu_title'  => 'Kårbokhandel Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+    acf_add_options_sub_page(array(
+    'page_title'  => 'Campus Competence Card',
+    'menu_title'  => 'Campus Competence Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+  acf_add_options_sub_page(array(
+    'page_title'  => 'FAQ Card',
+    'menu_title'  => 'FAQ Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+
+    acf_add_options_sub_page(array(
+    'page_title'  => 'KarX Card',
+    'menu_title'  => 'Karx Card',
+    'capability'  => 'publish_posts',
+    'parent_slug' => 'card-general-settings'
+  ));
+  
+}
+
+function foo_register_alt_version_features($features) {
+  $features['custom-fields'] = array();
+  return $features;
+}
+
+add_filter('bu_alt_versions_feature_support', 'foo_register_alt_version_features');
+
+// 2. Include field type for ACF5
+// $version = 5 and can be ignored until ACF6 exists
+function include_field_types_unique_id( $version ) {
+  include_once(__DIR__.'/inc/acf-unique_id-v5.php');
+}
+
+add_action('acf/include_field_types', 'include_field_types_unique_id');
+
+
 /* include static class */
 include_once( __DIR__.'/inc/class-ths-postypes.php' );
 /* add_shortcode('dummy', array( 'THS_Shortcode', 'seances') );
@@ -53,6 +145,7 @@ add_action( 'rest_api_init', function() {
 				   'http://ths.kth.se',
         			'http://dev.ths.kth.se',
         			'http://localhost:3000',
+                    'http://192.168.1.17:3000',
 			) ) ) {
 			header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
 			header( 'Access-Control-Allow-Methods: GET' );
@@ -119,9 +212,8 @@ add_action( 'rest_api_init', function () {
     add_filter( 'custom_page_templates', function( $now_templates ) {
         $templates = array(
             'home-page'  => 'Home Page',
-            'template-a' => 'Template A',
-            'template-b' => 'Template B' ,
-            'template-c' => 'Template C' ,
+            'faq'  => 'FAQ',
+            'nymble-restaurant' => 'Nymble Restaurant' ,
         );
         return array_merge( $now_templates, $templates );
     } );
@@ -234,10 +326,7 @@ function wp_get_post_custom_templates() {
     
   $theme = wp_get_theme();
   $templates = array(
-            'home-page'  => 'Home Page',
-            'template-a' => 'Template A',
-            'template-b' => 'Template B' ,
-            'template-c' => 'Template C' ,
+            'news'  => 'News',
         );
 
   return $templates;
@@ -271,6 +360,80 @@ function wp_get_custom_post_template_for_template_loader($template) {
   }
   
   return $template;
+}
+
+// Add custom post template rule to dropdown
+add_filter('acf/location/rule_types', 'acf_location_rules_types');
+function acf_location_rules_types( $choices ){
+  $choices['Post']['cpt'] = 'Post Template';
+  $choices['Page']['cpa'] = 'Page Template';
+  return $choices;
+}
+
+// Add custom post template names to value dropdown
+add_filter('acf/location/rule_values/cpt', 'acf_location_rules_values_cpt');
+function acf_location_rules_values_cpt( $choices ){
+  $templates = wp_get_post_custom_templates();
+    foreach($templates as $k => $v){
+      $choices[$k] = $v;
+    }
+  return $choices;
+}
+// Add custom post template names to value dropdown
+add_filter('acf/location/rule_values/cpa', 'acf_location_rules_values_cpa');
+function acf_location_rules_values_cpa( $choices ){
+  $templates = get_custom_page_templates();
+    foreach($templates as $k => $v){
+      $choices[$k] = $v;
+    }
+  return $choices;
+}
+
+// Match location rule and show ACFs
+add_filter('acf/location/rule_match/cpt', 'acf_location_rules_match_cpt', 10, 3);
+function acf_location_rules_match_cpt( $match, $rule, $options ){
+  global $post;
+  if(isset($options['cpt'])){
+    $current_post_template = $options['cpt'];   
+  }else{
+    $current_post_template = get_post_meta($post->ID,'_post_template',true);
+  }
+  $selected_post_template = $rule['value'];
+  if($rule['operator'] == "=="){
+    $match = ( $current_post_template == $selected_post_template );
+  }elseif($rule['operator'] == "!="){
+    $match = ( $current_post_template != $selected_post_template );
+  }
+  return $match;
+}
+
+// Match location rule and show ACFs
+add_filter('acf/location/rule_match/cpa', 'acf_location_rules_match_cpa', 10, 3);
+function acf_location_rules_match_cpa( $match, $rule, $options ){
+  global $post;
+  if(isset($options['cpa'])){
+    $current_post_template = $options['cpa'];   
+  }else{
+    $current_post_template = get_post_meta($post->ID,'_wp_page_template',true);
+  }
+  $selected_post_template = $rule['value'];
+  if($rule['operator'] == "=="){
+    $match = ( $current_post_template == $selected_post_template );
+  }elseif($rule['operator'] == "!="){
+    $match = ( $current_post_template != $selected_post_template );
+  }
+  return $match;
+}
+
+/**
+ * Add automatic image sizes
+ */
+if ( function_exists( 'add_image_size' ) ) { 
+      add_image_size( 'image640', 640, 640, true ); //(cropped)
+      add_image_size( 'image960', 960, 400, false ); //(scaled)
+      add_image_size( 'image1280', 1280, 400, false ); //(scaled)
+      add_image_size( 'image1600', 1600, 550, false ); //(scaled)
+       add_image_size( 'image1920', 1920, 550, false ); //(scaled)
 }
 
 /* ------------

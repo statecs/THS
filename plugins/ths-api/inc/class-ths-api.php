@@ -57,11 +57,12 @@ class THS_API  {
     $type = $request['type'];
 
     if ($type == instagram) {
-      $string = file_get_contents("/storage/content/63/101063/ths.kth.se/public_html/wp-content/plugins/ths-api/instagram_mockup.json");
+     //$string = file_get_contents("/storage/content/63/101063/ths.kth.se/public_html/wp-content/plugins/ths-api/instagram_mockup.json");
+      $string = file_get_contents("https://api.instagram.com/v1/tags/kthstudent/media/recent?access_token=3632648868.0efbe26.487ecc304b774eaebf25e46d948455c9&count=50");
       return json_decode($string, true);
     } else if ($type == facebook){
-       // $string = file_get_contents("https://graph.facebook.com/v2.5/posts?ids=121470594571005,148731426526&access_token=963806983710968%7C1b4e82243d046851a67059d2f8735b45&fields=id,message,story,created_time,full_picture,from,link,description,type,shares,source,picture,object_id&limit=20");
-       $string = file_get_contents("/storage/content/63/101063/ths.kth.se/public_html/wp-content/plugins/ths-api/facebook_mockup.json");
+       $string = file_get_contents("https://graph.facebook.com/v2.5/posts?ids=121470594571005,148731426526&access_token=963806983710968%7C1b4e82243d046851a67059d2f8735b45&fields=id,message,story,created_time,full_picture,from,link,description,type,shares,source,picture,object_id&limit=20&date_format=U");
+      // $string = file_get_contents("/storage/content/63/101063/ths.kth.se/public_html/wp-content/plugins/ths-api/facebook_mockup.json");
       return json_decode($string, true);
     } else{
         return null;
@@ -102,12 +103,12 @@ class THS_API  {
       'template'     => get_page_template_slug( $post->ID ),
       'featured_image' => $thumbnail[0],
       'categories' => get_the_category( $post->ID ),
-    );
 
+    );
 
     if ( $postdata['template'] === false ) {
       if (!empty( get_post_meta($post->ID,'_post_template',true))) {
-        $postdata['template'] = get_post_meta($post->ID,'_post_template',true);
+          $postdata['template'] = get_post_meta($post->ID,'_post_template',true);
       } else {
         $postdata['template'] = "news";
       }
@@ -132,6 +133,7 @@ class THS_API  {
       $postdata['excerpt'] = array(
         'rendered' => wp_trim_words( $post->post_content, 50, ' <a href="'. get_permalink( $post->ID ) .'">read more</a>' )
       );
+
 
       $response = rest_ensure_response( $postdata );
 

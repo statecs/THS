@@ -1,0 +1,105 @@
+<div class="main-view" id="top">
+        <div class="content">
+<div class="grid-control js-animate-blocks">
+<div class="col-12">
+
+<div class="hero-block hero-block--top-gradient js-hero-video-clip hero-block--tall js-hero-video-clip--active">
+        <img src="/assets/images/bg.png" class="o-background hero-block_image js-img-swap"> <video controls="true" autoplay loop muted class="hero-block_video">
+          <source type="video/mp4" src="/assets/images/overview_3x_loop.mp4">
+      </video>
+    <div class="hero-block_content">
+                <div class="hero-block_category sub-title"></div>
+       <h1 class="hero-block_title o-heading -h2 js-wow fadeInUp animated">
+            <span class="o-heading_line">
+                <span href="/" class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">THS- Your Students' Union</span>
+            </span>
+            
+        </h1>
+    </div>
+
+</div></div></div>
+
+
+    <div class="o-content">
+    <div class="o-container" data-widget="block">
+        <div class="o-grid">
+
+    <div class="o-third js-wow fadeInUp animated" ng-repeat="tile in vm.socialTiles|orderBy:vm.sortSocial:true track by $index">
+
+  <div class="feature-block animate-block" style="transition-delay: 175ms; max-height: 600px;">
+
+    <a target="_blank" ng-if="tile.link" ng-href="{{ tile.link }}" class="c-block feature-block_link" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover; min-height: 450px">
+
+     <div class="tag tag--date">
+          <div class="tag_month">{{ tile.date | date:'MMM' }}</div>
+          <div class="tag_day">{{ tile.date | date:'dd' }}</div>
+        </div><!-- End .tag -->
+        
+      <div class="feature-block_content">
+
+        <div class="feature-block_category sub-title">{{ tile.description  | limitHtml: 100 }}</div>
+        <h3 class="feature-block_title">{{ tile.type  | limitHtml: 100 }}</h3>
+      </div><!-- End .feature-block_content -->
+    </a><!-- End .feature-block_link -->
+
+     <div target="_blank" ng-if="!tile.link"  class="c-block " style="background-image: url('{{ tile.imageUrl }}');  background-size: cover; min-height: 450px">
+
+     <div class="tag tag--date tag--news">
+          <div class="tag_month">{{ tile.date | date:'MMM' }}</div>
+          <div class="tag_day">{{ tile.date | date:'dd' }}</div>
+        </div><!-- End .tag -->
+        
+      <div class="feature-blockSocial_content">
+      <div ng-if="tile.news" class="sub-title"><h3>{{ tile.news  | limitHtml: 200 }}</h3></div>
+
+      </div><!-- End .feature-block_content -->
+    </div><!-- End .feature-block_link -->
+
+  </div><!-- End .feature-block -->
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+  <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '100%',
+          width: '100%',
+          playerVars: {
+                    autoplay: 0,
+                    loop: 1,
+                    controls: 0,
+                    showinfo: 0,
+                    autohide: 1,
+                    modestbranding: 1,
+                    vq: 'hd1080'},
+          videoId: 'vjfpKmPmSTw',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+       // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        player.mute();
+      }
+
+      var done = false;
+      function onPlayerStateChange(event) {
+        
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+  </script>
+</div>

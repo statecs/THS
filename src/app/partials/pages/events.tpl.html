@@ -1,0 +1,43 @@
+<div class="content" id="top">
+    <div class="o-content">
+    <div class="o-container" data-widget="block">
+        <div class="o-grid">
+
+    <div class="o-third js-wow fadeInUp animated" ng-repeat="event in vm.calendar.items">
+  
+  <div class="feature-block animate-block" style="transition-delay: 175ms; max-height: 600px;">
+
+    <a ng-if="vm.eImg(event)" target="_blank" href="{{ event.htmlLink }}" class="c-block feature-block_link" style="background-image: url('{{vm.eImg(event)}}');  background-size: cover; min-height: 450px">
+
+     <div class="tag tag--date">
+          <div class="tag_month">{{vm.month(event)}}</div>
+          <div class="tag_day">{{vm.day(event)}}</div>
+        </div><!-- End .tag -->
+        
+      <div class="feature-block_content">
+        <div class="feature-block_category sub-title">{{ event.description  | limitHtml: 100 }}</div>
+        <h3 class="feature-block_title">{{ event.summary  | limitHtml: 100 }}</h3>
+      </div><!-- End .feature-block_content -->
+    </a><!-- End .feature-block_link -->
+
+   <a ng-if="!vm.eImg(event)" target="_blank" href="{{ event.htmlLink }}" class="c-block feature-block_link" style="background-image: url('http://ths.kth.se/wp-content/uploads/2016/08/events-card.jpg');  background-size: cover;">
+
+ <div class="tag tag--date">
+          <div class="tag_month">{{vm.month(event)}}</div>
+          <div class="tag_day">{{vm.day(event)}}</div>
+        </div><!-- End .tag -->
+        
+      <div class="feature-block_content">
+        <div class="feature-block_category sub-title">{{ event.description  | limitHtml: 100 }}</div>
+        <h3 class="feature-block_title">{{ event.summary  | limitHtml: 100 }}</h3>
+      </div><!-- End .feature-block_content -->
+    </a><!-- End .feature-block_link -->
+
+  </div><!-- End .feature-block -->
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+

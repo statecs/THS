@@ -4,8 +4,9 @@
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en" ng-app="app" ng-class="{ 'force-scrollbar' : !isHomePage }"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" ng-app="app" ng-class="{ 'force-scrollbar' : !isHomePage }"> <!--<![endif]-->
 <head>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <base href="%%BASE_PATH%%">
@@ -18,25 +19,28 @@
     <meta name="description" content="%%DEFAULT_DESCRIPTION%%" ng-if="false">
     <meta name="description" content="{{ meta.description | stripHtmlTags }}">
     <meta name="author" content="THS">
+    
     <!-- Twitter summary card metadata. One day this might be crawled... -->
+
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:site" content="@thskth" />
-    <meta property="twitter:title" content="{{ meta.title }}" />
-    <meta property="twitter:description" content="{{ meta.description | stripHtmlTags }}" />
-    <meta property="twitter:image" content="{{ meta.image }}" />
+    <meta property="twitter:title" content="THS - Your Students' Union" />
+    <meta property="twitter:description" content="Welcome to Royal Institute of Technology and the Student Union! THS, Tekniska Högskolans Studentkår, has three main objectives: 1. To ensure that everyday life as a KTH student is trouble-free and rewarding 2. To monitor and improve the quality of education at KTH 3. To server as a platform to connect students with business and industry, while offering skill development and professional networking." />
+    <meta property="twitter:image" content="http://ths.kth.se/wp-content/uploads/assets/og-image.jpg" />
     <meta property="twitter:url" content="{{ meta.url }}" />
     <!-- open graph metadata. One day this might be crawled... -->
-    <meta property="og:title" content="{{ meta.title }}" />
+    <meta property="og:title" content="THS - Your Students' Union" />
     <meta property="og:site_name " content="THS" />
     <meta property="og:url " content="{{ meta.url }}" />
-    <meta property="og:description" content="{{ meta.description | stripHtmlTags }}" />
-    <meta property="og:image" content="{{ meta.image }}" />
+    <meta property="og:description" content="Welcome to Royal Institute of Technology and the Student Union! THS, Tekniska Högskolans Studentkår, has three main objectives: 1. To ensure that everyday life as a KTH student is trouble-free and rewarding 2. To monitor and improve the quality of education at KTH 3. To server as a platform to connect students with business and industry, while offering skill development and professional networking." />
+    <meta property="og:image" content="http://ths.kth.se/wp-content/uploads/assets/og-image.jpg" />
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <!-- inject:css -->
     <!-- endinject -->
 
+<script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
 </head>
 
 <body ng-controller="AppController as vm" class="is-repeat-visitor u-background u-foreground t-work">
@@ -52,16 +56,58 @@
 
 <header ui-view="header"></header>
 
-    <div class="main-view">
-        <div class="content">
-            <div ui-view="container"></div>
-        </div>
-    </div>
+<div ui-view="container"></div>
+
+<footer ui-view="footer" ng-if="loaded === true"></footer>
 
 <!-- inject:js -->
 <!-- endinject -->
 <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '100%',
+          width: '100%',
+          playerVars: {
+                    autoplay: 0,
+                    loop: 1,
+                    controls: 0,
+                    showinfo: 0,
+                    autohide: 1,
+                    modestbranding: 1,
+                    vq: 'hd1080'},
+          videoId: 'vjfpKmPmSTw',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+       // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        player.mute();
+      }
+
+      var done = false;
+      function onPlayerStateChange(event) {
+        
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+
     // Google Analytics code here
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67684049-1', 'auto');
+  ga('send', 'pageview');
 </script>
 </body>
 </html>
