@@ -126,10 +126,45 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+             .state('root.tags',{
+                url:'/tag/:term',
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/category.tpl.html',
+                        controller: 'TagsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.tagsS',{
+                url:'/tag/:term/',
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/category.tpl.html',
+                        controller: 'TagsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.category',{
                 url:'/category/:term',
-                controller: 'termView',
-                templateUrl: 'partials/category/list.html'
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/category.tpl.html',
+                        controller: 'CategoryCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.categoryS',{
+                url:'/category/:term/',
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/category.tpl.html',
+                        controller: 'CategoryCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
             })
             .state('root.404', {
                 url: '/404',
@@ -200,6 +235,7 @@ function AppController($rootScope, $window, $location, $timeout, MetadataService
       $anchorScroll();
       
     };
+
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();

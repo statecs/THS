@@ -9,7 +9,7 @@
       rel="stylesheet">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <base href="%%BASE_PATH%%">
+    <base href="%%BASE_PATH%%" target="_self">
 
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="icon" href="favicon.png" type="image/x-icon">
@@ -58,7 +58,7 @@
 
 <div ui-view="container"></div>
 
-<footer ui-view="footer" ng-if="loaded === true"></footer>
+<footer ui-view="footer" ng-hide="loaded === false" class="js-wow fadeIn" data-wow-delay="1s"></footer>
 
 <!-- inject:js -->
 <!-- endinject -->

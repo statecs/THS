@@ -58,7 +58,7 @@ function wpsd_add_event_args() {
 }
 add_action( 'init', 'wpsd_add_event_args', 30 );
 
-
+/*
 function sb_add_cpts_to_api() {
     global $wp_post_types;
     
@@ -77,6 +77,7 @@ function sb_add_cpts_to_api() {
 }
 add_action( 'init', 'sb_add_cpts_to_api', 30 );
 
+*/
 /*class THS_Postypes {
 
 

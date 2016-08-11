@@ -7,7 +7,7 @@
       "posts_per_page": "10"
     },
     "dist": {
-      "siteUrl": "http://dev.ths.kth.se/",
+      "siteUrl": "http://ths.kth.se/",
       "basePath": "/",
       "apiUrl": "http://ths.kth.se/api/",
       "posts_per_page": "10"

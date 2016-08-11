@@ -28,7 +28,7 @@
 
 	<header class="global-header theme-transparent" ng-class="{ 'js-open-nav': showMobileMenu }">
 			<div class="global-header_action-bar">
-				<a href="/" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
+				<a href="/" ng-click="gotoElement(top)" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
 				
 				<a href="#" ng-click="openSearch()" data-toggle="modal" data-target="#searchBox" class="search-menu ">
             <i class="material-icons">search</i>
@@ -167,7 +167,7 @@
             <div class="modal-body__inner__search-results">
 <section>
 <article class="entry" dir-paginate="result in searchResults | itemsPerPage: 10 | filter:searchText">
-					        <a ng-click="closeMenu()" href="{{result.link}}"><p class="c-sidebar-news_infos" ng-if="result.date">
+					        <a ng-click="closeMenu();gotoElement(top);" href="{{result.link}}"><p class="c-sidebar-news_infos" ng-if="result.date">
 					                {{ result.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}}
 					        </p>
 					        <h3 class="h2-white">{{result.title}}</h3>

@@ -38,7 +38,7 @@ function makePage($data) {
         <meta property="twitter:card" content="summary" />
         <meta property="twitter:title" content="<?php echo $data[0]->title->rendered; ?>" />
         <meta property="twitter:description" content="<?php echo strip_tags($data[0]->excerpt->rendered); ?>" />
-        <!--<meta property="twitter:url" content="<?php echo $pageUrl; ?>" />-->
+        <meta property="twitter:url" content="<?php echo $pageUrl; ?>" />
         <?php if (isset($data[0]->featured_image)) {
             ?>
             <meta property="twitter:image" content="<?php echo $data[0]->featured_image; ?>" />
@@ -49,7 +49,7 @@ function makePage($data) {
         <meta property="og:title" content="<?php echo $data[0]->title->rendered; ?>" />
         <meta property="og:description" content="<?php echo strip_tags($data[0]->excerpt->rendered); ?>" />
         <meta property="og:type" content="article" />
-        <!--<meta property="og:url" content="<?php echo $pageUrl; ?>" />-->
+        <meta property="og:url" content="<?php echo $pageUrl; ?>" />
         <?php if (isset($data[0]->featured_image)) {
             ?>
             <meta property="og:image" content="<?php echo $data[0]->featured_image; ?>" />
@@ -63,7 +63,7 @@ function makePage($data) {
     <body>
     <div class="main">
 
-        <h2><a href="http://dev.ths.kth.se/blog">Back to Blog</a></h2>
+        <h2><a href="http://ths.kth.se">Back to Site</a></h2>
         <h1 class="page-header"><?php echo $data[0]->title->rendered; ?></h1>
         <div class="pure-g page-content">
             <div class="pure-u-1">

@@ -131,31 +131,6 @@ add_filter( 'rest_url_prefix', function( $prefix ) { return 'api'; } );
 /* include static class */
 include_once( __DIR__.'/inc/class-ths-api.php' );
 
-/**
- * Only from certain origins
- */
-add_action( 'rest_api_init', function() {
-
-	remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
-	add_filter( 'rest_pre_serve_request', function( $value ) {
-
-		$origin = get_http_origin();
-		if ( $origin && in_array( $origin, array(
-				//define some origins!
-				   'http://ths.kth.se',
-        			'http://dev.ths.kth.se',
-        			'http://localhost:3000',
-                    'http://192.168.1.17:3000',
-			) ) ) {
-			header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
-			header( 'Access-Control-Allow-Methods: GET' );
-			header( 'Access-Control-Allow-Credentials: true' );
-		}
-
-		return $value;
-		
-	});
-}, 15 );
 
 /**
 * 2. CUSTOM ENDPOINTS

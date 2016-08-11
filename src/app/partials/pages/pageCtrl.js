@@ -37,7 +37,6 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
             }
         }
 
-
          $scope.disqusConfig = {
             disqus_shortname: 'ths-kth',
             disqus_identifier: vm.page.id,
@@ -123,10 +122,10 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
 
        vm.eImg = function(event){
         if (event.attachments) {
-             vm.pId = event.attachments[0].fileUrl;
-             vm.imgUrl = vm.pId.split("/")[7]||"Unknown";
+             vm.pId = event.attachments[0].fileId;
+             //vm.imgUrl = vm.pId.split("/")[7]||"Unknown";
 
-              return "https://docs.google.com/uc?id=" + vm.imgUrl;
+              return "https://docs.google.com/uc?id=" + vm.pId;
         }
       };
 
@@ -209,7 +208,7 @@ function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiServ
                 }
 
                 /* MAKE AJAX REQUEST to our server with g-captcha-string */
-                $http.post('http://dev.ths.kth.se/assets/scripts/xhr-contact-form.php',post_data).success(function(response){
+                $http.post('http://ths.kth.se/assets/scripts/xhr-contact-form.php',post_data).success(function(response){
                     if(response.error === 0){
                         vm.success = "Email sent! We will get back to you shortly!"
                         vm.error = "";
