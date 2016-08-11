@@ -68,7 +68,7 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
             }
         else if (item.full_picture == null ){
               tile = Object.create(SocialTile);
-              tile.imageUrl = "http://ths.kth.se/wp-content/uploads/2016/08/welcome-to-kth-bgw.jpg";
+              tile.imageUrl = "http://ths.kth.se/wp/wp-content/uploads/2016/08/welcome-to-kth-bgw.jpg";
               tile.news = item.message;
               tile.date = item.created_time*1000;
               tile.type = "Facebook";

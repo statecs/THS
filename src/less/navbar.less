@@ -1238,14 +1238,22 @@
 .c-dropdown_label {
     text-transform: uppercase;
     letter-spacing: 3px;
-    font-size: 11px;
+    font-size: 16px;
     opacity: 1;
     -webkit-transform: translateX(0);
     -ms-transform: translateX(0);
     transform: translateX(0);
     color: #fff;
     position: relative;
-    width:50%;
+    width:60%;
+    background: 0 0;
+    border: 0;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+select:focus, textarea:focus, input:focus {
+        font-size: 16px;
+    }
 }
 
 .search-container {
