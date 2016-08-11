@@ -41,7 +41,12 @@
     <!-- endinject -->
 
 <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+
+<!--[if lt IE 9]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
 </head>
+<noscript>Enable JavaScript to view this web page.</noscript>
 
 <body ng-controller="AppController as vm" class="is-repeat-visitor u-background u-foreground t-work">
 
@@ -58,7 +63,7 @@
 
 <div ui-view="container"></div>
 
-<footer ui-view="footer" ng-hide="loaded === false" class="js-wow fadeIn" data-wow-delay="2s"></footer>
+<footer ui-view="footer" ng-hide="loaded === false"></footer>
 
 <!-- inject:js -->
 <!-- endinject -->

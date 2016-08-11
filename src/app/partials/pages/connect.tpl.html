@@ -26,7 +26,7 @@
 
     <div class="o-third js-wow fadeInUp animated" ng-repeat="tile in vm.socialTiles|orderBy:vm.sortSocial:true track by $index">
 
-  <div class="feature-block animate-block" style="transition-delay: 175ms; max-height: 600px;">
+  <div class="feature-block animate-block" style="max-height: 600px;">
 
     <a target="_blank" ng-if="tile.link" ng-href="{{ tile.link }}" class="c-block feature-block_link" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover; min-height: 450px">
 
