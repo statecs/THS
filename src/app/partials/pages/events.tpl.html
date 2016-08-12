@@ -3,9 +3,9 @@
     <div class="o-container" data-widget="block">
         <div class="o-grid">
 
-    <div class="o-third js-wow fadeInUp animated" ng-repeat="event in vm.calendar.items">
+    <div class="o-third js-wow fadeInUp animated" data-wow-duration="0" data-wow-offset="0" ng-repeat="event in vm.calendar.items">
   
-  <div class="feature-block animate-block" style="transition-delay: 175ms; max-height: 600px;">
+  <div class="feature-block animate-block" style="max-height: 600px;">
 
     <a ng-if="vm.eImg(event)" target="_blank" href="{{ event.htmlLink }}" class="c-block feature-block_link" style="background-image: url('{{vm.eImg(event)}}');  background-size: cover; min-height: 450px">
 

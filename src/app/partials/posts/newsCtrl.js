@@ -8,7 +8,7 @@ function NewsCtrl($anchorScroll, $stateParams, $state, ApiService, MetadataServi
 
     MetadataService.setMetadata({
         title: 'News',
-        description: 'A collection of articles on some topics.'
+        description: 'Latest news from THS'
     });
 
     if (typeof $stateParams.tags !== 'undefined') {

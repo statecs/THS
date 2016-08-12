@@ -43,6 +43,8 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
     var wow;
     wow = new WOW({ boxClass:     'js-wow',      // default
                     animateClass: 'is-animated', // default
+                     offset: '0', // default
+                    mobile:       false  // default
                 })
     wow.init();
 
