@@ -136,8 +136,63 @@
       }
       line-height: 2em;
 }
-.left-o ul{
+.left-o ul, .left-o ol{
       margin: 0px 20px;
+}
+
+table { 
+margin: 0px 40px;
+  width: 90%; 
+  border-collapse: collapse; 
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #eee; 
+}
+th { 
+  background: #333; 
+  color: white; 
+  font-weight: bold; 
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+
+@media (max-width: 699px){
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr { 
+       display: block; 
+    }
+     table{ 
+        margin: 0px 20px;
+        border:none;
+    }
+    
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    
+    td { 
+        /* Behave  like a "row" */
+        position: relative;
+    }
+    
+    td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+    }
 }
 
 .left-o h1, .left-o h2, .left-o h3{

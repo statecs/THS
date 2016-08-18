@@ -28,16 +28,19 @@
 
   <header class="global-header theme-transparent" ng-class="{ 'js-open-nav': showMobileMenu }">
       <div class="global-header_action-bar">
-        <a href="/" ng-click="closeMenu()" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
+        <a title="T H S - Your Students's Union" href="/" ng-click="closeMenu()" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
         
-        <a href="#" ng-click="openSearch()" data-toggle="modal" data-target="#searchBox" class="search-menu ">
+  
+
+
+        <a ng-click="openArticlesMenu()" class="js-global-icon-menu" aria-hidden="true">
+                        <p class="article-menu"></p> </a>
+
+                              <a href="#" ng-click="openSearch()" data-toggle="modal" data-target="#searchBox" class="search-menu ">
             <i class="material-icons">search</i>
           </a>
 
-
-        <a ng-click="openArticlesMenu()" class="js-global-icon-menu ">
-                        <p class="article-menu"></p> </a>
-                             <button ng-click="toggleMobileMenu($event)" type="button" class="icon-menu-o open">    
+                             <button title="menu" ng-click="toggleMobileMenu($event)" type="button" class="icon-menu-o open">    
                 <span class="cls"></span>
                 <span class="cls"></span>
                 <span class="cls"></span>
@@ -45,7 +48,7 @@
 
       </div>
 
-      <ul class="c-sidebar_submenu -news js-submenu-news {{menuArticleClass}}" data-widget="dropdownCategories">
+      <ul class="c-sidebar_submenu -news js-submenu-news {{menuArticleClass}}" data-widget="dropdownCategories"  aria-hidden="true">
 
                         <div class="c-dropdown">
                             
@@ -166,10 +169,14 @@
             <!--<input type="text"  ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" placeholder="Search" class="modal-body__inner__search">-->
             <div class="modal-body__inner__search-results">
 <section>
-<article class="entry" dir-paginate="result in searchResults | itemsPerPage: 10 | filter:searchText">
-<a target="_blank" ng-if="result.type === 'attachment'" href="{{result.guid.rendered}}"><p class="c-sidebar-news_infos" ng-if="result.date">
+ <article><div class="entry" ng-show="searchText && !searchResults.length"><h3 class="h2-white">No results</h3></div></article>
 
-                          {{ result.date | date:'dd MMM yyyy' }} | Attachment (PDF)
+<article class="entry" dir-paginate="result in searchResults | itemsPerPage: 10">
+
+
+    <a target="_blank" ng-if="result.type === 'attachment'" href="{{result.guid.rendered}}"><p class="c-sidebar-news_infos" ng-if="result.date">
+
+                          {{ result.date | date:'dd MMM yyyy' }} | Attachment
                   </p>
                   <h3 class="h2-white">{{result.title}}</h3>
 
@@ -183,12 +190,14 @@
                       <p ng-if="result.excerpt" class="c-sidebar-news_summary">{{result.excerpt | limitHtml: 200}}"</p></a>
 
 
+
 </article>
- <div class="c-sidebar-news_item" ng-if="!result.searchResults">No results</div>
-            <!--<div class="c-sidebar-news_item list-pagination">
+
+            <div ng-show="searchText && searchResults.length" class="c-sidebar-news_item list-pagination">
             <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
             </dir-pagination-controls>
-        </div> -->
+        </div> 
+
 </section>
 
             </div>

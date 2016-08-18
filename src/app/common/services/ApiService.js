@@ -80,9 +80,9 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
             .finally(function(response) {
                  spinnerService.hide('loadingSpinner');
                   $rootScope.progressbar.complete();
-                  //$timeout(function(){$rootScope.loaded = true;}, 1000);   
-                  $rootScope.loaded = true;
-
+                   $timeout(function () {
+                        $rootScope.loaded = true;
+                    }, 1500);
             });
     }
 
