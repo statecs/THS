@@ -43,7 +43,6 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
     var wow;
     wow = new WOW({ boxClass:     'js-wow',      // default
                     animateClass: 'is-animated', // default
-                     offset: '0', // default
                     mobile:       false  // default
                 })
     wow.init();
@@ -225,19 +224,8 @@ var config = {
     POSTS_PAGE: '%%POSTS_PAGE%%'
 };
 
-function AppController($rootScope, $window, $location, $timeout, MetadataService, $anchorScroll) {
+function AppController($rootScope, $window, $location, $timeout, MetadataService) {
     var vm = this;
-
-     $rootScope.gotoElement = function (eID){
-      // set the location.hash to the id of
-      // the element you wish to scroll to.
-      $location.hash(eID);
- 
-      // call $anchorScroll()
-      $anchorScroll();
-      
-    };
-
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();

@@ -28,7 +28,7 @@
 
   <header class="global-header theme-transparent" ng-class="{ 'js-open-nav': showMobileMenu }">
       <div class="global-header_action-bar">
-        <a href="/" ng-click="closeMenu();gotoElement(top);" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
+        <a href="/" ng-click="closeMenu()" class="global-header_logo-link"><img src="assets/images/logo.png" class="global-header_logo-img"/></a>
         
         <a href="#" ng-click="openSearch()" data-toggle="modal" data-target="#searchBox" class="search-menu ">
             <i class="material-icons">search</i>
@@ -80,7 +80,7 @@
           <li class="c-sidebar-news_item" dir-paginate="post in posts | itemsPerPage: 10 | filter:query:true" >
 
               <article class="c-sidebar-news_content">
-                  <a ng-click="closeMenu();gotoElement(top);" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
+                  <a ng-click="closeMenu();" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
                   <p class="c-sidebar-news_infos" ng-if="post.date">
                           {{ post.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in post.category">{{cat.name}} | </span> {{author.name}}
                   </p>
@@ -94,19 +94,19 @@
             <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
             </dir-pagination-controls>
         </div>      
-        <!--<div class="c-sidebar-news_item" ng-if="query.length != 0">No results</div>-->
+
          </div>    
         </ul>
 
       <nav class="global-header_nav" role="navigation">
         <div class="nav-primary js-global-nav-control">
           <div class="nav-section nav-section--theme-{{ $index+1 }}" ng-repeat="link in nav">
-          <div ng-click="setActive($index)" ng-class="{'js-open-section' : $index === activeMenu}" class="nav-link-level-1"><a ng-click="closeMenu();gotoElement(top)" ng-href={{link.url}}>{{link.title}}</a></div>
+          <div ng-click="setActive($index)" ng-class="{'js-open-section' : $index === activeMenu}" class="nav-link-level-1"><a ng-click="closeMenu();" ng-href={{link.url}}>{{link.title}}</a></div>
 
           <div class="nav-menu" >
             <div class="nav-sub-section" ng-repeat="subItem in link.children">
 
-              <div ng-click="setSubActive($index)" ng-class="{'js-open-section' : $index === activeSubMenu}" class="nav-link-level-2"><a ng-click="closeMenu();gotoElement(top)" ng-href={{subItem.url}}> {{subItem.title}}</a></div>
+              <div ng-click="setSubActive($index)" ng-class="{'js-open-section' : $index === activeSubMenu}" class="nav-link-level-2"><a ng-click="closeMenu();" ng-href={{subItem.url}}> {{subItem.title}}</a></div>
 
               <a ng-repeat="subsubItem in subItem.children" ng-click="closeMenu()" ng-href="{{subsubItem.url}}" class="nav-link-level-3">{{subsubItem.title}}</a> 
 
@@ -139,26 +139,26 @@
           <div class="u-paddingBottom40 u-xs-paddingBottom20 u-xs-paddingRight20 u-xs-paddingLeft20">
           <header class="col heading">
           <form action ng-submit="$event.preventDefault()" touch-submit>
-            <input ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" class="js-searchInput textInput textInput--underlined textInput--jumbo" type="search" placeholder="Search..">
+            <input ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" class="js-searchInput textInput textInput--underlined textInput--jumbo" type="search" placeholder="Search.." autofocus>
           </form>
 <ul class="heading-tabs" ng-if="!searchText">
           <p>Search tips!</p>
               <li class="heading-tabsItem u-inlineBlock js-tabsItem is-active">
                 <span class="heading-title u-inlineBlock">
-                  <a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" href="/student-life/leisure-and-fun/nymble-restaurant">Nymble Menu</a></span>
+                  <a ng-click="closeMenu();" class="button button--unstyled" href="/student-life/leisure-and-fun/nymble-restaurant">Nymble Menu</a></span>
               </li>
               <li class="heading-tabsItem u-inlineBlock js-tabsItem">
                 <span class="heading-title u-inlineBlock">
-                  <a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" href="student-life/new-at-kth/international-student">International Student</a>
+                  <a ng-click="closeMenu();" class="button button--unstyled" href="student-life/new-at-kth/international-student">International Student</a>
                 </span></li>
                 <li class="heading-tabsItem u-inlineBlock js-tabsItem">
                 <span class="heading-title u-inlineBlock">
-                  <a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" href="/contact/faq">FAQ</a>
+                  <a ng-click="closeMenu();" class="button button--unstyled" href="/contact/faq">FAQ</a>
                 </span></li>
               <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
-                <a ng-click="closeMenu();gotoElement(top);" class="button button--unstyled" ng-click="closeMenu()" href="/about-ths/ths-central/policy-documents-and-meeting-protocols">Policy and meeting protocols</a></span></li>
+                <a ng-click="closeMenu();" class="button button--unstyled" ng-click="closeMenu()" href="/about-ths/ths-central/policy-documents-and-meeting-protocols">Policy and meeting protocols</a></span></li>
               <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
-                <a class="button button--unstyled" ng-click="closeMenu();gotoElement(top);" href="/contact/student-union-office/booking-premises">Booking premises</a></span></li>
+                <a class="button button--unstyled" ng-click="closeMenu();" href="/contact/student-union-office/booking-premises">Booking premises</a></span></li>
             </ul>
           </header></div>
 
@@ -167,13 +167,24 @@
             <div class="modal-body__inner__search-results">
 <section>
 <article class="entry" dir-paginate="result in searchResults | itemsPerPage: 10 | filter:searchText">
-                  <a ng-click="closeMenu();gotoElement(top);" href="{{result.link}}"><p class="c-sidebar-news_infos" ng-if="result.date">
+<a target="_blank" ng-if="result.type === 'attachment'" href="{{result.guid.rendered}}"><p class="c-sidebar-news_infos" ng-if="result.date">
+
+                          {{ result.date | date:'dd MMM yyyy' }} | Attachment (PDF)
+                  </p>
+                  <h3 class="h2-white">{{result.title}}</h3>
+
+                      <p ng-if="result.excerpt" class="c-sidebar-news_summary">{{result.excerpt | limitHtml: 200}}"</p></a>
+
+                  <a ng-click="closeMenu();" ng-if="result.type !== 'attachment'" href="{{result.link}}"><p class="c-sidebar-news_infos" ng-if="result.date">
                           {{ result.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}}
                   </p>
                   <h3 class="h2-white">{{result.title}}</h3>
 
                       <p ng-if="result.excerpt" class="c-sidebar-news_summary">{{result.excerpt | limitHtml: 200}}"</p></a>
+
+
 </article>
+ <div class="c-sidebar-news_item" ng-if="!result.searchResults">No results</div>
             <!--<div class="c-sidebar-news_item list-pagination">
             <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
             </dir-pagination-controls>

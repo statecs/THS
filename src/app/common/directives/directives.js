@@ -414,11 +414,28 @@ function touchSubmit($window) {
 }
 
 
+function a($location, $anchorScroll) {
+     return {
+            restrict: 'E',
+            link: function(scope, elem, attrs) {
+           /* if (attrs.href && attrs.href.indexOf('wp-content') > -1){
+                elem.attr("target", "_blank");
+            }*/
+
+            if (attrs.href || attrs.ngHref){
+                elem.on('click', function(e){
+                    $anchorScroll();
+                });
+            } 
+        }
+    };
+}
 
 angular.module('app')
     .directive('revealingSearchInput', revealingSearchInput)
     .directive('dirDisqus', dirDisqus)
     .directive('touchSubmit', touchSubmit)
+    .directive('a', a)
     .directive('discoverCard', discoverCard)
     .directive('eventsCard', eventsCard)
     .directive('standardCard', standardCard)

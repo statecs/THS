@@ -125,7 +125,7 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
              vm.pId = event.attachments[0].fileId;
              //vm.imgUrl = vm.pId.split("/")[7]||"Unknown";
 
-              return "https://docs.google.com/uc?id=" + vm.pId;
+              return "https://drive.google.com/uc?export=view&id=" + vm.pId;
         }
       };
 

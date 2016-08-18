@@ -411,6 +411,19 @@ if ( function_exists( 'add_image_size' ) ) {
        add_image_size( 'image1920', 1920, 550, false ); //(scaled)
 }
 
+function my_searchwp_weight_mods( $sql ) {
+  
+  global $wpdb;
+  
+  // if posted within the last year, bump up the weight by 1000
+  $time_ago = 'NOW() - INTERVAL 1 YEAR';
+  $additional_weight = 1000;
+  $sql .= " + ( IF( UNIX_TIMESTAMP( {$wpdb->prefix}posts.post_date ) > UNIX_TIMESTAMP( {$time_ago} ), {$additional_weight}, 0 ) )";
+  return $sql;
+  
+}
+add_filter( 'searchwp_weight_mods', 'my_searchwp_weight_mods' );
+
 /* ------------
     6. ADD REQUIRED PLUGINS
 --------------- */
