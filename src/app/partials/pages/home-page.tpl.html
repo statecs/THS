@@ -26,7 +26,7 @@
 
         <div class="o-grid">
 
-<div ng-repeat="mCard in acf.cards[0].card_content track by $index" class="{{mCard.flex_layout}} fadeInUp js-wow" data-wow-offset="10" style="background-image: linear-gradient(180deg,{{mCard.bg_color}},{{mCard.bg_color}}),url({{mCard.bg_img}});background-size: cover">
+<div ng-repeat="mCard in acf.cards[0].card_content track by $index" class="{{mCard.flex_layout}} fadeInUp js-wow" data-wow-offset="10" ng-style="{'background-image': 'linear-gradient(180deg,{{mCard.bg_color}},{{mCard.bg_color}}),url({{mCard.bg_img}})','background-size': 'cover'}">
 
     <div default-card></div>
 

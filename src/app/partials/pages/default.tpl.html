@@ -84,7 +84,7 @@
 
 </div></div>
 
-<div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'default'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp"  data-wow-offset="0" data-wow-duration="0" style="background-color:{{mCard.bg_color}};background-image:url({{mCard.bg_img}});background-size: cover;overflow:hidden">
+<div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'default'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp"  data-wow-offset="0" data-wow-duration="0" ng-style="{'background-image': 'linear-gradient(180deg,{{mCard.bg_color}},{{mCard.bg_color}}),url({{mCard.bg_img}})','background-size': 'cover'}">
 
  <div default-card></div>
 
