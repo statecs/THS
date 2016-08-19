@@ -146,7 +146,7 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
 
       var url = "https://www.googleapis.com/calendar/v3/calendars/" + gcConfig.calendar_id + "/events?orderBy=startTime&singleEvents=true&timeMin=" + (new Date().toISOString()) + "&maxResults=" + gcConfig.max + "&key=" + gcConfig.google_key;
 
-      $http.get(url, { cache: true }).success(function(data){
+      $http.get(url).success(function(data){
              // console.log(gcConfig);
         vm.calendar = data;
 

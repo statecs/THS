@@ -169,14 +169,15 @@
             <!--<input type="text"  ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" placeholder="Search" class="modal-body__inner__search">-->
             <div class="modal-body__inner__search-results">
 <section>
- <article><div class="entry" ng-show="searchText && !searchResults.length"><h3 class="h2-white">No results</h3></div></article>
+ <article><div class="entry" ng-show="searchText && !searchResults.length && !notfound"><h3 class="h2-white">Loading...</h3></div></article>
+  <article><div class="entry" ng-show="notfound === true"><h3 class="h2-white">No results</h3></div></article>
 
 <article class="entry" dir-paginate="result in searchResults | itemsPerPage: 10">
 
 
     <a target="_blank" ng-if="result.type === 'attachment'" href="{{result.guid.rendered}}"><p class="c-sidebar-news_infos" ng-if="result.date">
 
-                          {{ result.date | date:'dd MMM yyyy' }} | Attachment
+                          {{ result.date | date:'dd MMM yyyy' }} | Attachment (PDF)
                   </p>
                   <h3 class="h2-white">{{result.title}}</h3>
 

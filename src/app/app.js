@@ -1,7 +1,7 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'vcRecaptcha', 'ngTouch', 'ngAria']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'vcRecaptcha', 'ngTouch', 'ngAria', 'angular-cache']);
 
 
-function initializeApp($rootScope, localStorageService, $http ){
+function initializeApp($rootScope, localStorageService, $http, CacheFactory ){
     //console.log('app init');
     $rootScope.posts_per_page = config.POSTS_PAGE;
     //console.log(config.POSTS_PAGE);
@@ -13,17 +13,17 @@ function initializeApp($rootScope, localStorageService, $http ){
             $rootScope.cats = res;
             localStorageService.set( 'cats', cats );
         });
-        
+        if (!CacheFactory.get('navCache')) { CacheFactory.createCache('navCache')}
           /** Localize menu **/
-        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/header_menu', { cache: true }).success(function(res){
+        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/header_menu', { cache: CacheFactory.get('navCache') }).success(function(res){
             var nav = [];
             $rootScope.nav = res;
            localStorageService.set( 'nav', nav );
 
         });
-
+        if (!CacheFactory.get('optionsCache')) { CacheFactory.createCache('optionsCache')}
            /** Cards **/
-        $http.get('http://ths.kth.se/api/acf/v2/options', { cache: true }).success(function(res){
+        $http.get('http://ths.kth.se/api/acf/v2/options', {cache: CacheFactory.get('optionsCache')}).success(function(res){
             var acf = [];
             $rootScope.acf = res.acf;
             localStorageService.set( 'acf', acf );
@@ -38,7 +38,7 @@ function initializeApp($rootScope, localStorageService, $http ){
  * @param $urlRouterProvider
  * @ngInject
  */
-function routesConfig($stateProvider, $locationProvider, paginationTemplateProvider, $urlRouterProvider, localStorageServiceProvider) {
+function routesConfig($stateProvider, $locationProvider, paginationTemplateProvider, $urlRouterProvider, localStorageServiceProvider, CacheFactoryProvider) {
     
     var wow;
     wow = new WOW({ boxClass:     'js-wow',      // default
@@ -46,6 +46,9 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     mobile:       false  // default
                 })
     wow.init();
+
+
+    angular.extend(CacheFactoryProvider.defaults, { maxAge: 1440 * 60 * 1000, deleteOnExpire: 'aggressive' });
 
     localStorageServiceProvider.setPrefix('wp');
     paginationTemplateProvider.setPath('common/directives/pagination/dirPagination.tpl.html');

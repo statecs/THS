@@ -42,6 +42,7 @@ var VENDOR_SCRIPTS = [
     'bower_components/angular-recaptcha/release/angular-recaptcha.min.js',
     'bower_components/angular-touch/angular-touch.min.js',
     'bower_components/angular-aria/angular-aria.min.js',
+    'bower_components/angular-cache/dist/angular-cache.min.js',
 
 
 ];

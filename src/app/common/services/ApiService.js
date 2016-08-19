@@ -7,7 +7,7 @@
  * @returns {{allPosts: allPosts, allPostsByTag: allPostsByTag, allPostsBySearchTerm: allPostsBySearchTerm, featuredPosts: featuredPosts, post: post}}
  * @constructor
  */
-function ApiService($http, $rootScope, $sce, $state, config, spinnerService, alertify, ngProgressFactory, $location, $timeout) {
+function ApiService($http, $rootScope, $sce, $state, config, spinnerService, alertify, ngProgressFactory, $location, $timeout, CacheFactory) {
 
 
     $rootScope.progressbar = ngProgressFactory.createInstance();
@@ -46,16 +46,20 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
 
     function getData(url) {
         $rootScope.loaded = false;
+        $rootScope.notfound = false;
         spinnerService.show('loadingSpinner');
         $rootScope.progressbar.start();
         $rootScope.progressbar.setColor('#fff');
+        var apiCache = CacheFactory.info('apiCache');
+        if (!CacheFactory.get('apiCache')) { CacheFactory.createCache('apiCache')}
         return $http
-            .get(config.API_URL + url, { cache: true })
+            .get(config.API_URL + url, { cache: CacheFactory.get('apiCache') })
             .then(function(response) {
                 if (typeof response.data ==='object' && response.data instanceof Array) {
                      if(!response.data.length){
                         //$location.path('/404');
                          $state.go('root.404', null, {location: false});
+                         $rootScope.notfound = true;
                         //alertify.error("Error: Not Found 404");
                         throw "Error: Not Found 404";
                      } else{
@@ -72,6 +76,7 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
             })
             .catch(function (e) {
                     $state.go('root.404', null, {location: false});
+                    $rootScope.notfound = true;
                     //alertify.error("Error: Not Found 404");
                     //$location.path('/404');
                     throw e;

@@ -7,9 +7,9 @@
  * @returns {{allPosts: allPosts, allPostsByTag: allPostsByTag, allPostsBySearchTerm: allPostsBySearchTerm, featuredPosts: featuredPosts, post: post}}
  * @constructor
  */
-function SocialService($http, $sce, config, spinnerService, alertify, ngProgressFactory, $rootScope) {
+function SocialService($http, $sce, config, spinnerService, alertify, ngProgressFactory, $rootScope, CacheFactory) {
 
-		var result = [];
+    var result = [];
 
     function facebookPosts() {
       return getData('wp/v2/social?type=facebook');
@@ -21,8 +21,9 @@ function SocialService($http, $sce, config, spinnerService, alertify, ngProgress
     function getData(url) {
         spinnerService.show('loadingSpinner');
         $rootScope.progressbar.start();
+        if (!CacheFactory.get('socialCache')) {CacheFactory.createCache('socialCache')}
         return $http
-            .get(config.API_URL + url, { cache: true })
+            .get(config.API_URL + url, { cache: CacheFactory.get('socialCache') })
             .then(function(response) {
                 //console.log(response.data);
                 if (typeof response.data ==='object' && response.data instanceof Array) {
