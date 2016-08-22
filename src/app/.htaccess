@@ -1,9 +1,3 @@
-# BEGIN W3TC Browser Cache
-
-# END W3TC Page Cache core
-
-
-# END W3TC Page Cache core
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 #RewriteEngine On
@@ -13,7 +7,14 @@
 #RewriteCond %{REQUEST_FILENAME} !-d
 #RewriteRule . /index_wp.php [L]
 RewriteRule ^api/(.*)$ /index_wp.php [L]
-#RewriteRule ^wp-content/(.*)$ /wp/wp-content/$1 [R=301,NC,L]
+
+RewriteRule ^wp-content/(.*)$ /wp/wp-content/$1 [R=301,NC,L]
+RewriteRule ^wp-content - [L,NC]
+
+RewriteRule ^sitemap_index.xml$ /wp/index.php?sitemap=1 [L]
+RewriteRule ^([^/]+?)-sitemap([0-9]+)?.xml$ /wp/index.php?sitemap=$1&sitemap_n=$2 [L]
+RewriteRule ^([a-z]+)?-?sitemap.xsl$ /wp/index.php?xsl=$1 [L]
+
 </IfModule>
 
 # END WordPress
@@ -42,9 +43,11 @@ RewriteRule ^api/(.*)$ /index_wp.php [L]
 
     # allow social media crawlers to work by redirecting them to a server-rendered static version on the page
     RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|Google.*snippet|Googlebot|redditbot|bingbot)
-    RewriteRule (.+)/.*$ %%SITE_URL%%static-page.php?url=$1 [P]
+    RewriteRule (.+)/.*$ http://ths.kth.se/static-page.php?url=$1 [P]
 
-    RewriteRule ^wp-content - [L,NC]
+
+    #RewriteRule ^wp-content/(.*)$ /wp/wp-content/$1 [R=301,NC,L]
+
 
     # Required to allow direct-linking of pages so they can be processed by Angular
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -55,7 +58,7 @@ RewriteRule ^api/(.*)$ /index_wp.php [L]
  
     ExpiresActive On
     ExpiresDefault "access plus 1 days"
-    #ExpiresByType text/css "access plus 1 days"
+    #ExpiresByType text/css "access plus 1 week"
     #ExpiresByType text/plain "access plus 1 month"
     #ExpiresByType image/gif "access plus 1 month"
     #ExpiresByType image/png "access plus 1 month"

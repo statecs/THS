@@ -36,11 +36,27 @@
         <a ng-click="openArticlesMenu()" class="js-global-icon-menu" aria-hidden="true">
                         <p class="article-menu"></p> </a>
 
-                              <a href="#" ng-click="openSearch()" data-toggle="modal" data-target="#searchBox" class="search-menu ">
-            <i class="material-icons">search</i>
+ 
+
+
+
+<div ng-if="isActive" class="menu__btn-area-right"><a class="menu__cancel-link" href></a></div>
+
+                              <a class="search-menu" ng-click="openSearchMenu();" click-outside="closeSearch()">
+                              <div class="  {{isActive}}">
+                              <form class="search-input" action ng-submit="$event.preventDefault()" touch-submit>
+  <input ng-model="searchText" ng-model-options='{ debounce: 500 }' ng-change="change(searchResult)" type="search" placeholder="Search"></div>
+
+</form> <!--<button ng-if="isActive" type="submit" ng-click="closeSearch()" class="search-form__btn" aria-label="Search"><span class="search-form__btn-icon" aria-hidden="true"></span></button>-->
+
+
+
+            <!--<i class="material-icons">search</i>-->
+            
+    
           </a>
 
-                             <button title="menu" ng-click="toggleMobileMenu($event)" type="button" class="icon-menu-o open">    
+                             <button ng-if="!isActive" title="menu" ng-click="toggleMobileMenu($event)" type="button" class="icon-menu-o open">    
                 <span class="cls"></span>
                 <span class="cls"></span>
                 <span class="cls"></span>
@@ -48,15 +64,39 @@
 
       </div>
 
+<div ng-if="searchText" class="popover js-popover  popover--predictiveSearch popover--bottom {{isActive}}" data-action-scope="_actionscope_106"><div class="popover-inner js-popover-inner"><div class="js-predictiveSearchResults u-textAlignLeft u-clearfix">
+
+<ul class="list list--withCompactListItems" ng-if="notfound === true">
+  <li class="list-item"><a class="link avatar u-baseColor--link" tabindex="-1" role="menuitem"><span class="avatar-text">No results</span></a></li>
+</ul>
+<ul class="list list--withCompactListItems" ng-if="notfound === false">
+
+<li class="list-item" ng-repeat="result in searchResults|limitTo:6">
+
+<a ng-if="result.type !== 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" href="{{result.link}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}}</span></a>
+
+<a ng-if="result.type === 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" href="{{result.guid.rendered}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}}</span></a>
+
+</li>
+
+</ul>
+
+<div class="heading">
+  <a class="button-search" ng-click="closeMenu()" href="/search/{{searchText}}"  tabindex="-1" role="menuitem" data-action-source="search-popover"><span class="button-label">Search for ‘{{searchText | limitHtml: 13}}’</span></a>
+
+</div>
+
+
+
+</div></div><div class="popover-arrow " style="left: 151px;"></div></div>
+
       <ul class="c-sidebar_submenu -news js-submenu-news {{menuArticleClass}}" data-widget="dropdownCategories"  aria-hidden="true">
 
                         <div class="c-dropdown">
                             
                             <span class="c-dropdown_item js-dropdown-label" data-idcat="all">
 
- <button ng-click="closeMenu()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span>
-            <i class="material-icons">clear</i>
-          </span></button>
+         <div ng-click="closeMenu()" class="menu__btn-area-right"><a class="menu__cancel-link" href></a></div>
       <!--<div class="search-container">
             <revealing-search-input search-callback="search(term)"></revealing-search-input>
                        <a ng-click="clearSearch()"><div class="search-btn -close"><i ng-if="searchTrue == true" class="material-icons">clear</i></div></a>
@@ -128,82 +168,6 @@
       </nav>
     </header>
 </div>
-<div class="{{searchClass}}">
-<div class="modal fadeIn js-wow"  data-wow-duration="0.1s" id="searchBox" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button ng-click="openSearch()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span>
-            <i class="material-icons">clear</i>
-          </span></button>
-        </div>
-        <div class="modal-body">
-          <div class="modal-body__inner">
-          <div class="u-paddingBottom40 u-xs-paddingBottom20 u-xs-paddingRight20 u-xs-paddingLeft20">
-          <header class="col heading">
-          <form action ng-submit="$event.preventDefault()" touch-submit>
-            <input ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" class="js-searchInput textInput textInput--underlined textInput--jumbo" type="search" placeholder="Search.." autofocus>
-          </form>
-<ul class="heading-tabs" ng-if="!searchText">
-          <p>Search tips!</p>
-              <li class="heading-tabsItem u-inlineBlock js-tabsItem is-active">
-                <span class="heading-title u-inlineBlock">
-                  <a ng-click="closeMenu();" class="button button--unstyled" href="/student-life/leisure-and-fun/nymble-restaurant">Nymble Menu</a></span>
-              </li>
-              <li class="heading-tabsItem u-inlineBlock js-tabsItem">
-                <span class="heading-title u-inlineBlock">
-                  <a ng-click="closeMenu();" class="button button--unstyled" href="student-life/new-at-kth/international-student">International Student</a>
-                </span></li>
-                <li class="heading-tabsItem u-inlineBlock js-tabsItem">
-                <span class="heading-title u-inlineBlock">
-                  <a ng-click="closeMenu();" class="button button--unstyled" href="/contact/faq">FAQ</a>
-                </span></li>
-              <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
-                <a ng-click="closeMenu();" class="button button--unstyled" ng-click="closeMenu()" href="/about-ths/ths-central/policy-documents-and-meeting-protocols">Policy and meeting protocols</a></span></li>
-              <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
-                <a class="button button--unstyled" ng-click="closeMenu();" href="/contact/student-union-office/booking-premises">Booking premises</a></span></li>
-            </ul>
-          </header></div>
-
-
-            <!--<input type="text"  ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" placeholder="Search" class="modal-body__inner__search">-->
-            <div class="modal-body__inner__search-results">
-<section>
- <article><div class="entry" ng-show="searchText && !searchResults.length && !notfound"><h3 class="h2-white">Loading...</h3></div></article>
-  <article><div class="entry" ng-show="notfound === true"><h3 class="h2-white">No results</h3></div></article>
-
-<article class="entry" dir-paginate="result in searchResults | itemsPerPage: 10">
-
-
-    <a target="_blank" ng-if="result.type === 'attachment'" href="{{result.guid.rendered}}"><p class="c-sidebar-news_infos" ng-if="result.date">
-
-                          {{ result.date | date:'dd MMM yyyy' }} | Attachment (PDF)
-                  </p>
-                  <h3 class="h2-white">{{result.title}}</h3>
-
-                      <p ng-if="result.excerpt" class="c-sidebar-news_summary">{{result.excerpt | limitHtml: 200}}"</p></a>
-
-                  <a ng-click="closeMenu();" ng-if="result.type !== 'attachment'" href="{{result.link}}"><p class="c-sidebar-news_infos" ng-if="result.date">
-                          {{ result.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}}
-                  </p>
-                  <h3 class="h2-white">{{result.title}}</h3>
-
-                      <p ng-if="result.excerpt" class="c-sidebar-news_summary">{{result.excerpt | limitHtml: 200}}"</p></a>
 
 
 
-</article>
-
-            <div ng-show="searchText && searchResults.length" class="c-sidebar-news_item list-pagination">
-            <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
-            </dir-pagination-controls>
-        </div> 
-
-</section>
-
-            </div>
-          </div>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div></div>

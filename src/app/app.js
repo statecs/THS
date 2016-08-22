@@ -170,6 +170,36 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.search', {
+                url: '/search',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/search.tpl.html', // Make Dynamic
+                        controller: 'SearchCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.searchTerm', {
+                url: '/search/:searchTerm',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/search.tpl.html', // Make Dynamic
+                        controller: 'SearchCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.searchCat', {
+                url: '/search/:searchCat/:searchTerm',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/search.tpl.html', // Make Dynamic
+                        controller: 'SearchCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.404', {
                 url: '/404',
                 views: {
