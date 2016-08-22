@@ -258,14 +258,16 @@ function SearchCtrl($scope, $http, $stateParams, MetadataService, SearchService,
   // Switch the search type/state
     $scope.switchSearchType = function(aSearchType) {
     vm.typeOfSearch = aSearchType;
+    var valtosend = $scope.searchText;
+    $state.go('root.searchCat', {searchTerm: valtosend, searchCat: vm.typeOfSearch});
     };
 
     if ( $stateParams.searchCat == 'posts') {
       vm.typeOfSearch = 'posts';
     } else if( $stateParams.searchCat == 'pages'){
       vm.typeOfSearch = 'pages';
-    } else if( $stateParams.searchCat == 'attachments'){
-      vm.typeOfSearch = 'attachments';
+    } else if( $stateParams.searchCat == 'documents'){
+      vm.typeOfSearch = 'documents';
     } else if( $stateParams.searchCat == 'faq'){
       vm.typeOfSearch = 'faq';
     } else{

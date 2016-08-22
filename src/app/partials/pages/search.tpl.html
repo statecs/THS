@@ -1,80 +1,73 @@
+<style ng-if="!vm.page.featured_image">
+    .hero-block {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/images/big-banner.jpg');
+      }
+    </style>
+
 
 <div class="content" id="top">
     <div class="col-12">
-        <div class="hero-block hero-block--darken hero-block--top-gradient">
+        <div class="hero-block hero-block--darken">
         <img class="hero-block_image js-img-swap">    
-            <div class="hero-block_content">
+            <div class="hero-block_content header-search-form">
             <div class="hero-block_category sub-title"></div>
-                <h1 class="hero-block_title o-heading -h1">
                     <span class="o-heading_line">
                          <form ng-submit="change(searchResult)" touch-submit>
-            <input ng-model="searchText" ng-init="searchText=vm.stateSearchTerm" class="js-searchInput textInput--underlined textInput--jumbo" type="search" placeholder="Search.." autofocus>
+            <input ng-model="searchText" ng-init="searchText=vm.stateSearchTerm" class="js-searchInput textInput--underlined textInput--jumbo" type="search" placeholder="Search..">
           </form>
                     </span>
-                </h1>
             </div>
-        </div>
-    </div>
-
- <style ng-if="vm.page.featured_image">
-      .hero-block {
-        background-image: url('{{vm.page.featured_image}}');
-      }
-    </style>
-    <style ng-if="!vm.page.featured_image">
-    .hero-block {
-        background-image: url('assets/images/big-banner.jpg');
-      }
-    </style>
-
-
-<div class="pure-g page-content news-content" >
-    <div class="pure-u-1">
-        <div class="post-meta">
-            <ul class="tags">
-                <li ng-repeat="tag in vm.post.terms.post_tag">
-                    <a ui-sref="postsByTag({ tag: tag.slug })">{{ tag.name }}</a>
-                </li>
-            </ul>
-        </div>
 
 
             <ul class="heading-tabs" ng-if="!searchText">
-
-
-
-          <p>Search tips!</p>
               <li class="heading-tabsItem u-inlineBlock js-tabsItem is-active">
                 <span class="heading-title u-inlineBlock">
-                  <a ng-click="closeMenu();" class="button button--unstyled" href="/student-life/leisure-and-fun/nymble-restaurant">Nymble Menu</a></span>
+                  <a ng-click="closeMenu();" class="button button--unstyled" href="/search/pages/nymble%20restaurant">Nymble Menu</a></span>
               </li>
-              <li class="heading-tabsItem u-inlineBlock js-tabsItem">
+                <li class="heading-tabsItem u-inlineBlock js-tabsItem">
                 <span class="heading-title u-inlineBlock">
-                  <a ng-click="closeMenu();" class="button button--unstyled" href="student-life/new-at-kth/international-student">International Student</a>
+                  <a ng-click="closeMenu();" class="button button--unstyled" href="/search/pages/faq">FAQ</a>
                 </span></li>
                 <li class="heading-tabsItem u-inlineBlock js-tabsItem">
                 <span class="heading-title u-inlineBlock">
-                  <a ng-click="closeMenu();" class="button button--unstyled" href="/contact/faq">FAQ</a>
+                  <a ng-click="closeMenu();" class="button button--unstyled" href="search/pages/international%20student">International Student</a>
                 </span></li>
               <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
-                <a ng-click="closeMenu();" class="button button--unstyled" ng-click="closeMenu()" href="/about-ths/ths-central/policy-documents-and-meeting-protocols">Policy and meeting protocols</a></span></li>
-              <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
-                <a class="button button--unstyled" ng-click="closeMenu();" href="/contact/student-union-office/booking-premises">Booking premises</a></span></li>
+                <a ng-click="closeMenu();" class="button button--unstyled" ng-click="closeMenu()" href="search/pages/policy%20documents%20and%20meeting%20protocols">Policy and meeting protocols</a></span></li>
+                 
+                <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
+                <a class="button button--unstyled" ng-click="closeMenu();" href="search/pages/booking%20premises">Booking premises</a></span></li>
             </ul>
-          </header></div>
+
+          
 <div ng-if="searchText">
-<ul class="heading-tabs">
-<li class="u-inlineBlock"><span><a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='all'}" ng-click="switchSearchType('all')">All</a></span></li>
+ <ul class="heading-tabs">
+              <li class="heading-tabsItem u-inlineBlock js-tabsItem is-active">
+                <span class="heading-title u-inlineBlock">
+                <a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='all'}" ng-click="switchSearchType('all')">All</a></span>
+              </li>
+              <li class="heading-tabsItem u-inlineBlock js-tabsItem">
+                <span class="heading-title u-inlineBlock">
+                  <a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='posts'}" ng-click="switchSearchType('posts')">Posts</a>
+                </span></li>
+                <li class="heading-tabsItem u-inlineBlock js-tabsItem">
+                <span class="heading-title u-inlineBlock">
+                 <a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='pages'}" ng-click="switchSearchType('pages')">Pages</a>
+                </span></li>
+              <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
+                <a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='documents'}" ng-click="switchSearchType('documents')">Documents</a></span></li>
+              <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
+               <a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='faq'}" ng-click="switchSearchType('faq')">FAQ</a></span></li>
+            </ul>
 
-<li class="u-inlineBlock"><span><a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='posts'}" ng-click="switchSearchType('posts')">Posts</a></span></li>
+</div>
 
-<li class="u-inlineBlock"><span><a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='pages'}" ng-click="switchSearchType('pages')">Pages</a></span></li>
+        </div>
+    </div>
 
-<li class="u-inlineBlock"><span><a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='attachments'}" ng-click="switchSearchType('attachments')">Attachments</a></span></li>
 
-<li class="u-inlineBlock"><span><a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='faq'}" ng-click="switchSearchType('faq')">FAQ</a></span></li>
+<div class="pure-g page-content news-content" >
 
-</ul></div>
             <div class="modal-body__inner__search-results">
 <section>
 
@@ -87,25 +80,20 @@
 
     <a target="_blank" ng-if="result.type === 'attachment'" href="{{result.guid.rendered}}">
 
-    <!--<img src="http://ths.kth.se/wp/wp-content/uploads/2016/08/pdf-icon.png"/>-->
-
-    <p class="c-sidebar-news_infos" ng-if="result.date">
-
-                          {{ result.date | date:'dd MMM yyyy' }} | Attachment (PDF)
-                  </p>
+    <p class="post-result" ng-if="result.date"> {{ result.date | date:'dd MMM yyyy' }} | Document (PDF)</p>
 
                  <h3 class="h1-blue">{{result.title}}</h3>
 
-                      <p ng-if="result.excerpt" class="c-sidebar-news_summary">{{result.excerpt | limitHtml: 200}}"</p>
+                      <p class="post-result" ng-if="result.excerpt">{{result.excerpt | limitHtml: 200}}"</p>
 
     </a>
 
-                  <a ng-click="closeMenu();" ng-if="result.type !== 'attachment'" href="{{result.link}}"><p class="c-sidebar-news_infos" ng-if="result.date">
+                  <a ng-click="closeMenu();" ng-if="result.type !== 'attachment'" href="{{result.link}}"><p class="post-result" ng-if="result.date">
                           {{ result.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}} {{result.type}}
                   </p>
                   <h3 class="h1-blue">{{result.title}}</h3>
 
-                      <p ng-if="result.excerpt" class="c-sidebar-news_summary two-third">{{result.excerpt | limitHtml: 200}}"</p></a>
+                      <p class="post-result" ng-if="result.excerpt">{{result.excerpt | limitHtml: 200}}"</p></a>
 
 
 
