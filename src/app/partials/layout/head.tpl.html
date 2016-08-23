@@ -73,9 +73,9 @@
 
 <li class="list-item" ng-repeat="result in searchResults|limitTo:6">
 
-<a ng-if="result.type !== 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" href="{{result.link}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}}</span></a>
+<a ng-if="result.type !== 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" href="{{result.link}}" tabindex="-1" role="menuitem"><span>{{result.title}}</span></a>
 
-<a ng-if="result.type === 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" target="_blank" href="{{result.guid.rendered}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}} (PDF)</span></a>
+<a ng-if="result.type === 'attachment'" ng-click="closeMenu()" class="link -pdf avatar u-baseColor--link" target="_blank" href="{{result.guid.rendered}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}}</span></a>
 
 </li>
 

@@ -229,6 +229,11 @@ function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiServ
             }
 
         }
+
+        MetadataService.setMetadata({
+        title: 'Contact',
+        description: 'Contact THS'
+    });
     
 }
 
@@ -281,6 +286,11 @@ function SearchCtrl($scope, $http, $stateParams, MetadataService, SearchService,
       $state.go('root.searchCat', {searchTerm: valtosend, searchCat: vm.typeOfSearch});
 
 }
+
+     MetadataService.setMetadata({
+        title: 'Search',
+        description: 'Search content from THS'
+    });
 
 
 
