@@ -1,6 +1,6 @@
 <style ng-if="!vm.page.featured_image">
     .hero-block {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/images/big-banner.jpg');
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://ths.kth.se/wp/wp-content/uploads/2016/08/flygfoto_kth_campus.jpg');
       }
     </style>
 
@@ -11,15 +11,32 @@
         <img class="hero-block_image js-img-swap">    
             <div class="hero-block_content header-search-form">
             <div class="hero-block_category sub-title"></div>
+
+            
+
                     <span class="o-heading_line">
                          <form ng-submit="change(searchResult)" touch-submit>
             <input ng-model="searchText" ng-init="searchText=vm.stateSearchTerm" class="js-searchInput textInput--underlined textInput--jumbo" type="search" placeholder="Search..">
+
+                        <!--<button type="submit" class="search-submit">Search</button></a>-->
+
           </form>
                     </span>
             </div>
 
 
-            <ul class="heading-tabs" ng-if="!searchText">
+          
+
+        </div>
+    </div>
+
+
+<div class="pure-g page-content news-content" >
+
+            <div class="modal-body__inner__search-results">
+<section>
+
+  <ul class="heading-tabs" ng-if="!searchText">
               <li class="heading-tabsItem u-inlineBlock js-tabsItem is-active">
                 <span class="heading-title u-inlineBlock">
                   <a ng-click="closeMenu();" class="button button--unstyled" href="/search/pages/nymble%20restaurant">Nymble Menu</a></span>
@@ -61,15 +78,6 @@
             </ul>
 
 </div>
-
-        </div>
-    </div>
-
-
-<div class="pure-g page-content news-content" >
-
-            <div class="modal-body__inner__search-results">
-<section>
 
  <article><div class="entry" ng-show="searchText && !searchResults.length && !notfound"><h3>{{vm.subtitle}}...</h3></div></article>
   <article><div class="entry" ng-hide="notfound === false"><h3>No results</h3></div></article>

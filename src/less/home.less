@@ -440,6 +440,28 @@ td, th {
 .feature-block_category {
     margin-bottom: 0;
 }
+@media screen and (min-width: 640px){
+.feature-block_link_card.hover:after, .feature-block_link_card:hover:after {
+    opacity: 1;
+}
+}
+.feature-block_link_card:after {
+    background: rgba(0,0,0,.4);
+    content: '';
+    left: 0;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    -webkit-transition: opacity .2s linear;
+    transition: opacity .2s linear;
+    width: 100%;
+}
+.feature-block_link_card {
+    display: block;
+    width: 100%;
+    -webkit-transform: translate3d(0,0,0);
+}
 
 .feature-block_link.hover:after, .feature-block_link:hover:after {
     opacity: 1;
