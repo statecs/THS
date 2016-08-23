@@ -7,10 +7,11 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
   ApiService.postByURL($stateParams.path).then(function(page) {
         vm.page = page[0];
 
-        if (vm.page.excerpt.rendered){
+        if (vm.page.excerpt){
           vm.page.title.rendered = $sce.getTrustedHtml(vm.page.title);
           vm.page.excerpt.rendered = $sce.getTrustedHtml(vm.page.excerpt);
         }
+
       /* TODO  if (typeof vm.redirect !== 'undefined'){
           console.log(vm.redirect);
             $window.location.href = vm.redirect;

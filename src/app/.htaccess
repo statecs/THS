@@ -1,19 +1,5 @@
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
-#RewriteEngine On
-#RewriteBase /
-#RewriteRule ^index\.php$ - [L]
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule . /index_wp.php [L]
-RewriteRule ^api/(.*)$ /index_wp.php [L]
-
-RewriteRule ^wp-content/(.*)$ /wp/wp-content/$1 [R=301,NC,L]
-RewriteRule ^wp-content - [L,NC]
-
-RewriteRule ^sitemap_index.xml$ /wp/index.php?sitemap=1 [L]
-RewriteRule ^([^/]+?)-sitemap([0-9]+)?.xml$ /wp/index.php?sitemap=$1&sitemap_n=$2 [L]
-RewriteRule ^([a-z]+)?-?sitemap.xsl$ /wp/index.php?xsl=$1 [L]
 
 </IfModule>
 
@@ -23,6 +9,16 @@ RewriteRule ^([a-z]+)?-?sitemap.xsl$ /wp/index.php?xsl=$1 [L]
 
 <ifModule mod_rewrite.c>
     RewriteEngine On
+
+    RewriteRule ^api/(.*)$ /index_wp.php [L]
+
+    RewriteRule ^wp-content/(.*)$ /wp/wp-content/$1 [R=301,NC,L]
+    RewriteRule ^wp-content - [L,NC]
+
+    RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.xml$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]
+    RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.xml\.gz$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]
+    RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.html$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]
+    RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.html.gz$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]
 
     # Force www (http://stackoverflow.com/a/4958847/772859)
     # OSX users: Forcing WWW locally with MAMP will cause an error - comment the following

@@ -23,7 +23,7 @@ function initializeApp($rootScope, localStorageService, $http, CacheFactory ){
         });
         if (!CacheFactory.get('optionsCache')) { CacheFactory.createCache('optionsCache')}
            /** Cards **/
-        $http.get('http://ths.kth.se/api/acf/v2/options', {cache: CacheFactory.get('optionsCache')}).success(function(res){
+        $http.get(config.API_URL + 'acf/v2/options', {cache: CacheFactory.get('optionsCache')}).success(function(res){
             var acf = [];
             $rootScope.acf = res.acf;
             localStorageService.set( 'acf', acf );

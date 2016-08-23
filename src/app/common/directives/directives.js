@@ -341,7 +341,7 @@ function dirDisqus($window) {
 
         // I bind the JavaScript events to the scope.
         function link( scope, element, attributes ) {
-            console.log(scope.config);
+           // console.log(scope.config);
 
            scope.$watch('config', configChanged, true);
 

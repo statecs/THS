@@ -3,7 +3,7 @@
     "build": {
       "siteUrl": "http://localhost",
       "basePath": "/",
-      "apiUrl": "http://ths.kth.se/api/",
+      "apiUrl": "http://dev.ths.kth.se/api/",
       "posts_per_page": "10"
     },
     "dist": {
