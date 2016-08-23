@@ -1,0 +1,34 @@
+<div class="content js-wow fadeIn animated" id="top">
+    <div class="col-12">
+        <div class="hero-block hero-block--darken hero-block--top-gradient">
+        <img class="hero-block_image js-img-swap">    
+            <div class="hero-block_content">
+            <div class="hero-block_category sub-title"></div>
+                <h1 class="hero-block_title o-heading -h1 js-wow fadeInUp animated">
+                    <span class="o-heading_line">
+                    <div class="date" style="font-size: 30px;">
+                            {{ vm.page.date | date:'dd MMM yyyy' }}
+                    </div>
+                        <span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">{{ vm.page.title   | limitHtml: 40 }}</span>
+                    </span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <style>
+	.hero-block {
+        background-image: url('assets/images/big-banner.jpg');
+      }
+    </style>
+
+<div class="pure-g page-content news-content" >
+    <div class="pure-u-1">
+
+
+<a target="_self" href="{{vm.page.guid.rendered}}"><img src="http://ths.kth.se/wp/wp-content/uploads/2016/08/pdf-icon.png">Attachment</a>
+
+<div ng-bind-html="vm.page.content"></div>
+            
+    </div>
+</div>

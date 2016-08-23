@@ -16,10 +16,6 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
         return getData('wp/v2/posts?per_page=20');
     }
 
-    function allSearchTerm(searchResult) {
-        return getData('wp/v2/search?s=' + searchResult);
-    }
-
     function allPostsBySearchTag(searchTerm) {
         return getData('wp/v2/posts?per_page=20&filter[tag]=' + searchTerm);
     }
@@ -46,7 +42,6 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
 
     function getData(url) {
         $rootScope.loaded = false;
-        $rootScope.notfound = false;
         spinnerService.show('loadingSpinner');
         $rootScope.progressbar.start();
         $rootScope.progressbar.setColor('#fff');
@@ -57,14 +52,10 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
             .then(function(response) {
                 if (typeof response.data ==='object' && response.data instanceof Array) {
                      if(!response.data.length){
-                        //$location.path('/404');
                          $state.go('root.404', null, {location: false});
-                         $rootScope.notfound = true;
-                        //alertify.error("Error: Not Found 404");
                         throw "Error: Not Found 404";
                      } else{
                         var items = response.data.map(function(item) {
-                            //console.log(item);
                            return decorateResult(item);
                         });
                         return items;
@@ -76,18 +67,13 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
             })
             .catch(function (e) {
                     $state.go('root.404', null, {location: false});
-                    $rootScope.notfound = true;
-                    //alertify.error("Error: Not Found 404");
-                    //$location.path('/404');
                     throw e;
                     
             })
             .finally(function(response) {
                  spinnerService.hide('loadingSpinner');
                   $rootScope.progressbar.complete();
-                   $timeout(function () {
-                        $rootScope.loaded = true;
-                    }, 1500);
+                    $rootScope.loaded = true
             });
     }
 
@@ -112,7 +98,6 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
         allPostsBySearchCategory: allPostsBySearchCategory,
         featuredPosts: featuredPosts,
         postById: postById,
-        allSearchTerm: allSearchTerm,
         postByURL: postByURL,
     };
 }

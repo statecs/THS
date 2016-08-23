@@ -9,7 +9,6 @@ $API_URL = "%%API_URL%%";
 $SITE_URL = "%%SITE_URL%%";
 $POST_PAGE = "%%POST_PAGE%%";
 
-
 $jsonData = getData($API_URL);
 makePage($jsonData, $API_URL);
 
@@ -26,6 +25,7 @@ function getData($API_URL) {
 function makePage($data) {
     $pageUrl = str_replace("/api/", "/blog/", $data[0]->link);
     $metaDescription = substr(strip_tags($data[0]->excerpt->rendered), 0, 155);
+    $colarray = $data[0]->acf->post_meta[0]->col;
     ?>
       <!DOCTYPE html>
     <html>
@@ -69,8 +69,19 @@ function makePage($data) {
             <div class="pure-u-1">
                 <div class="post-body">
                     <?php echo $data[0]->content->rendered; ?>
+                    <?php if (!empty($colarray)){
+
+                     foreach ($colarray as $object) {
+                            echo $object->content . "<br/>";
+                    }
+                    } ?>
+                </div>
+                <?php if (!empty($data[0]->acf->post_meta[0]->related_links)) { ?>
+                <div class="related-links-block"><h2 class="h2 border-top">Related links</h2>
+                 <div class="link-container"> <?php echo $data[0]->acf->post_meta[0]->related_links; } ?></div>
                 </div>
             </div>
+
         </div>
 
     </div>

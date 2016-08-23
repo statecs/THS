@@ -431,10 +431,30 @@ function a($location, $anchorScroll) {
     };
 }
 
+function clickOutside($document) {
+     return {
+            restrict: 'A',
+            scope: {
+               clickOutside: '&'
+            },
+            link: function(scope, elem, attrs) {
+            $document.on('click', function (e) {
+                   if (elem !== e.target && !elem[0].contains(e.target)) {
+                        scope.$apply(function () {
+                            scope.$eval(scope.clickOutside);
+                        });
+                    }
+               });
+        }
+
+    };
+}
+
 angular.module('app')
     .directive('revealingSearchInput', revealingSearchInput)
     .directive('dirDisqus', dirDisqus)
     .directive('touchSubmit', touchSubmit)
+    .directive('clickOutside', clickOutside)
     .directive('a', a)
     .directive('discoverCard', discoverCard)
     .directive('eventsCard', eventsCard)

@@ -7,9 +7,10 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
   ApiService.postByURL($stateParams.path).then(function(page) {
         vm.page = page[0];
 
-        vm.page.title.rendered = $sce.getTrustedHtml(vm.page.title);
-        vm.page.excerpt.rendered = $sce.getTrustedHtml(vm.page.excerpt);
-
+        if (vm.page.excerpt.rendered){
+          vm.page.title.rendered = $sce.getTrustedHtml(vm.page.title);
+          vm.page.excerpt.rendered = $sce.getTrustedHtml(vm.page.excerpt);
+        }
       /* TODO  if (typeof vm.redirect !== 'undefined'){
           console.log(vm.redirect);
             $window.location.href = vm.redirect;
@@ -26,11 +27,11 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
         */
          $scope.pageTemplate = function() {
             if (vm.page.template == 'default' || vm.page.template == '' ) {
+
                 return 'partials/pages/default.tpl.html';
             } else if (
-                vm.page.template == 'single-post'    ||
-                vm.page.template == 'category'){
-                return;
+                vm.page.type == 'attachment'){
+                return 'partials/pages/' + vm.page.type + '.tpl.html';
             } else {
               //  console.log(vm.page.template);
                 return 'partials/pages/' + vm.page.template + '.tpl.html';
@@ -230,8 +231,64 @@ function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiServ
     
 }
 
+function SearchCtrl($scope, $http, $stateParams, MetadataService, SearchService, $state) {
+    var vm = this;
+    vm.page = {};
+
+      var apiCallFunction;
+      vm.stateSearchTerm = $stateParams.searchTerm;
+
+        if (typeof $stateParams.tags !== 'undefined') {
+        apiCallFunction = SearchService.allSearchTerm($stateParams.tag);
+        vm.subtitle = 'tagged with "' + $stateParams.tag + '"';
+    } else if (typeof $stateParams.searchTerm !== 'undefined' && typeof $stateParams.searchCat !== 'undefined') {
+        apiCallFunction = SearchService.allSearchCat($stateParams.searchTerm, $stateParams.searchCat);
+        apiCallFunction.then(function(results) {
+          $scope.searchResults = results;
+        });
+        vm.subtitle = 'searching "' + $stateParams.searchTerm + '"';
+    } else {
+       apiCallFunction = SearchService.allSearchTerm($stateParams.searchTerm);
+        apiCallFunction.then(function(results) {
+          $scope.searchResults = results;
+        });
+        vm.subtitle = 'searching "' + $stateParams.searchTerm + '"';
+    }
+
+  // Switch the search type/state
+    $scope.switchSearchType = function(aSearchType) {
+    vm.typeOfSearch = aSearchType;
+    var valtosend = $scope.searchText;
+    $state.go('root.searchCat', {searchTerm: valtosend, searchCat: vm.typeOfSearch});
+    };
+
+    if ( $stateParams.searchCat == 'posts') {
+      vm.typeOfSearch = 'posts';
+    } else if( $stateParams.searchCat == 'pages'){
+      vm.typeOfSearch = 'pages';
+    } else if( $stateParams.searchCat == 'documents'){
+      vm.typeOfSearch = 'documents';
+    } else if( $stateParams.searchCat == 'faq'){
+      vm.typeOfSearch = 'faq';
+    } else{
+      vm.typeOfSearch = 'all';
+    }
+
+
+     $scope.change = function(searchResult) {
+      var valtosend = $scope.searchText;
+      $state.go('root.searchCat', {searchTerm: valtosend, searchCat: vm.typeOfSearch});
+
+}
+
+
+
+
+}
+
 angular
     .module('app')
     .controller('PageCtrl', PageCtrl)
     .controller('EventsCtrl', EventsCtrl)
+    .controller('SearchCtrl', SearchCtrl)
     .controller('ContactCtrl', ContactCtrl);
