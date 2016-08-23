@@ -9,7 +9,7 @@
 <ul class="glide__track" ng-style="vm.getElementWidth()" style="transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);" >
   <li ng-style="vm.getCurrentWidth()" class="feature-block glide__slide" ng-repeat="tile in vm.socialTiles|orderBy:vm.sortSocial:true|limitTo:5" ng-swipe-left="vm.navigateRight()" ng-swipe-right="vm.navigateLeft()">
 
-        <a target="_blank" ng-if="tile.link" ng-href="{{ tile.link }}" class="c-block feature-block_link_card" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover; min-height: 450px">
+        <a target="_blank" ng-if="tile.link" ng-href="{{ tile.link }}" class="c-block feature-block_link_card" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover;">
 
      <div class="tag tag--date">
           <div class="tag_month">{{ tile.date | date:'MMM' }}</div>

@@ -75,7 +75,7 @@
 
 <a ng-if="result.type !== 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" href="{{result.link}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}}</span></a>
 
-<a ng-if="result.type === 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" href="{{result.guid.rendered}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}}</span></a>
+<a ng-if="result.type === 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" target="_blank" href="{{result.guid.rendered}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}} (PDF)</span></a>
 
 </li>
 
