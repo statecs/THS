@@ -154,7 +154,7 @@ add_action( 'rest_api_init', function () {
 });
 
 add_action( 'rest_api_init', function () {
-    register_rest_route( 'wp/v2', '/social', array(
+    register_rest_route( 'wp/v2', '/social/(?P<type>\S+)', array(
         'methods' => WP_REST_Server::READABLE,
         'callback' => array('THS_API', 'get_social_posts'),
         'args'     => array(
@@ -188,7 +188,7 @@ add_action( 'rest_api_init', function () {
         $templates = array(
             'home-page'  => 'Home Page',
             'faq'  => 'FAQ',
-            'nymble-restaurant' => 'Nymble Restaurant' ,
+            'nymble-restaurant' => 'Nymble Restaurant'
         );
         return array_merge( $now_templates, $templates );
     } );
@@ -410,6 +410,78 @@ if ( function_exists( 'add_image_size' ) ) {
       add_image_size( 'image1600', 1600, 550, false ); //(scaled)
        add_image_size( 'image1920', 1920, 550, false ); //(scaled)
 }
+
+add_filter( 'rest_cache_headers', function( $headers ) {
+    $headers['Cache-Control'] = 'public, max-age=604800';
+    $headers['Access-Control-Allow-Origin'] = '*';
+
+    return $headers;
+} );
+
+add_filter( 'rest_cache_timeout', function() {
+    // https://codex.wordpress.org/Transients_API#Using_Time_Constants
+    return 15 * DAY_IN_SECONDS;
+} );
+
+add_filter( 'rest_cache_skip', function( $skip, $request_uri ) {
+    if ( ! $skip && false !== stripos( 'api/wp/v2/social', $request_uri ) ) {
+        return true;
+    }
+
+    return $skip;
+}, 10, 2 );
+
+function half_shortcode( $atts, $content = null ) {
+  $a = shortcode_atts( array(
+    'class' => 'o-half left-o',
+  ), $atts );
+
+  return '<div class="' . esc_attr($a['class']) . '">' . do_shortcode($content) . '</div>';
+}
+add_shortcode('o-half', 'half_shortcode');
+
+function cover_shortcode( $atts, $content = null ) {
+
+  return '<div class="cover-img" style="background-image:url(' . do_shortcode($content) . ');background-size: cover;"></div>';
+}
+add_shortcode('cover-img', 'cover_shortcode');
+
+function collapse_shortcode( $atts, $content = null ) {
+ 
+    $output = '';
+ 
+    $pull_quote_atts = shortcode_atts( array(
+        'quote' => 'My Quote',
+    ), $atts );
+ 
+    $output .= '<section><article><details>';
+        $output .=  '<summary><p>' . $pull_quote_atts[ 'quote' ]  . '</p></summary>';
+        $output .= '<p>' . do_shortcode($content) . '</p>';
+    $output .= '</details></article></section>';
+ 
+    return $output;
+ 
+}
+add_shortcode( 'collapse-quote', 'collapse_shortcode' );
+
+function sub_collapse_shortcode( $atts, $content = null ) {
+ 
+    $output = '';
+ 
+    $pull_quote_atts = shortcode_atts( array(
+        'quote' => 'My Quote',
+    ), $atts );
+ 
+    $output .= '<details>';
+        $output .=  '<summary><p>' . $pull_quote_atts[ 'quote' ]  . '</p></summary>';
+        $output .= '<p>' . do_shortcode($content) . '</p>';
+    $output .= '</details>';
+ 
+    return $output;
+ 
+}
+add_shortcode( 'sub-collapse-quote', 'sub_collapse_shortcode' );
+
 
 function my_searchwp_weight_mods( $sql ) {
   

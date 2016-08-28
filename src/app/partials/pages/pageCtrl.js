@@ -5,7 +5,7 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
  //console.log($stateParams.path);
 
   ApiService.postByURL($stateParams.path).then(function(page) {
-        vm.page = page[0];
+        vm.page = page;
 
         if (vm.page.excerpt){
           vm.page.title.rendered = $sce.getTrustedHtml(vm.page.title);
@@ -163,7 +163,7 @@ function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiServ
     vm.page = {};
 
        ApiService.postByURL('/contact').then(function(page) {
-        vm.page = page[0];
+        vm.page = page;
         
         MetadataService.setMetadata({
             title: vm.page.title,

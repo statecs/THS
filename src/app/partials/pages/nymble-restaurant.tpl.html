@@ -55,10 +55,12 @@
 
 <div class="two-third left-o" ng-bind-html="acf.meal_of_the_day[0].full_text  | sanitizeHtml ">
 
-	Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />
-    Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}
+	
 
 </div>
+
+<div class="two-third left-o"><p>Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />
+    Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}</p></div>
 
 <!--<div class="o-third js-wow fadeInUp animated">
 

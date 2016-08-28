@@ -12,6 +12,15 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
 
     $rootScope.progressbar = ngProgressFactory.createInstance();
 
+
+    function allDocuments() {
+        return getData('wp/v2/documents?per_page=100');
+    }
+
+    function documentBySlug(title) {
+        return getData('wp/v2/documents?slug=' + title);
+    }
+
     function allPosts() {
         return getData('wp/v2/posts?per_page=20');
     }
@@ -93,6 +102,8 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
 
     return {
         allPosts: allPosts,
+        allDocuments: allDocuments,
+        documentBySlug: documentBySlug,
         allPostsBySearchTag: allPostsBySearchTag,
         allPostsBySearchTerm: allPostsBySearchTerm,
         allPostsBySearchCategory: allPostsBySearchCategory,

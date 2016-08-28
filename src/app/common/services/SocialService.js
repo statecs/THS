@@ -12,10 +12,10 @@ function SocialService($http, $sce, config, spinnerService, alertify, ngProgress
     var result = [];
 
     function facebookPosts() {
-      return getData('wp/v2/social?type=facebook');
+      return getData('wp/v2/social/facebook');
     }
     function instagramPosts() {
-      return getData('wp/v2/social?type=instagram');
+      return getData('wp/v2/social/instagram');
     }
    
     function getData(url) {

@@ -62,7 +62,7 @@
      <article class="no-article-survey">
         <nav class="accordion-homepage" data-tracking-cat="accordion-homepage">
             <h1>Frequently Asked Questions</h1>
-            <section ng-repeat="fCard in acf.faq_card track by $index" ng-click="openFaq($index)" ng-class="{'selected' : $index === faqClass}" class="parent"ng-repeat="fCard in acf.faq_card track by $index">
+            <section ng-repeat="fCard in acf.faq_card track by $index" ng-click="openFaq($index)" ng-class="{'selected' : $index === faqClass}" class="parent">
                 <h2 id="{{$index}}" aria-expanded="false" tabindex="0" ng-bind-html="fCard.question | sanitizeHtml"></h2>
                 <div class="overflow">
                     <div aria-hidden="true" class="children">

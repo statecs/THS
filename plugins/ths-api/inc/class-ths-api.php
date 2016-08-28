@@ -31,10 +31,14 @@ class THS_API  {
 
     // foreach throught them to get relevant data and add these to response array
     $data = array();
-    $data[] = self::prepare_item_for_response( $post, $request );
+    $data = self::prepare_item_for_response( $post, $request );
 
     // return response array + status
-    return new WP_REST_Response( $data, 200 );
+    $response = new WP_REST_Response( $data, 200 );
+
+    $response->header( 'Last-Modified', mysql2date( 'D, d M Y H:i:s', $post->post_modified_gmt)  . ' GMT' );
+
+    return $response;
   }
 
   // Sticky posts in REST - https://github.com/WP-API/WP-API/issues/2210
