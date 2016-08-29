@@ -21,6 +21,20 @@ function initializeApp($rootScope, localStorageService, $http, CacheFactory ){
            localStorageService.set( 'nav', nav );
 
         });
+          /** Localize menu **/
+        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/footer_menu', { cache: CacheFactory.get('navFooterCache') }).success(function(res){
+            var navFooter = [];
+            $rootScope.navFooter = res;
+           localStorageService.set( 'navFooter', navFooter );
+
+        });
+           /** Localize menu **/
+        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/chapters_menu', { cache: CacheFactory.get('navChaptersCache') }).success(function(res){
+            var navChapters = [];
+            $rootScope.navChapters = res;
+           localStorageService.set( 'navChapters', navChapters );
+
+        });
         if (!CacheFactory.get('optionsCache')) { CacheFactory.createCache('optionsCache')}
            /** Cards **/
         $http.get(config.API_URL + 'acf/v2/options', {cache: CacheFactory.get('optionsCache')}).success(function(res){
