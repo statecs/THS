@@ -169,6 +169,7 @@ add_action( 'rest_api_init', function () {
     register_nav_menus( array(
         'header_menu' => 'Main Menu',
         'footer_menu' => 'Footer Menu',
+        'chapters_menu' => 'Chapters Menu',
     ) );
 
 
