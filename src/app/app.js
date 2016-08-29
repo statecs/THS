@@ -110,6 +110,36 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.documents', {
+            url: "/documents",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/documents.tpl.html',
+                        controller: 'DocumentCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.documentsS', {
+            url: "/documents/",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/documents.tpl.html',
+                        controller: 'DocumentCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.documentPost',{
+                url: '/documents/:title',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/document-post.tpl.html',
+                        controller: 'DocumentCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.contact', {
             url: "/contact",
             views: {

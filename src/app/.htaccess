@@ -5,7 +5,7 @@
 
 # END WordPress
 
-
+Redirect 301 /jobs http://campuscompetence.se/ths/jobs
 
 <ifModule mod_rewrite.c>
     RewriteEngine On
@@ -52,8 +52,8 @@
     RewriteRule (.*) index.html [L]
 
  
-    ExpiresActive On
-    ExpiresDefault "access plus 1 days"
+    #ExpiresActive On
+    #ExpiresDefault "access plus 1 days"
     #ExpiresByType text/css "access plus 1 week"
     #ExpiresByType text/plain "access plus 1 month"
     #ExpiresByType image/gif "access plus 1 month"
@@ -62,6 +62,8 @@
     #ExpiresByType application/x-javascript "access plus 1 month"
     #ExpiresByType application/javascript "access plus 1 week"
     #ExpiresByType application/x-icon "access plus 1 year"
+
+    Header append Vary: Accept-Encoding
 
 
 </ifModule>

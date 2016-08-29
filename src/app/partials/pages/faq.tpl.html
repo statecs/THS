@@ -51,42 +51,28 @@
 
     <div class="o-container" data-widget="block">
 
-        <div class="o-grid">
-
-<!--<div class="faq-container" ng-repeat="fCard in acf.faq_card">
-<h1 class="h1-blue" ng-bind-html="fCard.question | sanitizeHtml"></h1>
-<div class="p-large center-text" ng-bind-html="fCard.answer | sanitizeHtml"> 
-</div>
-</div>-->
-
 
  <article class="page no-article-survey">
         <nav class="accordion-homepage" data-tracking-cat="accordion-homepage">
             <h1>Frequently Asked Questions</h1>
-            <section ng-repeat="fCard in acf.faq_card track by $index" ng-click="openFaq($index)" ng-class="{'selected' : $index === faqClass}" class="parent" data-id="3382296" data-tracking-idx=
-            "posidx:1|5"ng-repeat="fCard in acf.faq_card track by $index" >
-                <h2 aria-expanded="false" tabindex="0" ng-bind-html="fCard.question | sanitizeHtml"></h2>
-                <div class="overflow">
-                    <div aria-hidden="true" class="children">
-                        <div class="child">
-                            <a ng-bind-html="fCard.answer | sanitizeHtml"></a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                  <article ng-repeat="fCard in acf.faq_card track by $index">
+                  <input class="checkbox-state" type="checkbox" id="input-{{$index}}">
+
+                  <details ng-open="open"> 
+
+
+
+      <summary><label class="feature-block" for="input-{{$index}}">{{fCard.question}}</label></summary>
+
+    <div class="left-o">
+    <div ng-bind-html="fCard.answer | sanitizeHtml"></div>
+    </div>
+
+</details></article>
+
         </nav>
     </article>
 
 
-
-<!--<div class="two-third js-wow fadeInUp animated" ng-bind-html="vm.page.content">
-
-	Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />
-    Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}
-
-</div>-->
-
-
-    </div>
 </div>
 </div>

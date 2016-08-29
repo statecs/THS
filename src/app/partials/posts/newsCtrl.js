@@ -53,6 +53,56 @@ function NewsCtrl($anchorScroll, $stateParams, $state, ApiService, MetadataServi
     };
 }
 
+function DocumentCtrl($stateParams, $anchorScroll, $timeout, $location, ApiService, MetadataService, SearchService) {
+    var vm = this;
+    var apiCallFunction;
+    vm.searchResults = false;
+    vm.post = {};
+
+    ApiService.postByURL('/documents').then(function(page) {
+        vm.page = page;
+        
+        MetadataService.setMetadata({
+            title: vm.page.title,
+            description: page.excerpt
+        });
+    });
+
+ if (typeof $stateParams.title !== 'undefined') {
+    ApiService.documentBySlug($stateParams.title).then(function(post) {
+        vm.post = post[0];
+    });
+ } else{
+     apiCallFunction = ApiService.allDocuments();
+        apiCallFunction.then(function(posts) {
+        vm.posts = posts;
+        vm.loaded = true;
+    });
+ }
+
+vm.search = function(searchText) {
+  apiCallFunction = SearchService.allSearchCat(searchText, 'documents');
+        apiCallFunction.then(function(results) {
+          vm.searchResults = results;
+        });
+}
+
+    vm.tab = 1;
+
+    vm.setTab = function(newTab){
+      vm.tab = newTab;
+    };
+
+    vm.isSet = function(tabNum){
+      return vm.tab === tabNum;
+    };
+
+    
+}
+
+
+
 angular
     .module('app')
-    .controller('NewsCtrl', NewsCtrl);
+    .controller('NewsCtrl', NewsCtrl)
+    .controller('DocumentCtrl', DocumentCtrl);

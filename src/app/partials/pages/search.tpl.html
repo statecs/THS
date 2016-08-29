@@ -87,13 +87,16 @@
 
 
     <a target="_blank" ng-if="result.type === 'attachment'" href="{{result.guid.rendered}}">
+    <div class="o-grid">
+    <div class="o-third -tiny"><div class="download -pdf"><i class="fa fa-file-pdf-o fa-2" aria-hidden="true"></i></div></div>
 
-    <p class="post-result" ng-if="result.date"> {{ result.date | date:'dd MMM yyyy' }} | Document (PDF)</p>
+    <div class="o-half -big"><p class="post-result" ng-if="result.date"> {{ result.date | date:'dd MMM yyyy' }} | Document (PDF)</p>
 
                  <h3 class="h1-blue">{{result.title}}</h3>
 
                       <p class="post-result" ng-if="result.excerpt">{{result.excerpt | limitHtml: 200}}"</p>
-
+</div>
+</div>
     </a>
 
                   <a ng-click="closeMenu();" ng-if="result.type !== 'attachment'" href="{{result.link}}"><p class="post-result" ng-if="result.date">

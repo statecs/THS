@@ -6,7 +6,7 @@
 <div class="lang-bar-2">
 <a title="Open" href="http://www.opensektionen.se/" target="_blank"><img src="http://ths.kth.se/wp/wp-content/uploads/2016/08/2.png" class="section-img"></a>
 <a title="Sektionen för Medicinsk Informatik och teknik (MiT)" href="http://mit-kth.se/" target="_blank"><img src="http://ths.kth.se/wp/wp-content/uploads/2016/08/3.png" class="section-img"></a>
-<a title="Sektionen för Mediateknik" href="http://www.medieteknik.com/" target="_blank"><img src="http://ths.kth.se/wp/wp-content/uploads/2016/08/4.png" class="section-img"></a>
+<a title="Sektionen för Medieteknik" href="http://www.medieteknik.com/" target="_blank"><img src="http://ths.kth.se/wp/wp-content/uploads/2016/08/4.png" class="section-img"></a>
 <a title="Maskinsektionen (M)" href="http://www.maskinsektionen.se/" target="_blank"><img src="http://ths.kth.se/wp/wp-content/uploads/2016/08/5.png" class="section-img"></a>
 <a title="Sektionen för Informations- och Nanoteknik (IN)" href="http://insektionen.se/" target="_blank"><img src="http://ths.kth.se/wp/wp-content/uploads/2016/08/6.png" class="section-img"></a>
 <a title="Samhällsbyggnadssektionen (S) " href="http://s-sektionen.se/" target="_blank"><img src="http://ths.kth.se/wp/wp-content/uploads/2016/08/7.png" class="section-img"></a>
@@ -73,9 +73,9 @@
 
 <li class="list-item" ng-repeat="result in searchResults|limitTo:6">
 
-<a ng-if="result.type !== 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" href="{{result.link}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}}</span></a>
+<a ng-if="result.type !== 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" href="{{result.link}}" tabindex="-1" role="menuitem"><span>{{result.title}}</span></a>
 
-<a ng-if="result.type === 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" target="_blank" href="{{result.guid.rendered}}" tabindex="-1" role="menuitem"><span class="avatar-text">{{result.title}} (PDF)</span></a>
+<a ng-if="result.type === 'attachment'" ng-click="closeMenu()" class="link avatar u-baseColor--link" target="_blank" href="{{result.guid.rendered}}" tabindex="-1" role="menuitem"><i class="fa fa-file-pdf-o" aria-hidden="true"></i><span class="avatar-text">{{result.title}}</span></a>
 
 </li>
 

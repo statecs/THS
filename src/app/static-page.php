@@ -14,12 +14,29 @@ makePage($jsonData, $API_URL);
 
 
 function getData($API_URL) {
-    $url = $_GET['url'] ? $_GET['url'] : 1;
-   // $rawData = file_get_contents($API_URL.'wp/v2/post?url='.$id);
-   // $id = ctype_digit($_GET['id']) ? $_GET['id'] : 1;
-    $rawData = file_get_contents($API_URL.'wp/v2/post/'.$url);
-     //return $id;
-    return json_decode($rawData);
+$url = $_GET['url'] ? $_GET['url'] : 1;
+
+// Create a curl handle to a non-existing location
+$ch = curl_init($API_URL.'wp/v2/post/'.$url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$json = '';
+if( ($json = curl_exec($ch) ) === false)
+{
+    curl_close($ch);
+    header("HTTP/1.0 404 Not Found");
+    die;
+
+}
+// Close handle
+curl_close($ch);
+$decoded = json_decode($json);
+
+if (isset($decoded->data->status) && $decoded->data->status == '404') {
+    header("HTTP/1.0 404 Not Found");
+    die('404 Not Found');
+}
+return $decoded;
+   
 }
 
 function makePage($data) {

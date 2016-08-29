@@ -59,22 +59,29 @@
 
  <div class="vf-core">
     <div class="vfDirekt-container">
-     <article class="no-article-survey">
-        <nav class="accordion-homepage" data-tracking-cat="accordion-homepage">
-            <h1>Frequently Asked Questions</h1>
-            <section ng-repeat="fCard in acf.faq_card track by $index" ng-click="openFaq($index)" ng-class="{'selected' : $index === faqClass}" class="parent"ng-repeat="fCard in acf.faq_card track by $index">
-                <h2 id="{{$index}}" aria-expanded="false" tabindex="0" ng-bind-html="fCard.question | sanitizeHtml"></h2>
-                <div class="overflow">
-                    <div aria-hidden="true" class="children">
-                        <div class="child">
-                            <a ng-bind-html="fCard.answer | sanitizeHtml"></a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </nav>
-    </article>
 
+ 
+
+    
+      
+            <nav class="accordion-homepage" data-tracking-cat="accordion-homepage"><h1>Frequently Asked Questions</h1>
+              <article ng-repeat="fCard in acf.faq_card track by $index">
+                  <input class="checkbox-state" type="checkbox" id="input-{{$index}}">
+
+                  <details ng-open="open"> 
+
+
+
+      <summary><label class="feature-block" for="input-{{$index}}">{{fCard.question}}</label></summary>
+
+    <div class="left-o">
+    <div ng-bind-html="fCard.answer | sanitizeHtml"></div>
+    </div>
+
+</details></article></nav>
+
+
+    
 
         <div class="content-block-solid" ng-bind-html="vm.page.content">
 
