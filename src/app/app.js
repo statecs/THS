@@ -120,6 +120,16 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.documentsS', {
+            url: "/documents/",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/documents.tpl.html',
+                        controller: 'DocumentCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.documentPost',{
                 url: '/documents/:title',
                 views: {

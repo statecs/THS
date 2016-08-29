@@ -53,24 +53,39 @@
 
         <div class="o-grid">
 
-<div class="two-third left-o" ng-bind-html="acf.meal_of_the_day[0].full_text  | sanitizeHtml ">
+        <div class="two-third left-o">
 
-	
+<div ng-bind-html="acf.meal_of_the_day[0].full_text  | sanitizeHtml "></div>
 
-</div>
+<p>Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />
+    Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}</p>
 
-<div class="two-third left-o"><p>Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />
-    Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}</p></div>
+    </div>
 
-<!--<div class="o-third js-wow fadeInUp animated">
+<div class="o-third">
 
-<div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'template-a'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp animated" style="background-color:{{mCard.bg_color}};background-image:url({{mCard.bg_img}});background-size: cover;opacity: 0.05;">
+<div ng-if="vm.page.acf.post_meta[0].related_links" class=" js-wow fadeInUp animated">
+  <div class="related-links-block"><h2 class="h2 border-top">Related links</h2>
+  <div class="link-container">
+
+  <div class="link-container" ng-bind-html="vm.page.acf.post_meta[0].related_links | sanitizeHtml">
+    
+  </div>
+
+  </div>
+
+</div></div>
+
+<!--<div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'nymble'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp"  data-wow-offset="0" data-wow-duration="0" ng-style="{'background-image': 'linear-gradient(180deg,{{mCard.bg_color}},{{mCard.bg_color}}),url({{mCard.bg_img}})','background-size': 'cover'}">
 
  <div default-card></div>
 
 </div>-->
 
-</div>
+
+
+
+    </div>
 
     </div>
 </div>

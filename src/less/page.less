@@ -370,13 +370,6 @@ and (-webkit-min-device-pixel-ratio: 1) {
     background-color: #d9d9d9;
 }
 
-.vf-core label {
-    display: block;
-    margin-top: 20px;
-    color: #444444;
-    font-weight: bold;
-    margin-bottom: 7px;
-}
 .vf-core input[type=text], .vf-core input[type=email], select, .vf-core input[type=password], .vf-core textarea {
     background-color: #fff;
     border: solid 1px #d9d9d9;
@@ -423,19 +416,14 @@ and (-webkit-min-device-pixel-ratio: 1) {
 }
 }
 
-.accordion-homepage h1 {
-    display: none;
-}
 
-@media (min-width: 771px){
 .accordion-homepage h1 {
     display: block;
     font-size: 24px;
     font-weight: 400;
     line-height: 32px;
     margin: 0;
-    padding: 16px 16px 16px 72px;
-}
+    padding: 16px;
 }
 
 @media (min-width: 771px){
@@ -700,10 +688,8 @@ summary::-webkit-details-marker {
   display: none;
 }
 article > details > summary {
-    font-size: 1.2em;
     background-color: #ffffff;
     border-bottom:1px solid rgba(0,64,108,0.3);
-    padding:15px;
     color:rgba(0,64,108,1); 
 }
 article > details[open] > summary {
@@ -712,10 +698,8 @@ article > details[open] > summary {
     color:#ffffff;
 }
 article > details[open] > details > summary {
-    font-size: 1.2em;
     background-color: #ffffff;
     border-bottom:1px solid rgba(0,64,108,0.3);
-    padding:15px;
     margin:0 10px;
     color: rgba(0,64,108,1); 
 }
@@ -731,10 +715,9 @@ article > details > summary:after {
   float: right; 
   font-size: 1.5em; 
   font-weight: bold; 
-  margin: 0 10px 0 0; 
+  margin: -45px 20px;
   padding: 0; 
   text-align: center; 
-  width: 20px;
     -webkit-transition: -webkit-transform 0.3s ease;
      -moz-transition: -moz-transform 0.3s ease;
        -o-transition: -o-transform 0.3s ease;
@@ -751,10 +734,9 @@ article > details[open] > details > summary:after {
   float: right; 
   font-size: 1.5em; 
   font-weight: bold; 
-  margin: 0 10px 0 0; 
+  margin: -45px 10px;
   padding: 0; 
   text-align: center; 
-  width: 20px;
     -webkit-transition: -webkit-transform 0.3s ease;
      -moz-transition: -moz-transform 0.3s ease;
        -o-transition: -o-transform 0.3s ease;
@@ -777,10 +759,64 @@ article > details > summary > p, article > details > details > summary > p  {
     padding:0 15px !important;
     line-height:0;
     display:inline;
-    font-family: CenturyGothic,sans-serif;
     font-weight: 700;
+    font-size: .85em;
+    @media screen and (min-width: 640px) {
+    font-size: 1em;
+    }
+}
+label.feature-block{
+    display:block;
+    width:100%;
+    padding:20px;
+    font-weight: bold;
+    max-width:80%;
+    line-height:1.5em;
+}
+label.feature-policy-block{
+    display:block;
+    width:100%;
+    padding:60px 30px;
+    max-width:80%;
+    line-height:1.5em;
+}
+input.checkbox-state{
+    display:none !important;
 }
 
-details > * { display: block; }
+input[type=checkbox].checkbox-state + details > .o-half, input[type=checkbox].checkbox-state + details > .two-third {
+    display:none;
+}
 
+input[type=checkbox].checkbox-state:checked + details > .o-half, input[type=checkbox].checkbox-state:checked + details > .o-third, input[type=checkbox].checkbox-state:checked + details.subcontent > .o-half, {
+    display:inline-block;
+}
+
+input[type=checkbox].checkbox-state:checked + details > * { display: block; }
+
+input[type=checkbox].checkbox-state:checked + details > summary:after { color: #ffffff; 
+    transform: rotate(45deg) scale(1.08);
+    -ms-transform: rotate(45deg) scale(1.08);
+    -webkit-transform: rotate(45deg) scale(1.08); }
+
+input[type=checkbox].checkbox-state:checked + details > summary{
+     background-color: rgb(0, 64, 108);
+    border-bottom:1px solid rgba(255,255,255,1);
+    color:#ffffff;
+}
+
+input[type=checkbox].checkbox-state + details > summary{
+     background-color: rgba(255,255,255,1);
+    border-bottom:1px solid rgba(0,64,108,0.3);
+    color:rgb(0, 64, 108);
+}
+details > * {
+    display:none;
+}
+
+summary h3{
+    margin:0;
+}
+
+details summary { display: block; }
 summary { cursor: pointer; }

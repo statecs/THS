@@ -71,11 +71,15 @@
     </div>
       
 
-    <div dir-paginate="post in vm.posts | itemsPerPage: 15 |  orderBy:sortType:sortReverse | filter:searchDocuments | filter:filterType">
+    <article dir-paginate="post in vm.posts | itemsPerPage: 15 |  orderBy:sortType:sortReverse | filter:searchDocuments | filter:filterType">
 
-      <article><details ng-open="open"> 
+    
 
-      <summary>  <p class="feature-block_title">{{ post.title  }}</p></summary>
+      <input class="checkbox-state" type="checkbox" id="{{post.id}}">
+
+      <details ng-open="open"> 
+
+      <summary>  <label class="feature-block" for="{{post.id}}">{{post.title}}</label></summary>
 
     <div ng-if="post.content" class="two-third left-o">
     <div ng-bind-html="post.content"></div>
@@ -96,7 +100,6 @@
 </details></article>
 
 
-            </div>
 
 <div class="list-pagination">
             <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="vm.scrollToTop()" direction-links="false">
@@ -110,16 +113,18 @@
       
       <div class="policy" ng-repeat="col in vm.page.acf.policy_documents"> 
 
-      <article><details> 
-      <summary><div class="row o-grid">
+      <article>
+         <input class="checkbox-state" type="checkbox" id="{{col.title}}">
+         <details ng-open="open"> 
+      <summary>
+      <div class="o-grid">
          <div class="o-third">
-            <div class="landing_title_block">
-              <h3>{{col.title}}</h3>
-            </div>
+            <h3><label class="feature-policy-block" for="{{col.title}}">{{col.title}}</label></h3>
           </div>
           <div class="two-third">
-            <div class="landing_section_intro" ng-bind-html="col.description | sanitizeHtml">
-            </div></summary>
+            <label class="feature-policy-block landing_section_intro" for="{{col.title}}">{{col.description}}</label>
+            </div>
+        </summary>
 
           <div class="o-half landing_section" ng-repeat="file in col.documents">
              <a target="_blank" href="{{file.file.url}}">

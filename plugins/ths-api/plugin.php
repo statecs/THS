@@ -454,9 +454,9 @@ function collapse_shortcode( $atts, $content = null ) {
         'quote' => 'My Quote',
     ), $atts );
  
-    $output .= '<section><article><details>';
-        $output .=  '<summary><p>' . $pull_quote_atts[ 'quote' ]  . '</p></summary>';
-        $output .= '<p>' . do_shortcode($content) . '</p>';
+    $output .= '<section><article> <input class="checkbox-state" type="checkbox" id="' . $pull_quote_atts[ 'quote' ]  . '"><details>';
+        $output .=  '<summary><label class="feature-block" for="' . $pull_quote_atts[ 'quote' ]  . '">' . $pull_quote_atts[ 'quote' ]  . '</label></summary>';
+        $output .= '' . do_shortcode($content) . '';
     $output .= '</details></article></section>';
  
     return $output;
@@ -472,9 +472,9 @@ function sub_collapse_shortcode( $atts, $content = null ) {
         'quote' => 'My Quote',
     ), $atts );
  
-    $output .= '<details>';
-        $output .=  '<summary><p>' . $pull_quote_atts[ 'quote' ]  . '</p></summary>';
-        $output .= '<p>' . do_shortcode($content) . '</p>';
+    $output .= '<input class="checkbox-state" type="checkbox" id="' . $pull_quote_atts[ 'quote' ]  . '"><details>';
+    $output .=  '<summary><label class="feature-block" for="' . $pull_quote_atts[ 'quote' ]  . '">' . $pull_quote_atts[ 'quote' ]  . '</label></summary>';
+    $output .= '' . do_shortcode($content) . '';
     $output .= '</details>';
  
     return $output;
