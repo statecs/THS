@@ -110,14 +110,15 @@ class THS_API  {
 
     );
 
-  /*  if ( $postdata['template'] === false ) {
+    /** BUG. If installed on new wp-blog remove these lines **/
+    if ( $postdata['template'] === false ) {
       if (!empty( get_post_meta($post->ID,'_post_template',true))) {
           $postdata['template'] = get_post_meta($post->ID,'_post_template',true);
       } else {
         $postdata['template'] = "news";
       }
     }
-    */
+    
 
 
       $postdata['title'] = array(

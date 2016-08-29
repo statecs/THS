@@ -58,28 +58,3 @@ function wpsd_add_event_args() {
     $wp_post_types['documents']->rest_controller_class = 'WP_REST_Posts_Controller';
 }
 add_action( 'init', 'wpsd_add_event_args', 30 );
-
-/*
-function sb_add_cpts_to_api() {
-    global $wp_post_types;
-    
-    // Add CPT slugs here
-    $arr = ['fake','movie','events'];
-    
-    foreach( $arr as $key ) {
-        
-    // If the post type doesn't exist, skip it
-    if( !$wp_post_types[$key] )
-        continue;
-            
-        $wp_post_types[$key]->show_in_rest = true;
-    $wp_post_types[$key]->rest_base = $key;
-    }
-}
-add_action( 'init', 'sb_add_cpts_to_api', 30 );
-
-*/
-/*class THS_Postypes {
-
-
-}*/
