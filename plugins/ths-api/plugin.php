@@ -3,7 +3,7 @@
  * Plugin Name: THS API
  * Plugin URI:
  * Description: JSON endpoint and shortcode for THS Website
- * Version: 1.0
+ * Version: 1.1
  * Author: statecs
  * Author URI: http://statecreative.se
  * License: MIT

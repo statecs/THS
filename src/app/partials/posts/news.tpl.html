@@ -26,7 +26,7 @@
         </div><!-- End .tag -->
         
       <div class="feature-blockNewsImg_content">
-        <h3 class="feature-block_title">{{ post.title  }}</h3>
+        <h3 class="feature-block_title" ng-bind-html="post.title"></h3>
             <span class="feature-block_category" ng-repeat="postCat in post.category">{{postCat.name}} | </span>
          <div class="sub-title">{{ post.excerpt  | limitHtml: 100 }}</div>
       </div><!-- End .feature-block_content -->
@@ -40,7 +40,7 @@
         </div><!-- End .tag -->
         
       <div class="feature-blockNews_content">
-        <h3 class="feature-block_title">{{ post.title  }}</h3>
+        <h3 class="feature-block_title" ng-bind-html="post.title"></h3>
             <span class="feature-block_category" ng-repeat="postCat in post.category">{{postCat.name}} | </span>
          <div class="sub-content">{{ post.excerpt  | limitHtml: 150 }}</div>
       </div><!-- End .feature-block_content -->

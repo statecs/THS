@@ -71,6 +71,12 @@ function DocumentCtrl($stateParams, $anchorScroll, $timeout, $location, ApiServi
  if (typeof $stateParams.title !== 'undefined') {
     ApiService.documentBySlug($stateParams.title).then(function(post) {
         vm.post = post[0];
+
+         MetadataService.setMetadata({
+            title: vm.post.title,
+            description: post.excerpt
+        });
+         
     });
  } else{
      apiCallFunction = ApiService.allDocuments();

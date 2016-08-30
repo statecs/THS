@@ -9,7 +9,7 @@
                     <div class="date" style="font-size: 30px;">
                             {{ vm.page.date | date:'dd MMM yyyy' }}
                     </div>
-                        <span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">{{ vm.page.title   | limitHtml: 40 }}</span>
+                        <span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s" ng-bind-html="vm.page.title | limitHtml: 40 | sanitizeHtml"></span>
                     </span>
                 </h1>
             </div>

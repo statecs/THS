@@ -154,6 +154,16 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.documentPostS',{
+                url: '/documents/:title/',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/document-post.tpl.html',
+                        controller: 'DocumentCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.contact', {
             url: "/contact",
             views: {
