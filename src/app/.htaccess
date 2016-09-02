@@ -6,6 +6,7 @@
 # END WordPress
 
 Redirect 301 /jobs http://campuscompetence.se/ths/jobs
+Redirect 301 /login https://login.kth.se/login?service=http://thstudent.upright.se/
 
 <ifModule mod_rewrite.c>
     RewriteEngine On

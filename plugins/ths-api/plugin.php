@@ -412,25 +412,6 @@ if ( function_exists( 'add_image_size' ) ) {
        add_image_size( 'image1920', 1920, 550, false ); //(scaled)
 }
 
-add_filter( 'rest_cache_headers', function( $headers ) {
-    $headers['Cache-Control'] = 'public, max-age=604800';
-    $headers['Access-Control-Allow-Origin'] = '*';
-
-    return $headers;
-} );
-
-add_filter( 'rest_cache_timeout', function() {
-    // https://codex.wordpress.org/Transients_API#Using_Time_Constants
-    return 15 * DAY_IN_SECONDS;
-} );
-
-add_filter( 'rest_cache_skip', function( $skip, $request_uri ) {
-    if ( ! $skip && false !== stripos( 'api/wp/v2/social', $request_uri ) ) {
-        return true;
-    }
-
-    return $skip;
-}, 10, 2 );
 
 function half_shortcode( $atts, $content = null ) {
   $a = shortcode_atts( array(

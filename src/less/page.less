@@ -36,7 +36,11 @@
    background-color: #000;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    min-height: 318px;
+    height: 52.5vh;
+    max-height: 400px;
+     @media (min-width: 1441px){
+        max-height: 550px;
+    }
     overflow: hidden;
     position: relative;
     transition: background 0.2s linear;
@@ -52,10 +56,7 @@
   z-index: 1;
 }
 
-.hero-block--tall {
-    height: calc(150vw);
-    min-height: 400px
-}
+
 .hero-block--top-gradient:after {
     background: -webkit-linear-gradient(top, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, 0) 50%);
     background: linear-gradient(to bottom, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, 0) 50%);
@@ -114,23 +115,8 @@
 
 
 @media screen and (min-width: 480px) {
-    .hero-block--tall {
-        height: calc(62.5vw)
-    }
     .hero-block_content {
         padding: 30px
-    }
-
-}
-@media screen and (min-width: 1100px) {
-    .hero-block {
-        min-height: 550px
-    }
-
-
-    .hero-block--tall {
-        height: calc(50vw);
-        min-height: 720px
     }
     .hero-block_content {
         padding: 40px
@@ -143,9 +129,6 @@
     }
 }
 @media screen and (min-width: 1440px) {
-    .hero-block {
-        height: auto
-    }
     .hero-block_content.--search{
         margin: 15%;
         width: 60%;
@@ -240,16 +223,27 @@ and (-webkit-min-device-pixel-ratio: 1) {
     margin: 0;
 }
 }
-.y-video{
-  position: absolute; 
-  top: -35px; 
-  left: 0;
-  z-index:1;
+
+
+div.youtube iframe{
+    top: -10%;
+    z-index:1;
+    position:absolute;
+    @media (min-width: 699px){
+         top: -25%;
+         height:200%;
+         max-height:850px;
+    }
+    @media (min-width: 1441px){
+         top: -15%;
+    }
 }
-@media (max-width: 480px){
-.y-video{
-   top: -55px; 
-}
+.hero-block--tall {
+    height: 75vh !important;
+    max-height:600px;
+     @media (min-width: 1441px){
+     max-height:700px;
+     }
 }
 
 .tag--news{
@@ -359,7 +353,7 @@ and (-webkit-min-device-pixel-ratio: 1) {
     border-top: none;
     padding: 20px 30px 45px;
     font-size: 18px;
-    line-height: 25px;
+    line-height: 35px;
 }
 .vf-core .vfDirekt-container .core-divider {
     margin-top: 20px;
@@ -770,8 +764,9 @@ label.feature-block{
     width:100%;
     padding:20px;
     font-weight: bold;
-    max-width:80%;
     line-height:1.5em;
+    cursor: pointer;
+    max-width:95%;
 }
 label.feature-policy-block{
     display:block;
