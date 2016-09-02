@@ -73,8 +73,8 @@
                 </span></li>
               <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
                 <a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='documents'}" ng-click="switchSearchType('documents')">Documents</a></span></li>
-              <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
-               <a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='faq'}" ng-click="switchSearchType('faq')">FAQ</a></span></li>
+             <!-- <li class="heading-tabsItem u-inlineBlock js-tabsItem"><span class="heading-title u-inlineBlock">
+               <a class="button button--unstyled" href ng-class="{'active': vm.typeOfSearch=='faq'}" ng-click="switchSearchType('faq')">FAQ</a></span></li>-->
             </ul>
 
 </div>
@@ -86,29 +86,44 @@
 <article class="entry" dir-paginate="result in searchResults | itemsPerPage: 10" ng-hide="notfound === true">
 
 
-    <a target="_blank" ng-if="result.type === 'attachment'" href="{{result.guid.rendered}}">
-    <div class="o-grid">
-    <div class="o-third -tiny"><div class="download -pdf"><i class="fa fa-file-pdf-o fa-2" aria-hidden="true"></i></div></div>
+    <span ng-if="result.type === 'attachment'" >
 
-    <div class="o-half -big"><p class="post-result" ng-if="result.date"> {{ result.date | date:'dd MMM yyyy' }} | Document (PDF)</p>
+       <input class="checkbox-state" type="checkbox" id="{{result.id}}">
+
+ <details ng-open="open"> 
+
+      <summary>  <label class="feature-block" for="{{result.id}}"> <i class="fa fa-file-pdf-o fa-2" aria-hidden="true"></i> {{result.title}} </label></summary>
+    <a target="_blank" href="{{result.guid.rendered}}"><div class="left-os">
+
+   <p class="post-result" ng-if="result.date"> {{ result.date | date:'dd MMM yyyy' }} | Document (PDF)</p>
 
                  <h3 class="h1-blue">{{result.title}}</h3>
 
-                      <p class="post-result" ng-if="result.excerpt">{{result.excerpt | limitHtml: 200}}"</p>
-</div>
-</div>
-    </a>
+                      <p class="post-result" ng-if="result.excerpt" ng-bind-html="result.excerpt"></p>
+</div></a>
+</details>
+ 
 
-                  <a ng-click="closeMenu();" ng-if="result.type !== 'attachment'" href="{{result.link}}"><p class="post-result" ng-if="result.date">
+    </span>
+
+                  <span ng-if="result.type !== 'attachment'">
+
+       <input class="checkbox-state" type="checkbox" id="{{result.id}}">
+
+ <details ng-open="open"> 
+
+      <summary>  <label class="feature-block" for="{{result.id}}">  {{ result.date | date:'dd/MM/yyyy' }} | {{result.title}} </label></summary>
+
+                <div  class="left-os">  <p class="post-result" ng-if="result.date">
                           {{ result.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}} {{result.type}}
                   </p>
-                  <h3 class="h1-blue">{{result.title}}</h3>
+                  <a href="{{result.link}}"><h3 class="h1-blue">{{result.title}}</h3></a>
 
-                      <p class="post-result" ng-if="result.excerpt">{{result.excerpt | limitHtml: 200}}"</p></a>
+                      <p class="post-result" ng-if="result.content" ng-bind-html="result.content"></p></div>
 
+</details></span>
 
-
-</article>
+        </article>
 
             <div ng-show="searchText && searchResults.length" class="list-pagination">
             <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
