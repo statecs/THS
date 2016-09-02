@@ -36,8 +36,6 @@ class THS_API  {
     // return response array + status
     $response = new WP_REST_Response( $data, 200 );
 
-    $response->header( 'Last-Modified', mysql2date( 'D, d M Y H:i:s', $post->post_modified_gmt)  . ' GMT' );
-
     return $response;
   }
 

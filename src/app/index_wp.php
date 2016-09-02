@@ -1,4 +1,6 @@
 <?php
+header("Cache-Control: public, max-age=86400");
+header("Access-Control-Allow-Origin: *");
 /**
  * Front to the WordPress application. This file doesn't do anything, but loads
  * wp-blog-header.php which does and tells WordPress to load the theme.
