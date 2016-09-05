@@ -15,6 +15,7 @@ Redirect 301 /login https://login.kth.se/login?service=http://thstudent.upright.
 
     RewriteRule ^wp-content/(.*)$ /wp/wp-content/$1 [R=301,NC,L]
     RewriteRule ^wp-content - [L,NC]
+    RewriteRule ^feed/(.*)$ /wp/feed/$1 [R=301,NC,L]
 
     RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.xml$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]
     RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.xml\.gz$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]

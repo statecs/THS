@@ -691,6 +691,10 @@ article > details[open] > summary {
     border-bottom:1px solid rgba(255,255,255,1);
     color:#ffffff;
 }
+article > details[open] > * { display: block; }
+
+article > details[open] > details[open] * { display: block; }
+
 article > details[open] > details > summary {
     background-color: #ffffff;
     border-bottom:1px solid rgba(0,64,108,0.3);
@@ -702,14 +706,14 @@ article > details[open] > details[open] > summary {
     border-bottom:1px solid rgba(255,255,255,1);
     color:#ffffff;
 }
-article > details > summary:after {
+article > details > summary > label:after {
   border-radius: 5px; 
   content: "+"; 
   color: rgba(0,64,108,1); 
   float: right; 
   font-size: 1.5em; 
   font-weight: bold; 
-  margin: -45px 20px;
+  margin: 0 10px;
   padding: 0; 
   text-align: center; 
     -webkit-transition: -webkit-transform 0.3s ease;
@@ -718,17 +722,17 @@ article > details > summary:after {
           transition: transform 0.3s ease;
 
 }
-article > details[open] > summary:after {
+article > details[open] > summary > label:after  {
   color: #ffffff; 
 }
-article > details[open] > details > summary:after {
+article > details[open] > details > summary > label:after  {
   border-radius: 5px; 
   content: "+"; 
   color: rgba(0,64,108,1); 
   float: right; 
   font-size: 1.5em; 
   font-weight: bold; 
-  margin: -45px 10px;
+  margin: 0 10px;
   padding: 0; 
   text-align: center; 
     -webkit-transition: -webkit-transform 0.3s ease;
@@ -736,13 +740,13 @@ article > details[open] > details > summary:after {
        -o-transition: -o-transform 0.3s ease;
           transition: transform 0.3s ease;
 }
-article > details[open] > summary:after {
+article > details[open] > summary > label:after {
  color: #ffffff; 
    transform: rotate(45deg) scale(1.08);
     -ms-transform: rotate(45deg) scale(1.08);
     -webkit-transform: rotate(45deg) scale(1.08);
 }
-article > details[open] > details[open] summary:after {
+article > details[open] > details[open] summary > label:after {
     color: #ffffff; 
     transform: rotate(45deg) scale(1.08);
     -ms-transform: rotate(45deg) scale(1.08);
