@@ -44,7 +44,9 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
             tile.date = instaObj.created_time*1000;
             tile.type = "Instagram";
             tile.user = instaObj.user.username;
-            tile.description = instaObj.caption.text;
+            if (instaObj.caption != null){
+              tile.description = instaObj.caption.text;
+            }
             tile.imageUrl = instaObj.images.standard_resolution.url;
             socialTiles.push(tile);
           });

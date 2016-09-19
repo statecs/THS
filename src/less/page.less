@@ -263,7 +263,7 @@ div.youtube iframe{
 }
 .feature-blockSocial_content{
     max-width: 400px;
-    padding: 70px;
+    padding: 75px 40px;
     @media screen and (max-width: 999px) {
     max-width: 899px;
     padding: 150px 70px;
@@ -276,7 +276,8 @@ div.youtube iframe{
 
 .feature-blockSocial_content h3{
     line-height: 2em;
-    font-size: 1.3em;
+    font-size: 1.1em;
+    margin-top:0;
     color: @color-blue;
 }
 .feature-blockNewsImg_content {
@@ -524,6 +525,9 @@ div.youtube iframe{
 article.entry{
     padding:10px 0;
 }
+article label{
+  font-size:0.9em;
+}
 
 .post-result{
     font-size:0.9em;
@@ -763,8 +767,11 @@ article > details > summary > p, article > details > details > summary > p  {
     font-size: 1em;
     }
 }
+.display-none{
+  display:none;
+}
 label.feature-block{
-    display:block;
+    display:inline-block;
     width:100%;
     padding:20px;
     font-weight: bold;
@@ -779,8 +786,10 @@ label.feature-policy-block{
     max-width:80%;
     line-height:1.5em;
 }
-input.checkbox-state{
-    display:none !important;
+
+input[type='checkbox'].checkbox-state{
+   position:absolute;
+   opacity:0;
 }
 
 input[type=checkbox].checkbox-state + details > .o-half, input[type=checkbox].checkbox-state + details > .two-third {
