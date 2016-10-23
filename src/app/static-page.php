@@ -43,6 +43,7 @@ function makePage($data) {
     $pageUrl = str_replace("/api/", "/blog/", $data->link);
     $metaDescription = substr(strip_tags($data->excerpt->rendered), 0, 155);
     $colarray = $data->acf->post_meta[0]->col;
+    $url = $_GET['url'] ? $_GET['url'] : 1;
     ?>
       <!DOCTYPE html>
     <html>
@@ -50,6 +51,7 @@ function makePage($data) {
         <!--<meta http-equiv="content-type" content="text/html; charset=utf-8">-->
         <title><?php echo $data->title->rendered; ?></title>
         <meta property="description" content="<?php echo $metaDescription; ?>" />
+        <link rel="amphtml" href="http://ths.kth.se/static-amp.php?url=<?php echo $url; ?>" />
 
         <!-- Twitter summary card metadata -->
         <meta property="twitter:card" content="summary" />
