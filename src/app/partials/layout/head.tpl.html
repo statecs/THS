@@ -27,8 +27,8 @@
 
                               <a class="search-menu" ng-click="openSearchMenu();" click-outside="closeSearch()">
                               <div class="{{isActive}}">
-                              <form class="search-input" action ng-submit="$event.preventDefault()" touch-submit>
-  <input ng-model="searchText" ng-model-options='{ debounce: 500 }' ng-change="change(searchResult)" type="search" placeholder="Search"></div>
+                              <form class="search-input" action ng-submit="$event.preventDefault();change(searchResult)" touch-submit>
+  <input ng-model="searchText" type="search" placeholder="Search"></div>
 
 </form> <!--<button ng-if="isActive" type="submit" ng-click="closeSearch()" class="search-form__btn" aria-label="Search"><span class="search-form__btn-icon" aria-hidden="true"></span></button>-->
 
