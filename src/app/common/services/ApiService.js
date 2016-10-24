@@ -50,8 +50,6 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
     }
 
     function getData(url) {
-        $rootScope.loaded = false;
-        spinnerService.show('loadingSpinner');
         $rootScope.progressbar.start();
         $rootScope.progressbar.setColor('#fff');
         var apiCache = CacheFactory.info('apiCache');
@@ -80,9 +78,8 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
                     
             })
             .finally(function(response) {
-                 spinnerService.hide('loadingSpinner');
                   $rootScope.progressbar.complete();
-                    $rootScope.loaded = true
+
             });
     }
 

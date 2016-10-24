@@ -62,7 +62,7 @@
 
 <div ui-view="container"></div>
 
-<footer ui-view="footer" ng-show="loaded === true"></footer>
+<footer ui-view="footer" ng-if="loaded == true"></footer>
 
 <!-- inject:js -->
 <!-- endinject -->
@@ -84,7 +84,7 @@
                     autohide: 1,
                     modestbranding: 1,
                     vq: 'hd1080'},
-          videoId: 'vjfpKmPmSTw',
+          videoId: 'vjfpKmPmSTw',      
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
