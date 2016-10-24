@@ -831,7 +831,11 @@ summary { cursor: pointer; }
 
 /* F.A.Q */
 
-.toggle-box {
+.toggle-box, .toggle-box-2 {
+  display: none;
+}
+
+.bg-c div.content-c{
   display: none;
 }
 
@@ -844,46 +848,51 @@ summary { cursor: pointer; }
     font-size:1em;
     line-height: 1.5em;
     display:block;
+    padding-left: 50px;
+    font-weight: 500;
 }
 
+ .bg-c label.bg-c2{
+    margin: 20px;
+
+ }
 .bg-c label:hover{
     text-decoration: underline;
 }
-.bg-c label:after{
-      border-radius: 5px; 
+.bg-c label:before{
+  border-radius: 5px; 
   content: "+"; 
-  color: rgba(0,64,108,1); 
-  float: right; 
-  font-size: 1.5em; 
+  color: rgba(0,0,0,0.1); 
+  float: left; 
+  font-size: 2em; 
   font-weight: bold; 
-  margin: 0 10px;
+  margin: -2px -30px;
   padding: 0; 
   text-align: center; 
+  outline: 0;
     -webkit-transition: -webkit-transform 0.3s ease;
      -moz-transition: -moz-transform 0.3s ease;
        -o-transition: -o-transform 0.3s ease;
           transition: transform 0.3s ease;
 }
 
+@media screen and (max-width: 480px) {
+.bg-c label:after{
 
-.bg-c div{
-  display: none;
 }
-
-.toggle-box:checked + .bg-c > * {
+}
+.toggle-box:checked + .bg-c > *, .toggle-box-2:checked + .bg-c > *  {
   display: block;
   background-color: #f7f7f7;
 }
-.toggle-box:checked + .bg-c div p {
-  padding:10px 30px;
+
+input.toggle-box:checked+ .bg-c label.bg-c1:before, input.toggle-box-2:checked + .bg-c label.bg-c2:before  {
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg); 
+    -webkit-transform: rotate(45deg);
 }
 
-.toggle-box:checked + .bg-c label:after {
-    transform: rotate(45deg) scale(1.5);
-    -ms-transform: rotate(45deg) scale(1.5); 
-    -webkit-transform: rotate(45deg) scale(1.5);
-    padding: 0;
-}
+
 
 
 

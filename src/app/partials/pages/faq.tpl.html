@@ -49,12 +49,13 @@
     </style>
 
 
-    <div class="o-container" data-widget="block">
+    <div class="o-container left-o" data-widget="block">
 
-<div ng-repeat="fCard in acf.faq_card track by $index">
-<input class="toggle-box" id="input-{{$index}}" type="checkbox">
-<div class="bg-c"><label for="input-{{$index}}">{{fCard.question}}</label>
-<div ng-bind-html="fCard.answer | sanitizeHtml"></div></div></div>
+<section><article ng-repeat="fCard in acf.faq_card track by $index">
+  <input class="toggle-box" id="input-{{$index}}" type="checkbox">
+  <div class="bg-c"><label class="bg-c1" for="input-{{$index}}">{{fCard.question}}</label>
+    <div class="content-c" ng-bind-html="fCard.answer | sanitizeHtml"></div></div>
+</article></section>
 
 
 
