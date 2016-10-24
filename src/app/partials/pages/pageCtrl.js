@@ -163,12 +163,18 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
 
 }
 
-function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiService) {
+function ContactCtrl($scope, $rootScope, $http, MetadataService, vcRecaptchaService, ApiService, spinnerService) {
     var vm = this;
     vm.page = {};
 
+       $rootScope.loaded = false;
+        spinnerService.show('loadingSpinner');
+
        ApiService.postByURL('/contact').then(function(page) {
         vm.page = page;
+
+        $rootScope.loaded = true;
+          spinnerService.hide('loadingSpinner');
         
         MetadataService.setMetadata({
             title: vm.page.title,

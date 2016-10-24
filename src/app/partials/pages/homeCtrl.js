@@ -1,9 +1,11 @@
-function HomeCtrl(ApiService, $http, MetadataService, SocialService) {
+function HomeCtrl(ApiService, $rootScope, $http, MetadataService, SocialService) {
     var vm = this;
 
     vm.page = {};
 
     var apiCallFunction;
+    
+    $rootScope.loaded = true;
 
     /* ApiService.postByURL('/home').then(function(page) {
         vm.page = page[0];
