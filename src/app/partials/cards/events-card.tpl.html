@@ -2,13 +2,13 @@
 
 <div class="calendar-card-item" data-ng-repeat="event in vm.calendar.items|limitTo:4">
 
-  <div class="calendar-card-date" >
+ <div class="calendar-card-date" >
   <h1 class="calendar-date-week">{{ vm.month(event) }}</h1><h1 class="calendar-card-date-n">{{ vm.day(event) }}</h1>
   </div>
     <div class="calendar-card-heading two-third"><h4>{{ ::event.summary }}</h4>
 
-  <div class="p calendar-text" data-ng-if="gcConfig.sanitize && gcConfig.htmlDesc" data-ng-bind-html="event.description"></div>
-  <div class="p calendar-text" data-ng-if="!(gcConfig.sanitize && gcConfig.htmlDesc)">{{event.description  | limitHtml: 60 }}</div>
+   <a target="_blank" href="{{ event.htmlLink }}"><div class="p calendar-text" data-ng-if="gcConfig.sanitize && gcConfig.htmlDesc" data-ng-bind-html="event.description"></div>
+  <div class="p calendar-text" data-ng-if="!(gcConfig.sanitize && gcConfig.htmlDesc)">{{event.description  | limitHtml: 60 }}</div></a>
 </div>
 
 

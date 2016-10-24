@@ -1,16 +1,16 @@
-function PostCtrl($stateParams, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
+function PostCtrl($stateParams, $rootScope, $anchorScroll, $timeout, $location, ApiService, MetadataService, spinnerService) {
     var vm = this;
-   // console.log(vm);
 
     vm.post = {};
 
- // console.log($stateParams);
+    $rootScope.loaded = false;
+    spinnerService.show('loadingSpinner');
 
     ApiService.postById($stateParams.id).then(function(post) {
-       // console.log($stateParams);
-        vm.post = post;
 
-       // console.log(post);
+        vm.post = post;
+         $rootScope.loaded = true;
+         spinnerService.hide('loadingSpinner');
 
         MetadataService.setMetadata({
             title: post.title.rendered,

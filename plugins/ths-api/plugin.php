@@ -436,11 +436,10 @@ function collapse_shortcode( $atts, $content = null ) {
         'quote' => 'My Quote',
     ), $atts );
  
-    $output .= '<section><article> <input class="checkbox-state" type="checkbox" id="' . $pull_quote_atts[ 'quote' ]  . '"><details>';
-        $output .=  '<summary><label class="feature-block" for="' . $pull_quote_atts[ 'quote' ]  . '">' . $pull_quote_atts[ 'quote' ]  . '</label></summary>';
-        $output .= '' . do_shortcode($content) . '';
-    $output .= '</details></article></section>';
- 
+   $output .= '<section><article> <input class="toggle-box" type="checkbox" id="' . $pull_quote_atts[ 'quote' ]  . '">';
+    $output .=  '<div class="bg-c"><label class="bg-c1" for="' . $pull_quote_atts[ 'quote' ]  . '">' . $pull_quote_atts[ 'quote' ]  . '</label><div class="content-c">';
+    $output .= '' . do_shortcode($content) . '';
+    $output .= '</div></div></article></section>';
     return $output;
  
 }
@@ -454,10 +453,10 @@ function sub_collapse_shortcode( $atts, $content = null ) {
         'quote' => 'My Quote',
     ), $atts );
  
-    $output .= '<input class="checkbox-state" type="checkbox" id="' . $pull_quote_atts[ 'quote' ]  . '"><details>';
-    $output .=  '<summary><label class="feature-block" for="' . $pull_quote_atts[ 'quote' ]  . '">' . $pull_quote_atts[ 'quote' ]  . '</label></summary>';
+    $output .= '<article><input class="toggle-box-2" type="checkbox" id="' . $pull_quote_atts[ 'quote' ]  . '">';
+    $output .=  '<div class="bg-c"><label class="bg-c2" for="' . $pull_quote_atts[ 'quote' ]  . '">' . $pull_quote_atts[ 'quote' ]  . '</label><div class="content-c">';
     $output .= '' . do_shortcode($content) . '';
-    $output .= '</details>';
+    $output .= '</div></div></article>';
  
     return $output;
  
@@ -477,6 +476,16 @@ function my_searchwp_weight_mods( $sql ) {
   
 }
 add_filter( 'searchwp_weight_mods', 'my_searchwp_weight_mods' );
+
+
+add_action('acf/save_post', 'clear_cache_on_options_save');
+function clear_cache_on_options_save($post_id) {
+  // you can check for options or not
+  if ($post_id == 'options') {
+    //wp_cache_clear_cache();
+    wp_cache_post_change( 'options' );
+  }
+}
 
 /* ------------
     6. ADD REQUIRED PLUGINS

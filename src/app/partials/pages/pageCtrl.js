@@ -1,11 +1,16 @@
-function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
+function PageCtrl($rootScope, $scope, $sce, $stateParams, $window, $anchorScroll, $timeout, $location, ApiService, MetadataService, spinnerService) {
     var vm = this;
     vm.page = {};
 
- //console.log($stateParams.path);
+
+        $rootScope.loaded = false;
+        spinnerService.show('loadingSpinner');
 
   ApiService.postByURL($stateParams.path).then(function(page) {
         vm.page = page;
+
+          $rootScope.loaded = true;
+          spinnerService.hide('loadingSpinner');
 
         if (vm.page.excerpt){
           vm.page.title.rendered = $sce.getTrustedHtml(vm.page.title);

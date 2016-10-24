@@ -262,6 +262,20 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.newsPost',{
+                url: '/{id:[0-9a-fA-F]}/:title',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/single-post.tpl.html',
+                        controller: 'PostCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+             .state('external',{
+                url: '/wp/{path:.*}',
+                external: true,
+            })
             .state('root.single', {
                 url: '*path',
                 views: {
@@ -269,16 +283,6 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                         controller: 'PageCtrl',
                         controllerAs: 'vm',
                         template: '<div ng-include="pageTemplate()"></div>' // Make Dynamic
-                    }
-                }
-            })
-            .state('root.newsPost',{
-                url: '/:id/:title',
-                views: {
-                    'container@': {
-                        templateUrl: 'partials/posts/single-post.tpl.html',
-                        controller: 'PostCtrl',
-                        controllerAs: 'vm'
                     }
                 }
             });
@@ -313,6 +317,14 @@ var config = {
 
 function AppController($rootScope, $window, $location, $timeout, MetadataService) {
     var vm = this;
+
+     $rootScope.$on('$stateChangeStart',
+    function(event, toState, toParams, fromState, fromParams) {
+      if (toState.external) {
+          event.preventDefault();
+          $window.open($location.url(), '_self');
+      }
+    });
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();
