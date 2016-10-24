@@ -60,9 +60,21 @@ function makePage($data) {
         "datePublished": "<?php echo $data->date; ?>",
         "dateModified": "<?php echo $data->modified; ?>",
         "description": "<?php echo strip_tags($data->excerpt->rendered); ?>",
-        "publisher": {
-                "@type": "Organization",
-                "name": "THS - Your Student Union" },
+        "publisher": { "@type": "Organization", "name": "THS - Your Student Union", 
+        "logo": {
+        "@type": "ImageObject",
+            "url": "http://ths.kth.se/assets/images/logo.png",
+            "width": 600,
+            "height": 60
+            }
+        },
+        "author": {"type": "Organization", "name": "THS - Your Student Union"},
+         "image": {
+           "@type": "ImageObject",
+            "url": "http://ths.kth.se/wp/wp-content/uploads/2015/09/35_kth_vlv_6y7b5608-640x640.jpg",
+            "height": 800,
+            "width": 800
+         }
       }
         </script>
 <!--<script async src="https://cdn.ampproject.org/viewer/google/v5.js"></script><script async custom-element="amp-font" src="https://cdn.ampproject.org/rtv/011476486609642/v0/amp-font-0.1.js"></script><script async custom-element="amp-twitter" src="https://cdn.ampproject.org/rtv/011476486609642/v0/amp-twitter-0.1.js"></script><script async custom-element="amp-youtube" src="https://cdn.ampproject.org/rtv/011476486609642/v0/amp-youtube-0.1.js"></script><script async custom-element="amp-instagram" src="https://cdn.ampproject.org/rtv/011476486609642/v0/amp-instagram-0.1.js"></script><script async custom-element="amp-facebook" src="https://cdn.ampproject.org/rtv/011476486609642/v0/amp-facebook-0.1.js"></script><script async custom-element="amp-list" src="https://cdn.ampproject.org/rtv/011476486609642/v0/amp-list-0.1.js"></script><script async custom-element="amp-iframe" src="https://cdn.ampproject.org/rtv/011476486609642/v0/amp-iframe-0.1.js"></script><script async custom-element="amp-analytics" src="https://cdn.ampproject.org/rtv/011476486609642/v0/amp-analytics-0.1.js"></script><script async custom-element="amp-ad" src="https://cdn.ampproject.org/rtv/011476486609642/v0/amp-ad-0.1.js"></script>--><style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -421,11 +433,16 @@ h4 {
                 <div class="pure-g page-content">
                         <h4><a href="http://ths.kth.se">Back to Site</a></h4>
         <h1 class="page-header"><?php echo $data->title->rendered; ?></h1>
-         <h4>Published: <?php echo date('Y-m-d',strtotime($data->date)); ?>, Last modified: <?php echo date('Y-m-d',strtotime($data->modified)); ?></h4>
+         <h4>Last modified: <?php echo date('Y-m-d',strtotime($data->modified)); ?></h4>
             <div class="pure-u-1">
                 <div class="post-body">
 
-                <?php echo $data->content->rendered; ?>
+<?php $content = $data->content->rendered;
+$content = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $content);
+$content = preg_replace('/<img\s+src="([^"]+)"[^>]+>/i', '<amp-img layout=responsive height="10" width="10" src="$1"></amp-img>', $content); 
+echo $content; ?>
+
+              
                     
                 </div>
                 <?php if (!empty($data->acf->post_meta[0]->related_links)) { ?>
