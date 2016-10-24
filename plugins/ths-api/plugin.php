@@ -478,6 +478,16 @@ function my_searchwp_weight_mods( $sql ) {
 }
 add_filter( 'searchwp_weight_mods', 'my_searchwp_weight_mods' );
 
+
+add_action('acf/save_post', 'clear_cache_on_options_save');
+function clear_cache_on_options_save($post_id) {
+  // you can check for options or not
+  if ($post_id == 'options') {
+    //wp_cache_clear_cache();
+    wp_cache_post_change( 'options' );
+  }
+}
+
 /* ------------
     6. ADD REQUIRED PLUGINS
 --------------- */

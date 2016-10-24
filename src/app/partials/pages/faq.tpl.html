@@ -1,4 +1,4 @@
-<div class="js-wow fadeIn animated" id="top">
+<div class="js-wow fadeIn animated page" id="top">
 	<div class="col-12">
 		<div class="hero-block hero-block--darken hero-block--top-gradient">
 		<img class="hero-block_image js-img-swap" data-osrc="/image/1486/b8/0.5,0.48/small">	
@@ -51,27 +51,13 @@
 
     <div class="o-container" data-widget="block">
 
-
- <article class="page  o-whole left-o no-article-survey">
-        <nav class="accordion-homepage" data-tracking-cat="accordion-homepage">
-            <h1>Frequently Asked Questions</h1>
-                  <article ng-repeat="fCard in acf.faq_card track by $index">
-                  <input class="checkbox-state" type="checkbox" id="input-{{$index}}">
-
-                  <details ng-open="open"> 
+<div ng-repeat="fCard in acf.faq_card track by $index">
+<input class="toggle-box" id="input-{{$index}}" type="checkbox">
+<div class="bg-c"><label for="input-{{$index}}">{{fCard.question}}</label>
+<div ng-bind-html="fCard.answer | sanitizeHtml"></div></div></div>
 
 
 
-      <summary><label class="feature-block" for="input-{{$index}}">{{fCard.question}}</label></summary>
-
-    <div class="left-o">
-    <div ng-bind-html="fCard.answer | sanitizeHtml"></div>
-    </div>
-
-</details></article>
-
-        </nav>
-    </article>
 
 
 </div>

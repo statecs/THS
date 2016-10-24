@@ -706,9 +706,8 @@ article > details[open] > details > summary {
     color: rgba(0,64,108,1); 
 }
 article > details[open] > details[open] > summary {
-    background-color: rgb(0, 64, 108);
-    border-bottom:1px solid rgba(255,255,255,1);
-    color:#ffffff;
+    border-bottom:5px solid rgb(0, 64, 108);
+    color:rgb(0, 64, 108);
 }
 article > details > summary > label:after {
   border-radius: 5px; 
@@ -745,13 +744,13 @@ article > details[open] > details > summary > label:after  {
           transition: transform 0.3s ease;
 }
 article > details[open] > summary > label:after {
- color: #ffffff; 
+ color: rgb(0, 64, 108); 
    transform: rotate(45deg) scale(1.08);
     -ms-transform: rotate(45deg) scale(1.08);
     -webkit-transform: rotate(45deg) scale(1.08);
 }
 article > details[open] > details[open] summary > label:after {
-    color: #ffffff; 
+    color: rgb(0, 64, 108); 
     transform: rotate(45deg) scale(1.08);
     -ms-transform: rotate(45deg) scale(1.08);
     -webkit-transform: rotate(45deg) scale(1.08);
@@ -808,9 +807,8 @@ input[type=checkbox].checkbox-state:checked + details > summary:after { color: #
     -webkit-transform: rotate(45deg) scale(1.08); }
 
 input[type=checkbox].checkbox-state:checked + details > summary{
-     background-color: rgb(0, 64, 108);
-    border-bottom:1px solid rgba(255,255,255,1);
-    color:#ffffff;
+    border-bottom:5px solid rgb(0, 64, 108);
+    color:rgb(0, 64, 108);
 }
 
 input[type=checkbox].checkbox-state + details > summary{
@@ -828,3 +826,65 @@ summary h3{
 
 details summary { display: block; }
 summary { cursor: pointer; }
+
+
+
+/* F.A.Q */
+
+.toggle-box {
+  display: none;
+}
+
+.bg-c label{
+    border-top: 1px solid #ebebeb;
+    cursor: pointer;
+    padding: 20px 20px;
+    background-color: #ffffff;
+    color:rgba(0,64,108,1); 
+    font-size:1em;
+    line-height: 1.5em;
+    display:block;
+}
+
+.bg-c label:hover{
+    text-decoration: underline;
+}
+.bg-c label:after{
+      border-radius: 5px; 
+  content: "+"; 
+  color: rgba(0,64,108,1); 
+  float: right; 
+  font-size: 1.5em; 
+  font-weight: bold; 
+  margin: 0 10px;
+  padding: 0; 
+  text-align: center; 
+    -webkit-transition: -webkit-transform 0.3s ease;
+     -moz-transition: -moz-transform 0.3s ease;
+       -o-transition: -o-transform 0.3s ease;
+          transition: transform 0.3s ease;
+}
+
+
+.bg-c div{
+  display: none;
+}
+
+.toggle-box:checked + .bg-c > * {
+  display: block;
+  background-color: #f7f7f7;
+}
+.toggle-box:checked + .bg-c div p {
+  padding:10px 30px;
+}
+
+.toggle-box:checked + .bg-c label:after {
+    transform: rotate(45deg) scale(1.5);
+    -ms-transform: rotate(45deg) scale(1.5); 
+    -webkit-transform: rotate(45deg) scale(1.5);
+    padding: 0;
+}
+
+
+
+
