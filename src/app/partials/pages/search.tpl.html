@@ -88,40 +88,37 @@
 
     <span ng-if="result.type === 'attachment'" >
 
-       <input class="checkbox-state" type="checkbox" id="{{result.id}}">
 
- <details ng-open="open"> 
 
-      <summary>  <label class="feature-block" for="{{result.id}}"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i> {{result.title}} </label></summary>
-    <a target="_blank" href="{{result.guid.rendered}}"><div class="left-os">
+<section><article>
+  <input class="toggle-box" id="{{result.id}}" type="checkbox">
+  <div class="bg-c"><label class="bg-c1" for="{{result.id}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> <span ng-bind-html="result.title"></span> <div ng-if="result.date" class="date-stitle">{{ result.date | date:'dd MMM yyyy' }} | Document (PDF)</div></label>
+    <div class="content-c">  <a target="_blank" href="{{result.guid.rendered}}"><div class="left-os">
 
-   <p class="post-result" ng-if="result.date"> {{ result.date | date:'dd MMM yyyy' }} | Document (PDF)</p>
 
-                 <h3 class="h1-blue">{{result.title}}</h3>
+                 <h3 class="h1-blue" ng-bind-html="result.title"></h3>
 
                       <p class="post-result" ng-if="result.excerpt" ng-bind-html="result.excerpt"></p>
-</div></a>
-</details>
+</div></a></div></div>
+</article></section>
  
 
     </span>
 
                   <span ng-if="result.type !== 'attachment'">
 
-       <input class="checkbox-state" type="checkbox" id="{{result.id}}">
 
- <details ng-open="open"> 
 
-      <summary>  <label class="feature-block" for="{{result.id}}">  {{ result.date | date:'dd/MM/yyyy' }} | {{result.title}} </label></summary>
-
-                <div  class="left-os">  <p class="post-result" ng-if="result.date">
-                          {{ result.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}} {{result.type}}
-                  </p>
-                  <a href="{{result.link}}"><h3 class="h1-blue">{{result.title}}</h3></a>
+<section><article>
+  <input class="toggle-box" id="{{result.id}}" type="checkbox">
+  <div class="bg-c"><label class="bg-c1" for="{{result.id}}"><span ng-bind-html="result.title"></span>  <div ng-if="result.date" class="date-stitle">{{ result.modified | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}} {{result.type}}</div></label>
+    <div class="content-c"><div  class="left-os"> 
+                  <a href="{{result.link}}"><h3 class="h1-blue" ng-bind-html="result.title"></h3></a>
 
                       <p class="post-result" ng-if="result.content" ng-bind-html="result.content"></p></div>
-
-</details></span>
+                      </div></div>
+</article></section>
+</span>
 
         </article>
 
