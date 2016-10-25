@@ -65,8 +65,18 @@
 </div>
 <!--<div class="as"><div class="title">Was this article helpful?</div><div class="subtitle"></div><button class="as-button" data-value="5" type="button">Yes</button><button class="as-button" data-value="1" type="button">No</button></div>-->
 
-	<p>Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}<br />
-	</p>
+<footer class="article-footer">
+    <dl class="dl-horizontal dl-in-article-footer">
+        <dt>Last modified</dt>
+        <dd>
+            
+<time datetime="{{vm.page.modified | date:'yyyy-MM-dd' }}">{{vm.page.modified | date:'yyyy-MM-dd' }}</time>
+        </dd>
+                <dt>Responsible</dt>
+                <dd> <a href="mailto:{{vm.page.author.email}}">{{vm.page.author.name}}</a></dd>
+    </dl>
+    
+</footer>
 
 </div>
 

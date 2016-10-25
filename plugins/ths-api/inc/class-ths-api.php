@@ -116,8 +116,11 @@ class THS_API  {
         $postdata['template'] = "news";
       }
     }
-    
 
+    $postdata['author'] = array(
+          'name' => get_the_author_meta( 'display_name', $post->post_author),
+          'email' =>  get_the_author_meta( 'user_email', $post->post_author),
+      );
 
       $postdata['title'] = array(
         'rendered' => get_the_title( $post->ID ),

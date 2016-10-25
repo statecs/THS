@@ -110,7 +110,7 @@
                   <p class="c-sidebar-news_infos" ng-if="post.date">
                           {{ post.date | date:'dd MMM yyyy' }} | <span ng-repeat="cat in post.category">{{cat.name}} | </span> {{author.name}}
                   </p>
-                  <h1 class="c-sidebar-news_title">{{post.title}}</h1>
+                  <h1 class="c-sidebar-news_title" ng-bind-html="post.title"></h1>
 
                       <p class="c-sidebar-news_summary"></p>
                   </a>
