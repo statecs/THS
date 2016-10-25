@@ -276,6 +276,10 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                 url: '/wp/{path:.*}',
                 external: true,
             })
+             .state('external_wp',{
+                url: '/wp-content/{path:.*}',
+                external: true,
+            })
             .state('root.single', {
                 url: '*path',
                 views: {

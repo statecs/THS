@@ -414,48 +414,11 @@ function touchSubmit($window) {
 }
 
 
-function a($location, $anchorScroll) {
-     return {
-            restrict: 'E',
-            link: function(scope, elem, attrs) {
-           /* if (attrs.href && attrs.href.indexOf('wp-content') > -1){
-                elem.attr("target", "_blank");
-            }*/
-
-            if (attrs.href || attrs.ngHref){
-                elem.on('click', function(e){
-                    $anchorScroll();
-                });
-            } 
-        }
-    };
-}
-
-function clickOutside($document) {
-     return {
-            restrict: 'A',
-            scope: {
-               clickOutside: '&'
-            },
-            link: function(scope, elem, attrs) {
-            $document.on('click', function (e) {
-                   if (elem !== e.target && !elem[0].contains(e.target)) {
-                        scope.$apply(function () {
-                            scope.$eval(scope.clickOutside);
-                        });
-                    }
-               });
-        }
-
-    };
-}
 
 angular.module('app')
     .directive('revealingSearchInput', revealingSearchInput)
     .directive('dirDisqus', dirDisqus)
     .directive('touchSubmit', touchSubmit)
-    .directive('clickOutside', clickOutside)
-    .directive('a', a)
     .directive('discoverCard', discoverCard)
     .directive('eventsCard', eventsCard)
     .directive('standardCard', standardCard)
