@@ -19,7 +19,6 @@ function SocialService($http, $sce, config, spinnerService, alertify, ngProgress
     }
    
     function getData(url) {
-        spinnerService.show('loadingSpinner');
         $rootScope.progressbar.start();
         if (!CacheFactory.get('socialCache')) {CacheFactory.createCache('socialCache', {maxAge: 60 * 60 * 1000})}
         return $http
@@ -47,7 +46,6 @@ function SocialService($http, $sce, config, spinnerService, alertify, ngProgress
                     
             })
             .finally(function(response) {
-                 spinnerService.hide('loadingSpinner');
                   $rootScope.progressbar.complete();
             });
     }

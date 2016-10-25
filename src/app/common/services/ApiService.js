@@ -60,6 +60,8 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
                 if (typeof response.data ==='object' && response.data instanceof Array) {
                      if(!response.data.length){
                          $state.go('root.404', null, {location: false});
+                         $rootScope.loaded = true;
+                        spinnerService.hide('loadingSpinner');
                         throw "Error: Not Found 404";
                      } else{
                         var items = response.data.map(function(item) {
@@ -74,6 +76,8 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
             })
             .catch(function (e) {
                     $state.go('root.404', null, {location: false});
+                    $rootScope.loaded = true;
+                    spinnerService.hide('loadingSpinner');
                     throw e;
                     
             })

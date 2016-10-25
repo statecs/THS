@@ -1,4 +1,4 @@
-function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) {
+function ConnectCtrl($scope, $rootScope, ApiService, $http, MetadataService, SocialService, spinnerService) {
     var vm = this;
 
     vm.page = {};
@@ -6,7 +6,8 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
     var apiCallFunction;
     var instagramData, facebookData, facebookDataTHS;
     
-    vm.loaded = false;
+      $rootScope.loaded = false;
+        spinnerService.show('loadingSpinner');
 
     vm.posts = [];
 
@@ -17,6 +18,8 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
         instagramData = posts.data;
         //console.log(instagramData);
         setUpPosts();
+          $rootScope.loaded = true;
+        spinnerService.hide('loadingSpinner');
     });
 
     SocialService.facebookPosts().then(function(posts) {
