@@ -28,9 +28,13 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
     function allPostsBySearchTag(searchTerm) {
         return getData('wp/v2/posts?per_page=20&filter[tag]=' + searchTerm);
     }
+    
+   function allPostsBySearchCategory(pageNumber) {
+        return getData('wp/v2/posts?page='+ pageNumber);
+    }
 
-    function allPostsBySearchCategory(searchTerm) {
-        return getData('wp/v2/posts?per_page=20&filter[category_name]=' + searchTerm);
+    function postsBySearchCategory(pageNumber, searchTerm) {
+        return getData('wp/v2/posts?page='+ pageNumber + '&filter[category_name]=' + searchTerm);
     }
 
     function allPostsBySearchTerm(searchTerm) {
@@ -108,6 +112,7 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
         allPostsBySearchTag: allPostsBySearchTag,
         allPostsBySearchTerm: allPostsBySearchTerm,
         allPostsBySearchCategory: allPostsBySearchCategory,
+        postsBySearchCategory: postsBySearchCategory,
         featuredPosts: featuredPosts,
         postById: postById,
         postByURL: postByURL,

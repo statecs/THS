@@ -28,7 +28,7 @@
                               <a class="search-menu" ng-click="openSearchMenu();" click-outside="closeSearch()">
                               <div class="{{isActive}}">
                               <form class="search-input" action ng-submit="$event.preventDefault()" touch-submit>
-  <input ng-model="searchText" ng-model-options='{ debounce: 500 }' ng-change="change(searchResult)" type="search" placeholder="Search"></div>
+  <input ng-model="searchText" ng-model-options='{ debounce: 1000 }' ng-change="change(searchResult)" type="search" placeholder="Search"></div>
 
 </form> <!--<button ng-if="isActive" type="submit" ng-click="closeSearch()" class="search-form__btn" aria-label="Search"><span class="search-form__btn-icon" aria-hidden="true"></span></button>-->
 
@@ -79,18 +79,13 @@
                             
                             <span class="c-dropdown_item js-dropdown-label" data-idcat="all">
 
-         <div ng-click="closeMenu()" class="menu__btn-area-right"><a class="menu__cancel-link" href></a></div>
-      <!--<div class="search-container">
-            <revealing-search-input search-callback="search(term)"></revealing-search-input>
-                       <a ng-click="clearSearch()"><div class="search-btn -close"><i ng-if="searchTrue == true" class="material-icons">clear</i></div></a>
-        </div>-->        
+         <div ng-click="closeMenu()" class="menu__btn-area-right"><a class="menu__cancel-link" href></a></div>    
 
 
-              <!--
-               <select class="c-dropdown_label" ng-model="query" ng-options="cat.name for cat in cats track by cat.slug">
-                            </select>
-                            -->
-                            <select class="c-dropdown_label" ng-model="query">
+              
+              
+                            
+                            <select class="c-dropdown_label" ng-model="searchCategory" ng-change="filterCategory(searchResult)">
                  <option ng-selected="true" disabled selected value>---Please select---</option>
                  <option value>All Categories</option>
                                <option class="c-dropdown_item" data-idcat="20" ng-repeat="cat in cats" value="{{cat.slug}}">
@@ -103,7 +98,7 @@
                         </div>
       <div class="scroll-content">
 
-          <li class="c-sidebar-news_item" dir-paginate="post in posts | itemsPerPage: 10 | filter:query:true" >
+          <li class="c-sidebar-news_item" dir-paginate="post in newsPosts | itemsPerPage: 10 | filter:searchCategory" total-items="totalItems">
 
               <article class="c-sidebar-news_content">
                   <a ng-click="closeMenu();" ui-sref="root.newsPost({ id: post.id, title: post.slug })">
@@ -117,7 +112,7 @@
               </article>
           </li>
             <div class="c-sidebar-news_item list-pagination">
-            <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop()" direction-links="false">
+            <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop();pageChanged(newPageNumber);" direction-links="false">
             </dir-pagination-controls>
         </div>      
 
