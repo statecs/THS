@@ -39,11 +39,11 @@
     
           </a>
 
-                             <button ng-if="!isActive" title="menu" ng-click="toggleMobileMenu($event)" type="button" class="icon-menu-o open">    
+                             <a href="#top"><button ng-if="!isActive" title="menu" ng-click="toggleMobileMenu($event);closeMenu();" type="button" class="icon-menu-o open">    
                 <span class="cls"></span>
                 <span class="cls"></span>
                 <span class="cls"></span>
-                    </button>
+                    </button></a>
 
       </div>
 
@@ -124,29 +124,42 @@
          </div>    
         </ul>
 
-      <nav class="global-header_nav" role="navigation">
+    <nav class="global-header_nav" role="navigation">
+<div class="pageMenu clearfix" ng-class="{ 'in': showMobileMenu }" >
+
         <div class="nav-primary js-global-nav-control">
           <div class="nav-section nav-section--theme-{{ $index+1 }}" ng-repeat="link in nav">
-          <div ng-click="setActive($index)" ng-class="{'js-open-section' : $index === activeMenu}" class="nav-link-level-1"><a ng-click="closeMenu();" ng-href={{link.url}}>{{link.title}}</a></div>
 
-          <div class="nav-menu" >
-            <div class="nav-sub-section" ng-repeat="subItem in link.children">
+  <input class="toggle-box" id="{{link.ID}}" type="checkbox">
+  <div class="bg-c menu-bg-c"><label class="bg-c1" for="{{link.ID}}"><a href={{link.url}}>{{link.title}}</a></label>
+   
+   <div class="nav-menu"><div class="content-c nav-sub-section" ng-repeat="subItem in link.children">     
 
-              <div ng-click="setSubActive($index)" ng-class="{'js-open-section' : $index === activeSubMenu}" class="nav-link-level-2"><a ng-click="closeMenu();" ng-href={{subItem.url}}> {{subItem.title}}</a></div>
-
-              <a ng-repeat="subsubItem in subItem.children" ng-click="closeMenu()" ng-href="{{subsubItem.url}}" class="nav-link-level-3">{{subsubItem.title}}</a> 
-
-            </div>
-          </div>
-
+     <input class="toggle-box-2" type="checkbox" id="{{subItem.ID}}">
+      <div class="bg-c menu-bg-c"><div class="bg-c-label"><label class="bg-c2" for="{{subItem.ID}}">
+        <a  href={{subItem.url}}> {{subItem.title}}</a></label></div>
+        <div class="content-c nav-link-level-3" ng-repeat="subsubItem in subItem.children"><a href="{{subsubItem.url}}">{{subsubItem.title}}</a>
         </div>
-        </div>
+      </div>
+                  
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
 
-        <div class="nav-secondary">
+    <ul class="supportMenu">
+                            
+         <li><a href="http://m.ths.diginfo.se">Book Premises</a></li>
+         <li><a href="https://campuscompetence.se">Campus Competence</a></li>
+         <li class="login"><i class="fa fa-lock fa-fw"></i><a href="http://thstudent.upright.se">Login</a></li>
+     </ul>  
+                                <div class="nav-secondary">
           <div class="nav-section no-menu"><a href="http://thstudent.upright.se" target="_blank" class="white-btn">Pay Union Fee</a></div>
           <!--<div class="nav-section no-menu"><a ng-href="/business" class="business-btn">Business</a></div>-->
           <div class="nav-section no-menu"><a target="_blank" href="http://campuscompetence.se"><img width="114" src="assets/images/campuscompetence_logo.png"></a></div>
         
+        </div>
         </div>
       </nav>
     </header>
