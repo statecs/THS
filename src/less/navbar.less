@@ -83,11 +83,6 @@ a[ng-click]{
 .theme-transparent .global-header_logo-img {
     top: 0
 }
-.js-open-nav .global-header_logo-img,
-.js-show-shade .global-header_logo-img,
-.theme-light .global-header_logo-img {
-    top: -100%
-}
 
 .global-header_nav {
     -moz-box-sizing: border-box;
@@ -256,6 +251,11 @@ a[ng-click]{
 }
 @media screen and (max-width: 1024px) {
 
+.js-open-nav .global-header_logo-img,
+.js-show-shade .global-header_logo-img,
+.theme-light .global-header_logo-img {
+    top: -100%
+}
 .nav-link-level-1 a {
     border-bottom: 4px solid transparent;
     font-weight: 600;
@@ -426,9 +426,12 @@ a[ng-click]{
         line-height: 1.2;
         padding: 10px 40px;
     }
-    .no-touch .nav-link-level-3 {
+    .no-touch .nav-link-level-3 a {
         color: #565656;
         display: block;
+    }
+    .no-touch .nav-link-level-3 a:hover {
+        text-decoration: underline;
     }
     .no-touch .nav-link-level-2:after {
         display: none
@@ -2015,6 +2018,9 @@ margin-top:6px;
     .popover-arrow {
     display:none;
     }
+    .js-open-nav .search-menu{
+    display:none;
+}
 }
 
 .search-input input:-moz-placeholder {
@@ -2029,9 +2035,7 @@ margin-top:6px;
     display: none; 
 }
 
-.js-open-nav .search-menu{
-    display:none;
-}
+
 .js-open-nav .js-global-icon-menu{
     display:none;
 }
@@ -2082,6 +2086,7 @@ ul.supportMenu{
     }
     .no-touch .nav-link-level-2,
     .no-touch .nav-link-level-3 {
-        padding: 10px 35px;
+        padding: 5px 35px;
+        line-height: 1.5em;
     }
 }
