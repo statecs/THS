@@ -23,7 +23,7 @@
 
 
 
-<div ng-if="isActive" class="menu__btn-area-right"><a alt="close" class="menu__cancel-link" href></a></div>
+<div ng-click="closeSearch()"  ng-if="isActive" class="menu__btn-area-right"><a alt="close" class="menu__cancel-link" href></a></div>
 
                               <a class="search-menu" ng-click="openSearchMenu();" click-outside="closeSearch()">
                               <div class="{{isActive}}">
@@ -39,7 +39,7 @@
     
           </a>
 
-                             <a href="#top"><button ng-if="!isActive" title="menu" ng-click="toggleMobileMenu($event);closeMenu();" type="button" class="icon-menu-o open">    
+                <a class="icon-menu-o open" ng-click="toggleMobileMenu($event)" ng-if="!isActive" title="menu" type="button" ><button class="icon-menu-o open">    
                 <span class="cls"></span>
                 <span class="cls"></span>
                 <span class="cls"></span>
