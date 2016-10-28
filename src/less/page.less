@@ -847,12 +847,14 @@ summary { cursor: pointer; }
     border-top: 1px solid #ebebeb;
     cursor: pointer;
     padding: 20px 20px;
+    @media only screen and (min-width: 1024px){
+        padding: 20px 40px;
+    }
     background-color: #ffffff;
     color:rgba(0,64,108,1); 
     font-size:1em;
     line-height: 1.5em;
     display:block;
-    padding-left: 50px;
     font-weight: 500;
 }
 
@@ -867,10 +869,9 @@ summary { cursor: pointer; }
   border-radius: 5px; 
   content: "+"; 
   color: rgba(0,64,108,1);
-  float: left; 
+  float: right; 
   font-size: 2em; 
-  font-weight: bold; 
-  margin: -2px -30px;
+  font-weight: 200; 
   padding: 0; 
   text-align: center; 
   outline: 0;
@@ -995,8 +996,9 @@ dl {
   color: #505050;
   float: right; 
   font-size: 2em; 
-  font-weight: bold; 
+  font-weight: 200; 
   padding: 0; 
+  margin: 0px 3px;
   text-align: center; 
   outline: 0;
     -webkit-transition: -webkit-transform 0.3s ease;
@@ -1048,7 +1050,7 @@ color:blue;
     content: "+";
     color: rgba(0,64,108,1);
     font-size: 2em;
-    font-weight: 700;
+    font-weight: 200;
     padding: 0;
     text-align: center;
     outline: 0;

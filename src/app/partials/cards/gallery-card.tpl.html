@@ -1,4 +1,18 @@
-<a ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="flex-item _66 news-card-banner c-block -link" ng-repeat="post in posts|limitTo:1">
+<a ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="flex-item _66 news-card-banner c-block -link"  ng-repeat="post in posts|limitTo:1" >	<div class="hero-block-img">
+
+
+    <style ng-if="post.featured_image_thumbnail_url">
+	.hero-block-img {
+        background-image: url('{{post.featured_image_thumbnail_url}}');
+		    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('{{post.featured_image_thumbnail_url}}');
+    background-size: cover;
+    visibility: visible;
+	height:440px;
+}
+      }
+    </style>
+
+
 	<div class="news-card">
 <div class="news-item-list news-item-banner">
 			<div class="calendar-card-date">
@@ -16,5 +30,5 @@
 			<h4 class="h4-big">{{post.title}}</h4>
 			</div>
 		</div>-->
-	</div>
+	</div></div>
 </a>
