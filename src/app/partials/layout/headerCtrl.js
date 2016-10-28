@@ -3,10 +3,42 @@ function HeaderCtrl($anchorScroll, $scope, $state, config, $http, localStorageSe
 
 	var apiCallFunction;
 	var posts = [];
+    $scope.totalItems = 100;
 
 	ApiService.allPosts().then(function(posts) {
-		$scope.posts = posts;
+        $scope.posts = posts;
+		$scope.newsPosts = posts;
 	});
+
+
+
+$scope.filterCategory = function(searchResult) { 
+  var valtosend = $scope.searchCategory;
+  var newPage = 1;
+           $scope.totalItems = 20;
+         apiCallFunction = ApiService.postsBySearchCategory(newPage, valtosend);
+         apiCallFunction.then(function(results) {
+          $scope.newsPosts = results;
+      });
+}
+
+ $scope.pageChanged = function(newPage) {
+     var valtosend = $scope.searchCategory;
+     if (valtosend === undefined ){
+        ApiService.allPostsBySearchCategory(newPage).then(function(posts) {
+		$scope.newsPosts = posts;
+	});
+     } else{  
+         ApiService.postsBySearchCategory(newPage, valtosend).then(function(posts) {
+		    $scope.newsPosts = posts;
+	});
+     }
+
+
+    
+
+    };
+
 
     $scope.change = function(searchResult) {
         var valtosend = $scope.searchText;

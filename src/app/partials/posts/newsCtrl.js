@@ -4,6 +4,7 @@ function NewsCtrl($anchorScroll, $stateParams, $state, ApiService, MetadataServi
 
     vm.posts = [];
     vm.loaded = false;
+         vm.totalItems = 1000;
     vm.subtitle = '';
 
     MetadataService.setMetadata({
@@ -21,6 +22,36 @@ function NewsCtrl($anchorScroll, $stateParams, $state, ApiService, MetadataServi
     } else {
         apiCallFunction = ApiService.allPosts();
     }
+
+
+
+ vm.pageChanged = function(newPage) {
+     var valtosend = vm.searchCategory;
+     if (valtosend === undefined ){
+        ApiService.allPostsBySearchCategory(newPage).then(function(posts) {
+		vm.posts = posts;
+	});
+     } else{  
+         ApiService.postsBySearchCategory(newPage, valtosend).then(function(posts) {
+		    vm.posts = posts;
+	});
+     }
+
+    };
+
+
+
+vm.filterCategory = function(searchResult) { 
+  var valtosend = vm.searchCategory;
+  var newPage = 1;
+       vm.totalItems = 20;
+         apiCallFunction = ApiService.postsBySearchCategory(newPage, valtosend);
+         apiCallFunction.then(function(results) {
+          vm.posts = results;
+      });
+}
+
+
 
     vm.search = function(term) {
        apiCallFunction = ApiService.allPostsBySearchTerm(term);
