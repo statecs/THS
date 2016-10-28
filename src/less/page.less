@@ -835,7 +835,7 @@ summary { cursor: pointer; }
 
 /* F.A.Q */
 
-.toggle-box, .toggle-box-2 {
+.toggle-box, .toggle-box-2, .toggle-box-3 {
   display: none;
 }
 
@@ -859,7 +859,7 @@ summary { cursor: pointer; }
 }
 
  .bg-c label.bg-c2{
-    margin: 0 20px;
+    margin: 0 0 0 20px;
 
  }
 .bg-c label:hover{
@@ -882,7 +882,7 @@ summary { cursor: pointer; }
 }
 
 
-.toggle-box:checked + .bg-c > *, .toggle-box-2:checked + .bg-c > *  {
+.toggle-box:checked + .bg-c > *, .toggle-box-2:checked + .bg-c > *, .toggle-box-3:checked + .bg-c > *,   {
   display: block;
   @media screen and (max-width: 1024px) {
   background-color: #f7f7f7;
@@ -904,7 +904,7 @@ color:blue;
   }
 }
 
-input.toggle-box:checked+ .bg-c label.bg-c1:before, input.toggle-box-2:checked + .bg-c label.bg-c2:before  {
+input.toggle-box:checked+ .bg-c label.bg-c1:before, input.toggle-box-2:checked + .bg-c label.bg-c2:before, input.toggle-box-3:checked+ .bg-c label.bg-c3:before,  {
     transform: rotate(45deg);
     -ms-transform: rotate(45deg); 
     -webkit-transform: rotate(45deg);

@@ -110,8 +110,8 @@
 
 
 <section><article>
-  <input class="toggle-box" id="{{result.id}}" type="checkbox">
-  <div class="bg-c"><label class="bg-c1" for="{{result.id}}"><span ng-bind-html="result.title"></span>  <div ng-if="result.date" class="date-stitle">{{ result.modified | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}} {{result.type}}</div></label>
+  <input class="toggle-box-3" id="{{result.id}}" type="checkbox">
+  <div class="bg-c"><label class="bg-c3" for="{{result.id}}"><span ng-bind-html="result.title"></span>  <div ng-if="result.date" class="date-stitle">{{ result.modified | date:'dd MMM yyyy' }} | <span ng-repeat="cat in result.category">{{cat.name}} | </span> {{author.name}} {{result.type}}</div></label>
     <div class="content-c"><div  class="left-os"> 
                   <a href="{{result.link}}"><h3 class="h1-blue" ng-bind-html="result.title"></h3></a>
 
