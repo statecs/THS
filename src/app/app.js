@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'vcRecaptcha', 'ngTouch', 'angular-cache']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'vcRecaptcha', 'ngTouch', 'angular-cache','mwl.calendar']);
 
 
 function initializeApp($rootScope, localStorageService, $http, CacheFactory ){
@@ -119,6 +119,16 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
             views: {
                     'container@': {
                         templateUrl: 'partials/pages/events.tpl.html',
+                        controller: 'EventsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.eventsList', {
+            url: "/events-list",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/events-list.tpl.html',
                         controller: 'EventsCtrl',
                         controllerAs: 'vm'
                     }

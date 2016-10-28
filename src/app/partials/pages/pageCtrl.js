@@ -82,7 +82,7 @@ function PageCtrl($rootScope, $scope, $sce, $stateParams, $window, $anchorScroll
     
 }
 
-function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
+function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http, calendarConfig) {
     var vm = this;
     vm.page = {};
 
@@ -98,6 +98,45 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
             htmlDesc: false,
             calendar_name: false
       };
+
+
+   vm.events = [
+      {
+         title: 'Increments the badge total on the day cell',
+         "type":"info",
+         color: calendarConfig.colorTypes.warning,
+         "startsAt":"2016-10-15 20:49:00",
+         "endsAt":"2016-10-15 20:49:00",
+         "draggable":"true",
+         "resizable":"true"
+      },
+      {
+        title: 'Increments the badge total on the day cell',
+         "type":"info",
+         color: calendarConfig.colorTypes.warning,
+         "startsAt":"2016-12-15 20:49:00",
+         "endsAt":"2016-12-25 20:49:00",
+         "draggable":"true",
+         "resizable":"true"
+      }
+    ];
+
+       vm.calendarView = 'year';
+   vm.viewDate = '2016-10-15 20:49:00';
+   // vm.cellIsOpen = true;
+
+
+     $scope.selectedDate = new Date();
+    $scope.weekStartsOn = 1;
+    //$scope.dayFormat = "d";
+    //$scope.tooltips = true;
+     $scope.dayClick = function(date) {
+        $scope.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
+    };
+
+
+    $scope.disableFutureDates = false;
+
 
       var fulldayFilter = function(date) {
         return $filter('date')(date, gcConfig.dateFilter)

@@ -32,6 +32,8 @@
     "normalize-css": "^4.2.0",
     "angular-recaptcha": "^3.0.4",
     "angular-touch": "^1.5.8",
-    "angular-cache": "^4.6.0"
+    "angular-cache": "^4.6.0",
+    "angular-bootstrap-calendar": "^0.24.0",
+    "moment": "^2.15.2"
   }
 }
