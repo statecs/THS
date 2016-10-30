@@ -99,43 +99,91 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http, cale
             calendar_name: false
       };
 
+  var eventTile = {
+        date: null, // Date created
+        imageUrl: null, // URL to image
+        link: "", // Link to the content
+        title: "", // A title (probably only relevant for news items)
+        type: null // "facebook" or "instagram" or "news"
+      };
 
-   vm.events = [
-      {
-         title: 'Increments the badge total on the day cell',
-         "type":"info",
-         color: calendarConfig.colorTypes.warning,
-         "startsAt":"2016-10-15 20:49:00",
-         "endsAt":"2016-10-15 20:49:00",
-         "draggable":"true",
-         "resizable":"true"
-      },
-      {
-        title: 'Increments the badge total on the day cell',
-         "type":"info",
-         color: calendarConfig.colorTypes.warning,
-         "startsAt":"2016-12-15 20:49:00",
-         "endsAt":"2016-12-25 20:49:00",
-         "draggable":"true",
-         "resizable":"true"
+
+var eventTiles = [];
+    var tile;
+    var calendarData;
+
+    var url = "https://www.googleapis.com/calendar/v3/calendars/" + gcConfig.calendar_id + "/events?orderBy=startTime&singleEvents=true&timeMin=" + (new Date().toISOString()) + "&maxResults=" + gcConfig.max + "&key=" + gcConfig.google_key;
+
+      $http.get(url).success(function(data){
+             // console.log(gcConfig);
+        vm.calendar = data;
+        calendarData = data.items;
+        console.log(calendarData);
+        setUpEvents();
+
+        if (!gcConfig.hideTitle && !gcConfig.calendar_name)
+          angular.extend(gcConfig, { calendar_name: data.summary })
+      });
+
+  function setUpEvents() {
+
+        calendarData.forEach(function (calendarObj) {
+            tile = Object.create(eventTile);
+            tile.title = calendarObj.summary;
+            tile.startsAt = new Date(calendarObj.start.dateTime);
+            tile.endsAt = new Date(calendarObj.end.dateTime);
+            var replaceDescription = calendarObj.description.replace(/↵↵/g, "<br/>");
+            tile.description = replaceDescription;
+            tile.link = calendarObj.htmlLink;
+            tile.ical = calendarObj.iCalUID;
+            tile.cssClass = "events-class";
+            
+            tile.type = "Events";
+           // tile.user = calendarObj.user.username;
+            if (calendarObj.caption != null){
+              tile.description = calendarObj.caption.text;
+            }
+            //tile.imageUrl = calendarObj.images.standard_resolution.url;
+            eventTiles.push(tile);
+          });
+
+          vm.events = eventTiles;
+          console.log( eventTiles);
+
+  }
+
+
+  moment.locale('en_gb', {
+      week : {
+        dow : 1 // Monday is the first day of the week
       }
-    ];
-
-       vm.calendarView = 'year';
-   vm.viewDate = '2016-10-15 20:49:00';
-   // vm.cellIsOpen = true;
+  });
 
 
-     $scope.selectedDate = new Date();
-    $scope.weekStartsOn = 1;
-    //$scope.dayFormat = "d";
-    //$scope.tooltips = true;
-     $scope.dayClick = function(date) {
-        $scope.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
+  vm.changeView = function(catDate) {
+    vm.calendarView = catDate;
+  }
+ 
+vm.eventClicked = function(event) {
+      vm.viewDate = !vm.viewDate;
+  if (vm.viewDate === event.startsAt){
+    vm.viewDate = false;
+    vm.viewDate = new Date();
+  } else{
+      console.log(vm.viewDate);
+      vm.viewDate = event.startsAt;
+      console.log(vm.viewDate);
+  }
+
     };
+  
+};
+  calendarConfig.templates.calendarMonthView = 'common/directives/calendar-template.tpl.html'; //change the month view template globally to a custom template
+       vm.calendarView = 'month';
+       vm.viewDate = new Date();
 
 
-    $scope.disableFutureDates = false;
+   
 
 
       var fulldayFilter = function(date) {
@@ -190,15 +238,7 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http, cale
 
       };
 
-      var url = "https://www.googleapis.com/calendar/v3/calendars/" + gcConfig.calendar_id + "/events?orderBy=startTime&singleEvents=true&timeMin=" + (new Date().toISOString()) + "&maxResults=" + gcConfig.max + "&key=" + gcConfig.google_key;
 
-      $http.get(url).success(function(data){
-             // console.log(gcConfig);
-        vm.calendar = data;
-
-        if (!gcConfig.hideTitle && !gcConfig.calendar_name)
-          angular.extend(gcConfig, { calendar_name: data.summary })
-      });
 
 }
 
