@@ -124,11 +124,11 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
-            .state('root.eventsList', {
-            url: "/events-list",
+            .state('root.eventsCalendar', {
+            url: "/events-calendar",
             views: {
                     'container@': {
-                        templateUrl: 'partials/pages/events-list.tpl.html',
+                        templateUrl: 'partials/pages/events-calendar.tpl.html',
                         controller: 'EventsCtrl',
                         controllerAs: 'vm'
                     }

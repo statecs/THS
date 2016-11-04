@@ -87,7 +87,7 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http, cale
     vm.page = {};
 
           var gcConfig = {
-            max: 10,
+            max: 20,
             hideTitle: false,
             google_key: 'AIzaSyDI9VA5xCt8FMDZV1eZuyuf2ODimyI4kfQ',
             calendar_id: 'armada.nu_3evd63ebtffpqkhkivr8d76usk@group.calendar.google.com',
@@ -135,7 +135,6 @@ var eventTiles = [];
             var replaceDescription = calendarObj.description.replace(/↵↵/g, "<br/>");
             tile.description = replaceDescription;
             tile.link = calendarObj.htmlLink;
-            tile.ical = calendarObj.iCalUID;
             tile.cssClass = "events-class";
             
             tile.type = "Events";
@@ -163,21 +162,19 @@ var eventTiles = [];
   vm.changeView = function(catDate) {
     vm.calendarView = catDate;
   }
- 
+
 vm.eventClicked = function(event) {
       vm.viewDate = !vm.viewDate;
   if (vm.viewDate === event.startsAt){
     vm.viewDate = false;
     vm.viewDate = new Date();
   } else{
-      console.log(vm.viewDate);
       vm.viewDate = event.startsAt;
-      console.log(vm.viewDate);
+      vm.onDateRangeSelect = event.startsAt;
   }
 
     };
-  
-};
+
   calendarConfig.templates.calendarMonthView = 'common/directives/calendar-template.tpl.html'; //change the month view template globally to a custom template
        vm.calendarView = 'month';
        vm.viewDate = new Date();

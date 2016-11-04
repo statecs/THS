@@ -1058,7 +1058,7 @@ color:blue;
     transition: transform .3s ease;
     position: absolute;
     top: 0;
-        margin: 10px 17%;
+    margin: 15px 17%;
     pointer-events: none;
 }
 input.toggle-box-2:checked + .bg-c.menu-bg-c .bg-c-label:after  {
@@ -1413,10 +1413,12 @@ input.toggle-box-2:checked + .bg-c.menu-bg-c .bg-c-label:after  {
 }
 .event {
   display: block;
-  width: 35px;
-  height: 35px;
+  border: 0.5px solid #6f6f6f;
   border-radius: 50%;
-  border: 2px solid #00406c;
+}
+.event span {
+  font-weight:800;
+  color:#000000;
 }
 .event-block {
   display: block;
@@ -1510,8 +1512,10 @@ span[data-cal-date] {
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
-  margin-top: 10px;
-  margin-right: 10px;
+  padding:10px;
+  text-align: center;
+  height: 17px;
+  width: 18px;
 }
 span[data-cal-date]:hover {
   opacity: 1;
@@ -1521,21 +1525,14 @@ span[data-cal-date]:hover {
   cursor: default;
 }
 .cal-day-today {
-  background-color: #e8fde7;
+  background-color:rgba(0,64,108,0.10);
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
-}
-.cal-day-today span[data-cal-date] {
-  color: darkgreen;
 }
 
 .cal-day-holiday span[data-cal-date] {
   color: #800080;
 }
-.cal-day-weekend span[data-cal-date] {
-  color: darkred;
-}
+
 #cal-week-box {
   border: 1px solid #e1e1e1;
   border-right: 0px;
@@ -1558,6 +1555,7 @@ span[data-cal-date]:hover {
 }
 .cal-slide-box {
   border-top: 0px solid #8c8c8c;
+  margin-top:10px;
 }
 .cal-slide-content {
   padding: 20px;
@@ -1618,22 +1616,22 @@ a.cal-event-week {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    font-size: 25px;
+    font-size: 1.1em;
     font-weight: 400;
     line-height: 24px;
-    margin: 40px 46px 18px 46px;
-    text-align: center;
-    justify-content: center;
-    @media (min-width: 1000px) {
-      justify-content: flex-start;
-      margin: 40px 46px 18px 66px;
-    }
-     @media (min-width: 1200px) {
-      justify-content: flex-start;
-      margin: 40px 46px 18px 106px;
-
-    }
-}
+    margin: 30px 0px 10px 0px;
+    justify-content: space-between;
+    width: 33%;
+ }
+ @media (max-width: 1000px) {
+    #header.events-calendar {
+        font-size: 1.5em;
+        margin: 40px 46px 18px 0px;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+   }
+ }
 
 .events-calendar button{
   border:none; 
@@ -1642,6 +1640,9 @@ a.cal-event-week {
 }
 .icon-2 iron-icon.hub-icon {
     width: 12px;
+}
+.hub-icon-2 svg{
+  width: 10% !important;
 }
 .iron-icon-1 {
     display: -ms-inline-flexbox;
@@ -1657,6 +1658,10 @@ a.cal-event-week {
     vertical-align: middle;
     fill: currentcolor;
     stroke: none;
-    width: 24px;
+    width: 100px;
     height: 24px;
+}
+
+.o-container.space{
+    margin:10px 0;
 }

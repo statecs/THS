@@ -22,7 +22,6 @@
       </div>
       <br>
   
- <strong ng-show="vm.lastDateClicked">You clicked on this day: {{ vm.lastDateClicked | date:'medium' }}</strong>
 <mwl-calendar
     view="vm.calendarView"
     view-date="vm.viewDate"
@@ -34,7 +33,8 @@
     cell-auto-open-disabled="false"
     cell-is-open="vm.isCellOpen"
     day-view-start="06:00"
-    day-view-end="22:00">
+    day-view-end="22:00"
+    cell-modifier="vm.cellModifier(calendarCell)">
 </mwl-calendar>
 
 </div></div>

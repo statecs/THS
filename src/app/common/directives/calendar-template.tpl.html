@@ -3,8 +3,6 @@
 
 <div class="cal-row-fluid cal-row-head">
 
-  <!--<div class="cal-cell1" ng-repeat="day in vm.weekDays track by $index">{{day| limitTo:3}}</div>-->
-
 </div>
 <div class="cal-month-box">
 
@@ -83,31 +81,45 @@
 
 <div class="two-third">
 
-
-
-
-
-
-
-
    <div class="cal-slide-box" uib-collapse="vm.isCollapsed" mwl-collapse-fallback="vm.isCollapsed" ng-if="!vm.view[vm.openDayIndex].events.length > 0">
-   
+     <div ng-repeat="day in vm.view"  class="o-container space"  ng-init="objectIndex = $index">
+        <div ng-repeat="event in day.events | orderBy:'startsAt' as dayEvents">
+            <div ng-if="(event.startsAt |  date:'dd') == day.label">
+            <article>     
+            <input class="toggle-box" id="input-{{objectIndex}}" type="checkbox">
+            <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event});" class="bg-c1" for="input-{{objectIndex}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
 
-      <div
-        ng-repeat="event in vm.events | orderBy:'startsAt' | filter: vm.viewDate track by event.calendarEventId"
+            <div class="content-c left-o">
+            <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
+            <p><a href="{{event.link}}">Google Calendar</a></p>
+
+        </div>
+    </div>
+            </article>
+        <div ng-show="event.calendarEventId == event.calendarEventId" >
+    </div>
+ </div>
+
+</div>
+
+</div>
+
+
+     <!-- <div
+        ng-repeat="event in vm.events | orderBy:'startsAt' track by event.calendarEventId"
         mwl-draggable="event.draggable === true"
         drop-data="{event: event}" class="o-container">
 
         &nbsp;
 
 <article>
-           
+         
   <input class="toggle-box" id="input-{{event.calendarEventId}}" type="checkbox">
-  <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event})" class="bg-c1" for="input-{{event.calendarEventId}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
+  <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event});" class="bg-c1" for="input-{{event.calendarEventId}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
 
     <div class="content-c left-o">
     <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
-    <p><a href="{{event.link}}">Go to calendar</a></p>
+    <p><a href="{{event.link}}">Google Calendar</a></p>
 
 </div></div>
 </article>
@@ -121,9 +133,8 @@
           ng-click="action.onClick({calendarEvent: event})">
         </a>
 
-      </div>
-
-
+ 
+      </div>-->
 
    </div>
 
@@ -141,7 +152,7 @@
 
     <div class="content-c left-o">
     <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
-    <p><a href="{{event.link}}">Go to calendar</a></p>
+    <p><a href="{{event.link}}">Google Calendar</a></p>
 
 </div></div>
 </article>

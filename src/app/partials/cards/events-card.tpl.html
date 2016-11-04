@@ -7,12 +7,12 @@
   </div>
     <div class="calendar-card-heading two-third"><h4>{{ ::event.summary }}</h4>
 
-   <a target="_blank" href="{{ event.htmlLink }}"><div class="p calendar-text" data-ng-if="gcConfig.sanitize && gcConfig.htmlDesc" data-ng-bind-html="event.description"></div>
-  <div class="p calendar-text" data-ng-if="!(gcConfig.sanitize && gcConfig.htmlDesc)">{{event.description  | limitHtml: 60 }}</div></a>
+   <div class="p calendar-text" data-ng-if="gcConfig.sanitize && gcConfig.htmlDesc" data-ng-bind-html="event.description"></div>
+  <div class="p calendar-text" data-ng-if="!(gcConfig.sanitize && gcConfig.htmlDesc)">{{event.description  | limitHtml: 60 }}</div>
 </div>
 
 
 </div>
-<div class="lead"><a ng-href="/events">View all events </a></div>
+<div class="lead"><a ng-href="/events-calendar">View all events </a></div>
 
 </div>
