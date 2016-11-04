@@ -82,12 +82,12 @@ function PageCtrl($rootScope, $scope, $sce, $stateParams, $window, $anchorScroll
     
 }
 
-function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
+function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http, calendarConfig) {
     var vm = this;
     vm.page = {};
 
           var gcConfig = {
-            max: 10,
+            max: 20,
             hideTitle: false,
             google_key: 'AIzaSyDI9VA5xCt8FMDZV1eZuyuf2ODimyI4kfQ',
             calendar_id: 'armada.nu_3evd63ebtffpqkhkivr8d76usk@group.calendar.google.com',
@@ -98,6 +98,90 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
             htmlDesc: false,
             calendar_name: false
       };
+
+  var eventTile = {
+        date: null, // Date created
+        imageUrl: null, // URL to image
+        link: "", // Link to the content
+        title: "", // A title (probably only relevant for news items)
+        type: null // "facebook" or "instagram" or "news"
+      };
+
+
+var eventTiles = [];
+    var tile;
+    var calendarData;
+
+    var url = "https://www.googleapis.com/calendar/v3/calendars/" + gcConfig.calendar_id + "/events?orderBy=startTime&singleEvents=true&timeMin=" + (new Date().toISOString()) + "&maxResults=" + gcConfig.max + "&key=" + gcConfig.google_key;
+
+      $http.get(url).success(function(data){
+             // console.log(gcConfig);
+        vm.calendar = data;
+        calendarData = data.items;
+        console.log(calendarData);
+        setUpEvents();
+
+        if (!gcConfig.hideTitle && !gcConfig.calendar_name)
+          angular.extend(gcConfig, { calendar_name: data.summary })
+      });
+
+  function setUpEvents() {
+
+        calendarData.forEach(function (calendarObj) {
+            tile = Object.create(eventTile);
+            tile.title = calendarObj.summary;
+            tile.startsAt = new Date(calendarObj.start.dateTime);
+            tile.endsAt = new Date(calendarObj.end.dateTime);
+            var replaceDescription = calendarObj.description.replace(/↵↵/g, "<br/>");
+            tile.description = replaceDescription;
+            tile.link = calendarObj.htmlLink;
+            tile.cssClass = "events-class";
+            
+            tile.type = "Events";
+           // tile.user = calendarObj.user.username;
+            if (calendarObj.caption != null){
+              tile.description = calendarObj.caption.text;
+            }
+            //tile.imageUrl = calendarObj.images.standard_resolution.url;
+            eventTiles.push(tile);
+          });
+
+          vm.events = eventTiles;
+          console.log( eventTiles);
+
+  }
+
+
+  moment.locale('en_gb', {
+      week : {
+        dow : 1 // Monday is the first day of the week
+      }
+  });
+
+
+  vm.changeView = function(catDate) {
+    vm.calendarView = catDate;
+  }
+
+vm.eventClicked = function(event) {
+      vm.viewDate = !vm.viewDate;
+  if (vm.viewDate === event.startsAt){
+    vm.viewDate = false;
+    vm.viewDate = new Date();
+  } else{
+      vm.viewDate = event.startsAt;
+      vm.onDateRangeSelect = event.startsAt;
+  }
+
+    };
+
+  calendarConfig.templates.calendarMonthView = 'common/directives/calendar-template.tpl.html'; //change the month view template globally to a custom template
+       vm.calendarView = 'month';
+       vm.viewDate = new Date();
+
+
+   
+
 
       var fulldayFilter = function(date) {
         return $filter('date')(date, gcConfig.dateFilter)
@@ -151,15 +235,7 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
 
       };
 
-      var url = "https://www.googleapis.com/calendar/v3/calendars/" + gcConfig.calendar_id + "/events?orderBy=startTime&singleEvents=true&timeMin=" + (new Date().toISOString()) + "&maxResults=" + gcConfig.max + "&key=" + gcConfig.google_key;
 
-      $http.get(url).success(function(data){
-             // console.log(gcConfig);
-        vm.calendar = data;
-
-        if (!gcConfig.hideTitle && !gcConfig.calendar_name)
-          angular.extend(gcConfig, { calendar_name: data.summary })
-      });
 
 }
 

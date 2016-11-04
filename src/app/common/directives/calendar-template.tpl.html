@@ -1,0 +1,177 @@
+ <div class="o-grid">
+<div class="o-third">
+
+<div class="cal-row-fluid cal-row-head">
+
+</div>
+<div class="cal-month-box">
+
+  <div
+    ng-repeat="rowOffset in vm.monthOffsets track by rowOffset"
+    ng-mouseenter="rowHovered = true"
+    ng-mouseleave="rowHovered = false">
+    <div class="cal-row-fluid cal-before-eventlist">
+      <div
+        ng-repeat="day in vm.view | calendarLimitTo:7:rowOffset track by $index"
+        ng-init="dayIndex = vm.view.indexOf(day)"
+        class="cal-cell1 circle-ci cal-cell {{ day.highlightClass }}"
+        ng-style="{backgroundColor: day.backgroundColor}"
+        ng-click="vm.dayClicked(day, false, $event)"
+        ng-class="{pointer: day.events.length > 0}">
+        <div
+  mwl-droppable
+  on-drop="vm.handleEventDrop(dropData.event, day.date, dropData.draggedFromDate)"
+  mwl-drag-select="!!vm.onDateRangeSelect"
+  on-drag-select-start="vm.onDragSelectStart(day)"
+  on-drag-select-move="vm.onDragSelectMove(day)"
+  on-drag-select-end="vm.onDragSelectEnd(day)"
+  class="cal-month-day {{ day.cssClass }}"
+  ng-class="{
+    'cal-day-outmonth': !day.inMonth,
+    'cal-day-inmonth': day.inMonth,
+    'cal-day-weekend': day.isWeekend,
+    'cal-day-past': day.isPast,
+    'cal-day-today': day.isToday,
+    'cal-day-future': day.isFuture,
+    'cal-day-selected': vm.dateRangeSelect && vm.dateRangeSelect.startDate <= day.date && day.date <= vm.dateRangeSelect.endDate,
+    'cal-day-open': dayIndex === vm.openDayIndex
+  }">
+
+  <div class="events-list day-count" ng-if="day.events.length > 0">
+  <a
+    href="javascript:;"
+    class="pull-left event"
+    ng-class="event.cssClass"
+    ng-style="{backgroundColor: event.color.primary}"
+    ng-mouseenter="vm.highlightEvent(event, true)"
+    ng-mouseleave="vm.highlightEvent(event, false)"
+    tooltip-append-to-body="true"
+    uib-tooltip-html="vm.calendarEventTitle.monthViewTooltip(event) | calendarTrustAsHtml"
+    mwl-draggable="event.draggable === true"
+    drop-data="{event: event, draggedFromDate: day.date.toDate()}">
+      <span
+    class="pull-right"
+    data-cal-date
+    ng-bind="day.label">
+  </span>
+
+  </a>
+</div>
+<div class="events-list" ng-if="day.events.length == 0">
+        <span
+    class="pull-right"
+    data-cal-date
+    ng-bind="day.label">
+  </span>
+</div>
+
+
+  <div id="cal-week-box" ng-if="$first && rowHovered">
+    <span ng-bind="vm.getWeekNumberLabel(day)"></span>
+  </div>
+
+</div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div></div>
+
+<div class="two-third">
+
+   <div class="cal-slide-box" uib-collapse="vm.isCollapsed" mwl-collapse-fallback="vm.isCollapsed" ng-if="!vm.view[vm.openDayIndex].events.length > 0">
+     <div ng-repeat="day in vm.view"  class="o-container space"  ng-init="objectIndex = $index">
+        <div ng-repeat="event in day.events | orderBy:'startsAt' as dayEvents">
+            <div ng-if="(event.startsAt |  date:'dd') == day.label">
+            <article>     
+            <input class="toggle-box" id="input-{{objectIndex}}" type="checkbox">
+            <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event});" class="bg-c1" for="input-{{objectIndex}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
+
+            <div class="content-c left-o">
+            <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
+            <p><a href="{{event.link}}">Google Calendar</a></p>
+
+        </div>
+    </div>
+            </article>
+        <div ng-show="event.calendarEventId == event.calendarEventId" >
+    </div>
+ </div>
+
+</div>
+
+</div>
+
+
+     <!-- <div
+        ng-repeat="event in vm.events | orderBy:'startsAt' track by event.calendarEventId"
+        mwl-draggable="event.draggable === true"
+        drop-data="{event: event}" class="o-container">
+
+        &nbsp;
+
+<article>
+         
+  <input class="toggle-box" id="input-{{event.calendarEventId}}" type="checkbox">
+  <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event});" class="bg-c1" for="input-{{event.calendarEventId}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
+
+    <div class="content-c left-o">
+    <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
+    <p><a href="{{event.link}}">Google Calendar</a></p>
+
+</div></div>
+</article>
+
+        <a
+          href="javascript:;"
+          class="event-item-action"
+          ng-class="action.cssClass"
+          ng-repeat="action in event.actions track by $index"
+          ng-bind-html="action.label | calendarTrustAsHtml"
+          ng-click="action.onClick({calendarEvent: event})">
+        </a>
+
+ 
+      </div>-->
+
+   </div>
+
+
+   <div class="cal-slide-box" uib-collapse="vm.isCollapsed" mwl-collapse-fallback="vm.isCollapsed" ng-if="vm.view[vm.openDayIndex].events.length > 0">
+   
+
+      <div
+        ng-repeat="event in vm.view[vm.openDayIndex].events | orderBy:'startsAt' track by event.calendarEventId"
+        mwl-draggable="event.draggable === true"
+        drop-data="{event: event}" class="o-container">
+<article>
+  <input class="toggle-box" id="input-{{event.calendarEventId}}" type="checkbox" checked>
+  <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event})" class="bg-c1" for="input-{{event.calendarEventId}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
+
+    <div class="content-c left-o">
+    <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
+    <p><a href="{{event.link}}">Google Calendar</a></p>
+
+</div></div>
+</article>
+      </div>
+
+        <a
+          href="javascript:;"
+          class="event-item-action"
+          ng-class="action.cssClass"
+          ng-repeat="action in event.actions track by $index"
+          ng-bind-html="action.label | calendarTrustAsHtml"
+          ng-click="action.onClick({calendarEvent: event})">
+        </a>
+
+      </div>
+
+
+
+   </div>
+   
+
+   </div></div>

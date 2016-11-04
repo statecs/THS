@@ -42,6 +42,8 @@ var VENDOR_SCRIPTS = [
     'bower_components/angular-recaptcha/release/angular-recaptcha.min.js',
     'bower_components/angular-touch/angular-touch.min.js',
     'bower_components/angular-cache/dist/angular-cache.min.js',
+    'bower_components/moment/min/moment.min.js',
+    'bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
 
 
 ];

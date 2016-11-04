@@ -1,0 +1,40 @@
+<div class="content page js-wow fadeIn animated">
+          <div class="o-container" data-widget="block">
+
+       <div id="header" class="events-calendar">
+           <button
+              mwl-date-modifier
+              date="vm.viewDate"
+              decrement="vm.calendarView"><span is="hub-icon" icon="calendar:prev" class="icon events-calendar hub-icon-2">
+             <iron-icon class="style-scope yt-creator-hub-icon x-scope iron-icon-1"><svg viewBox="0 0 16.8 22" preserveAspectRatio="xMidYMid meet" class="style-scope iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><svg xmlns="http://www.w3.org/2000/svg" width="16.8" height="22" viewBox="0 0 16.8 22" class="style-scope iron-icon"><defs class="style-scope iron-icon"><style class="style-scope iron-icon">.calendar-prev-cls-1{fill-rule:evenodd;}</style></defs><path id="Polygon_1_copy" data-name="Polygon 1 copy" class="calendar-prev-cls-1 style-scope iron-icon" d="M16404,347l16.8-11v22.009Z" transform="translate(-16404 -336)"></path></svg></svg>
+             </iron-icon></span> </button>
+             
+             <span mwl-date-modifier date="vm.viewDate" set-to-today class="title events-calendar">{{ vm.calendarTitle }}</span> 
+             
+              <button
+              class="btn btn-primary"
+              mwl-date-modifier
+              date="vm.viewDate"
+              increment="vm.calendarView"><span is="hub-icon" icon="calendar:next" class="icon events-calendar hub-icon-2">
+               <iron-icon class="style-scope yt-creator-hub-icon x-scope iron-icon-1"><svg viewBox="0 0 16.8 22" preserveAspectRatio="xMidYMid meet" class="style-scope iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><svg xmlns="http://www.w3.org/2000/svg" width="16.8" height="22" viewBox="0 0 16.8 22" class="style-scope iron-icon"><defs class="style-scope iron-icon"><style class="style-scope iron-icon">.calendar-next-cls-1{fill-rule:evenodd;}</style></defs><path id="Polygon_1" data-name="Polygon 1" class="calendar-next-cls-1 style-scope iron-icon" d="M16903,347l-16.8,11V336Z" transform="translate(-16886.2 -336)"></path></svg></svg>
+               </iron-icon></span></button>
+
+      </div>
+      <br>
+  
+<mwl-calendar
+    view="vm.calendarView"
+    view-date="vm.viewDate"
+    events="vm.events"
+    view-title="vm.calendarTitle"
+    on-event-click="vm.eventClicked(calendarEvent)"
+    on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+    on-timespan-click="vm.timespanClickedNew($event, calendarDate)"
+    cell-auto-open-disabled="false"
+    cell-is-open="vm.isCellOpen"
+    day-view-start="06:00"
+    day-view-end="22:00"
+    cell-modifier="vm.cellModifier(calendarCell)">
+</mwl-calendar>
+
+</div></div>
