@@ -986,9 +986,13 @@ dl {
 /* Menu */
 
 .menu-bg-c label{
-    padding:20px;
+    padding:20px 20px;
+    @media (min-width: 1024px){
+       padding:20px 25px;
+    }
     line-height: 1.3em;
 }
+
 
 .menu-bg-c label:after{
   border-radius: 5px; 
@@ -1025,7 +1029,6 @@ input.toggle-box:checked+ .bg-c label.bg-c1:after, input.toggle-box-2:checked + 
 .menu-bg-c label{
     background-color:transparent;
     border-top: 0;
-    padding: 20px 40px 20px 0px;
 }
 .toggle-box:checked+.menu-bg-c.bg-c>*{
 color:blue;

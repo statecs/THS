@@ -9,8 +9,6 @@ function PostCtrl($stateParams, $rootScope, $anchorScroll, $timeout, $location, 
     ApiService.postById($stateParams.id).then(function(post) {
 
         vm.post = post;
-         $rootScope.loaded = true;
-         spinnerService.hide('loadingSpinner');
 
         MetadataService.setMetadata({
             title: post.title.rendered,

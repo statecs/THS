@@ -2,7 +2,13 @@
     <div class="flex-item campus-competencecard">
         <div class="container-card">
             <img src="assets/images/campuscompetence_logo.png" class="card-img">
-                <p class="h2-white" ng-bind-html="acf.campus_competence_card[0].excerpt | sanitizeHtml"></p>
+            <div class="js-block-title">
+                            <span class="c-block_title_line">
+                                <p class="h2-white" ng-bind-html="acf.campus_competence_card[0].excerpt | sanitizeHtml"></p>
+<div class=" c-block_title btn-standard">&gt; read more</div>
+                            </span>
+                           
+                        </div>
             </div>
      </div>
 </a>

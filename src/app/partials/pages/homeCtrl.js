@@ -10,8 +10,7 @@ function HomeCtrl(ApiService, $rootScope, $http, MetadataService, SocialService,
 
     ApiService.postByURL('/home').then(function(page) {
         vm.page = page[0];
-          $rootScope.loaded = false;
-          spinnerService.show('loadingSpinner');
+        
 
        // console.log(vm.page);
         

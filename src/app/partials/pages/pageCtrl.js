@@ -39,7 +39,6 @@ function PageCtrl($rootScope, $scope, $sce, $stateParams, $window, $anchorScroll
                 vm.page.type == 'attachment'){
                 return 'partials/pages/' + vm.page.type + '.tpl.html';
             } else {
-              //  console.log(vm.page.template);
                 return 'partials/pages/' + vm.page.template + '.tpl.html';
             }
         }
@@ -52,7 +51,6 @@ function PageCtrl($rootScope, $scope, $sce, $stateParams, $window, $anchorScroll
             };
 
     $scope.openFaq = function($index) {
-          //console.log($index);
           if($scope.faqClass === $index){
             $scope.faqClass = "";
           } else{
@@ -60,7 +58,6 @@ function PageCtrl($rootScope, $scope, $sce, $stateParams, $window, $anchorScroll
             }
          };
          $scope.openSubFaq = function($index) {
-          //console.log($index);
           if($scope.faqSubClass === $index){
             $scope.faqSubClass = "";
           } else{
@@ -115,10 +112,8 @@ var eventTiles = [];
     var url = "https://www.googleapis.com/calendar/v3/calendars/" + gcConfig.calendar_id + "/events?orderBy=startTime&singleEvents=true&timeMin=" + (new Date().toISOString()) + "&maxResults=" + gcConfig.max + "&key=" + gcConfig.google_key;
 
       $http.get(url).success(function(data){
-             // console.log(gcConfig);
         vm.calendar = data;
         calendarData = data.items;
-        console.log(calendarData);
         setUpEvents();
 
         if (!gcConfig.hideTitle && !gcConfig.calendar_name)
@@ -147,7 +142,6 @@ var eventTiles = [];
           });
 
           vm.events = eventTiles;
-          console.log( eventTiles);
 
   }
 
@@ -259,7 +253,6 @@ function ContactCtrl($scope, $rootScope, $http, MetadataService, vcRecaptchaServ
     });
 
     $scope.openFaq = function($index) {
-          //console.log($index);
           if($scope.faqClass === $index){
             $scope.faqClass = "";
           } else{
@@ -267,7 +260,6 @@ function ContactCtrl($scope, $rootScope, $http, MetadataService, vcRecaptchaServ
             }
          };
          $scope.openSubFaq = function($index) {
-          //console.log($index);
           if($scope.faqSubClass === $index){
             $scope.faqSubClass = "";
           } else{
@@ -302,7 +294,6 @@ function ContactCtrl($scope, $rootScope, $http, MetadataService, vcRecaptchaServ
                         vm.success = "Email sent! We will get back to you shortly!"
                         vm.error = "";
                         //alert("Successfully verified and signed up the user");
-                        console.log(response);
                     }else{
                         vm.error = "Error email not sent";
                         vm.success = "";

@@ -5,9 +5,7 @@ function ConnectCtrl($scope, $rootScope, ApiService, $http, MetadataService, Soc
 
     var apiCallFunction;
     var instagramData, facebookData, facebookDataTHS;
-    
-      $rootScope.loaded = false;
-        spinnerService.show('loadingSpinner');
+  
 
     vm.posts = [];
 
@@ -18,9 +16,9 @@ function ConnectCtrl($scope, $rootScope, ApiService, $http, MetadataService, Soc
         instagramData = posts.data;
         //console.log(instagramData);
         setUpPosts();
-          $rootScope.loaded = true;
-        spinnerService.hide('loadingSpinner');
-    });
+        $rootScope.loaded = true;
+        spinnerService.hide('loadingSpinner');   
+       });
 
     SocialService.facebookPosts().then(function(posts) {
         facebookData = posts;
@@ -85,7 +83,6 @@ function ConnectCtrl($scope, $rootScope, ApiService, $http, MetadataService, Soc
 
 
     vm.socialTiles = socialTiles;
-    vm.loaded = true;
 
     vm.sortSocial = function(tile) {
       var date = new Date(tile.date);
