@@ -322,6 +322,23 @@ td, th {
 }
 
  
+ .container-card-restrict{
+    max-width: 1200px;
+    padding: 10px 37px;
+    min-height: 440px;
+ }
+ .collapse-text-toggle {
+    cursor: pointer;
+}
+.collapse-text-toggle:hover {
+    text-decoration: underline;
+}
+.collapse-text-toggle:before {
+    content: '\00a0(';
+}
+.collapse-text-toggle:after {
+    content: ')';
+}
  /* Cards */
 .container-card {
     max-width: 1200px;
@@ -337,6 +354,9 @@ td, th {
     margin-bottom: 20px;
     color: #fff;
     font-size: 16px;
+    @media (min-width: 1200px) and (max-width:1400px) {
+    font-size: 15px;
+    }
     line-height: 30px;
     font-weight: 300;
     text-align: left;
@@ -533,9 +553,11 @@ td, th {
 }
 .news-h4 h4{
   margin-top:-10px;
-  font-size:1.1rem;
-    font-weight:300;
-      line-height:1.2em;
+  font-weight:300;
+  line-height:1.2em;
+      @media (min-width: 1200px) and (max-width:1400px) {
+          font-size:0.9em;
+      }
 }
 
 .news-item-banner {
