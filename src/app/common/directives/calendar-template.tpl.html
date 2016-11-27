@@ -86,8 +86,8 @@
         <div ng-repeat="event in day.events | orderBy:'startsAt' as dayEvents">
             <div ng-if="(event.startsAt |  date:'dd') == day.label">
             <article>     
-            <input class="toggle-box" id="input-{{objectIndex}}" type="checkbox">
-            <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event});" class="bg-c1" for="input-{{objectIndex}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
+            <input class="toggle-box" id="input-{{event.title}}-{{objectIndex}}" type="checkbox">
+            <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event});" class="bg-c1" for="input-{{event.title}}-{{objectIndex}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
 
             <div class="content-c left-o">
             <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
@@ -140,8 +140,8 @@
 
 
    <div class="cal-slide-box" uib-collapse="vm.isCollapsed" mwl-collapse-fallback="vm.isCollapsed" ng-if="vm.view[vm.openDayIndex].events.length > 0">
-   
 
+   
       <div
         ng-repeat="event in vm.view[vm.openDayIndex].events | orderBy:'startsAt' track by event.calendarEventId"
         mwl-draggable="event.draggable === true"

@@ -18,7 +18,7 @@
 
   <div class="feature-block animate-block" style="transition-delay: 175ms; max-height: 600px;">
 
-    <a ng-if="post.featured_image_thumbnail_url" ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="c-block feature-block_link_dark" style="background-image: url('{{post.featured_image_thumbnail_url}}');  background-size: cover; min-height: 450px">
+    <a ng-if="post.featured_image_thumbnail_url" ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="c-block feature-block_link_dark" style="background-image: url('{{post.featured_image_thumbnail_url}}');  background-size: cover; min-height: 460px">
 
      <div class="tag tag--date">
           <div class="tag_month">{{ post.date | date:'MMM' }}</div>
@@ -32,7 +32,7 @@
       </div><!-- End .feature-block_content -->
     </a><!-- End .feature-block_link -->
 
-      <a ng-if="!post.featured_image_thumbnail_url" ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="c-block -link" style="min-height: 450px">
+      <a ng-if="!post.featured_image_thumbnail_url" ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="c-block -link" style="min-height: 460px">
 
      <div class="tag tag--date tag--news">
           <div class="tag_month">{{ post.date | date:'MMM' }}</div>
