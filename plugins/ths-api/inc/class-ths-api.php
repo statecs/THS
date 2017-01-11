@@ -63,7 +63,7 @@ class THS_API  {
     $jsonArr = json_decode($result, true); //this is an array
 
     foreach($jsonArr['data'] as $key => $value) { 
-        if((strpos($value['user']['username'], 'hochu_v_vanuatu') !== false) || (strpos($value['user']['username'], 'blinidze') !== false) || (strpos($value['user']['username'], 'mhmd.fikriii') !== false) || (strpos($value['user']['username'], 'kikkiz') !== false)|| (strpos($value['user']['username'], 'saaraplanting') !== false)) {
+        if((strpos($value['user']['username'], 'hochu_v_vanuatu') !== false) || (strpos($value['user']['username'], 'hindu_don') !== false) || (strpos($value['user']['username'], 'alocolu') !== false) || (strpos($value['user']['username'], 'blinidze') !== false) || (strpos($value['user']['username'], 'mhmd.fikriii') !== false) || (strpos($value['user']['username'], 'kikkiz') !== false) || (strpos($value['user']['username'], 'saaraplanting') !== false)) {
           array_splice($jsonArr['data'][$key], 0);
         }
     }
