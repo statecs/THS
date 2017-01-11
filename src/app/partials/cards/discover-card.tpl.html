@@ -18,7 +18,7 @@
         
       <div class="feature-block_content">
 
-        <div class="feature-block_category sub-title">{{ tile.description  | limitHtml: 100 }}</div>
+        <div ng-if="tile.description" class="feature-block_category sub-title">{{ tile.description  | limitHtml: 100 }}</div>
         <h3 class="feature-block_title">{{ tile.type  | limitHtml: 100 }}</h3>
       </div><!-- End .feature-block_content -->
     </a><!-- End .feature-block_link -->

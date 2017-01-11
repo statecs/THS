@@ -59,9 +59,15 @@ class THS_API  {
     $type = $request['type'];
 
     if ($type == instagram) {
-     //$string = file_get_contents("/storage/content/63/101063/ths.kth.se/public_html/wp-content/plugins/ths-api/instagram_mockup.json");
-      $string = file_get_contents("https://api.instagram.com/v1/media/search?lat=59.347313&lng=18.071340&access_token=3632648868.0efbe26.487ecc304b774eaebf25e46d948455c9&distance=98&count=55");
-      return json_decode($string, true);
+    $result = file_get_contents("https://api.instagram.com/v1/media/search?lat=59.347313&lng=18.071340&access_token=3632648868.0efbe26.487ecc304b774eaebf25e46d948455c9&distance=98&count=55");  
+    $jsonArr = json_decode($result, true); //this is an array
+
+    foreach($jsonArr['data'] as $key => $value) { 
+        if((strpos($value['user']['username'], 'hochu_v_vanuatu') !== false) || (strpos($value['user']['username'], 'blinidze') !== false) || (strpos($value['user']['username'], 'mhmd.fikriii') !== false) || (strpos($value['user']['username'], 'kikkiz') !== false)|| (strpos($value['user']['username'], 'saaraplanting') !== false)) {
+          array_splice($jsonArr['data'][$key], 0);
+        }
+    }
+    return $jsonArr; //this is an array
     } else if ($type == facebook){
        $string = file_get_contents("https://graph.facebook.com/v2.7/posts?ids=121470594571005,148731426526&access_token=963806983710968%7C1b4e82243d046851a67059d2f8735b45&fields=id,message,story,created_time,full_picture,from,link,description,type,shares,source,picture,object_id&limit=20&date_format=U&locale=EN_en");
       // $string = file_get_contents("/storage/content/63/101063/ths.kth.se/public_html/wp-content/plugins/ths-api/facebook_mockup.json");

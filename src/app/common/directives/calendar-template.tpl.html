@@ -1,5 +1,5 @@
  <div class="o-grid">
-<div class="o-third">
+<div class="o-third" style="padding-bottom:50px">
 
 <div class="cal-row-fluid cal-row-head">
 
@@ -81,81 +81,89 @@
 
 <div class="two-third">
 
-   <div class="cal-slide-box" uib-collapse="vm.isCollapsed" mwl-collapse-fallback="vm.isCollapsed" ng-if="!vm.view[vm.openDayIndex].events.length > 0">
-     <div ng-repeat="day in vm.view"  class="o-container space"  ng-init="objectIndex = $index">
-        <div ng-repeat="event in day.events | orderBy:'startsAt' as dayEvents">
-            <div ng-if="(event.startsAt |  date:'dd') == day.label">
-            <article>     
-            <input class="toggle-box" id="input-{{event.title}}-{{objectIndex}}" type="checkbox">
-            <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event});" class="bg-c1" for="input-{{event.title}}-{{objectIndex}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
+  <div class="content page" id="top" uib-collapse="vm.isCollapsed" mwl-collapse-fallback="vm.isCollapsed" ng-if="!vm.view[vm.openDayIndex].events.length > 0">
+    <div class="o-content">
+    <div class="o-container" data-widget="block">
+        <div class="o-grid">
 
-            <div class="content-c left-o">
-            <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
-            <p><a href="{{event.link}}">Google Calendar</a></p>
+    <div class="o-whole js-wow fadeInUp " data-wow-duration="0" data-wow-offset="0" ng-repeat="day in vm.view" >
 
+    <div ng-repeat="event in day.events | orderBy:'startsAt' as dayEvents">
+    
+        <style ng-if="event.img">
+  .hero-block-img-{{event.img}} {
+        background-image: url('https://drive.google.com/uc?export=view&id={{event.img}}');
+		    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://drive.google.com/uc?export=view&id={{event.img}}');
+    background-size: cover;
+    visibility: visible;
+	height:460px;
+}
+    </style>
+
+  <div class="feature-block animate-block" style="max-height: 600px;">
+
+  <a ng-if="!event.img" href="#" ng-click="vm.dayClicked(day, false, $event)" class="c-block feature-block_link" style="background-image: url('http://ths.kth.se/wp/wp-content/uploads/2017/01/events-nymble.jpg');  background-size: cover; min-height: 460px;">
+<div class="tag tag--date">
+          <div class="tag_month">{{event.startsAt |  date:'MMM'}}</div>
+          <div class="tag_day">{{event.startsAt |  date:'dd'}}</div>
+        </div>
+        
+      <div class="feature-block_content">
+        <div class="feature-block_category sub-title">{{ event.description  | limitHtml: 100 }}</div>
+        <h3 class="feature-block_title">{{ event.title  | limitHtml: 100 }}</h3>
+      </div>
+  </a>
+<a href="#" ng-click="vm.dayClicked(day, false, $event)">
+    <div ng-if="event.img" class="c-block feature-block_link" style="background-image: url('http://ths.kth.se/wp/wp-content/uploads/2017/01/events-nymble.jpg');  background-size: cover; min-height: 460px;">
+    
+    <div class="hero-block-img-{{event.img}}">
+     <div class="tag tag--date">
+          <div class="tag_month">{{event.startsAt |  date:'MMM'}}</div>
+          <div class="tag_day">{{event.startsAt |  date:'dd'}}</div>
+        </div><!-- End .tag -->
+        
+      <div class="feature-block_content">
+        <div class="feature-block_category sub-title">{{ event.description  | limitHtml: 150 }}</div>
+        <h3 class="feature-block_title">{{ event.title  | limitHtml: 100 }}</h3>
+      </div><!-- End .feature-block_content -->
+    </div>
+    </div>
+    </a><!-- End .feature-block_link -->
+
+
+
+  
+  </div>
+  </div><!-- End .feature-block -->
+            </div>
+                      
         </div>
     </div>
-            </article>
-        <div ng-show="event.calendarEventId == event.calendarEventId" >
-    </div>
- </div>
-
 </div>
-
 </div>
 
 
-     <!-- <div
-        ng-repeat="event in vm.events | orderBy:'startsAt' track by event.calendarEventId"
-        mwl-draggable="event.draggable === true"
-        drop-data="{event: event}" class="o-container">
 
-        &nbsp;
 
-<article>
-         
-  <input class="toggle-box" id="input-{{event.calendarEventId}}" type="checkbox">
-  <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event});" class="bg-c1" for="input-{{event.calendarEventId}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
 
-    <div class="content-c left-o">
-    <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
-    <p><a href="{{event.link}}">Google Calendar</a></p>
-
-</div></div>
-</article>
-
-        <a
-          href="javascript:;"
-          class="event-item-action"
-          ng-class="action.cssClass"
-          ng-repeat="action in event.actions track by $index"
-          ng-bind-html="action.label | calendarTrustAsHtml"
-          ng-click="action.onClick({calendarEvent: event})">
-        </a>
+   <div class="cal-slide-box js-wow fadeInUp " uib-collapse="vm.isCollapsed" mwl-collapse-fallback="vm.isCollapsed" ng-if="vm.view[vm.openDayIndex].events.length > 0">
 
  
-      </div>-->
 
-   </div>
-
-
-   <div class="cal-slide-box" uib-collapse="vm.isCollapsed" mwl-collapse-fallback="vm.isCollapsed" ng-if="vm.view[vm.openDayIndex].events.length > 0">
-
-   
       <div
         ng-repeat="event in vm.view[vm.openDayIndex].events | orderBy:'startsAt' track by event.calendarEventId"
         mwl-draggable="event.draggable === true"
-        drop-data="{event: event}" class="o-container">
-<article>
-  <input class="toggle-box" id="input-{{event.calendarEventId}}" type="checkbox" checked>
-  <div class="bg-c"><label ng-click="vm.onEventClick({calendarEvent: event})" class="bg-c1" for="input-{{event.calendarEventId}}"><h2>{{event.title }}</h2><span> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</span></label>
+        drop-data="{event: event}" class="o-container left-o">
 
-    <div class="content-c left-o">
+<p><a ng-click="vm.dayClicked(day, true, $event)"><i class="fa fa-arrow-left fa-1" aria-hidden="true"></i> Back</a></p>
+
+  <h3>{{event.title }}</h3><p> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</p>
+
+    
     <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
     <p><a href="{{event.link}}">Google Calendar</a></p>
 
-</div></div>
-</article>
+
       </div>
 
         <a

@@ -131,7 +131,9 @@ var eventTiles = [];
             tile.description = replaceDescription;
             tile.link = calendarObj.htmlLink;
             tile.cssClass = "events-class";
-            
+            if (calendarObj.attachments) {
+            tile.img = calendarObj.attachments[0].fileId;
+            }
             tile.type = "Events";
            // tile.user = calendarObj.user.username;
             if (calendarObj.caption != null){
@@ -204,6 +206,13 @@ vm.eventClicked = function(event) {
           return timedFilter(event.start.dateTime);
         }
       };
+       vm.id = function(event){
+        if (event.attachments) {
+             vm.pId = event.attachments[0].fileId;
+              return vm.pId;
+        }
+      };
+
 
        vm.eImg = function(event){
         if (event.attachments) {

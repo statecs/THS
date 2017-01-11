@@ -40,6 +40,7 @@ function ConnectCtrl($scope, $rootScope, ApiService, $http, MetadataService, Soc
     function setUpPosts() {
 
         instagramData.forEach(function (instaObj) {
+          if (instaObj.link != null) {
             tile = Object.create(SocialTile);
             tile.link = instaObj.link;
             tile.date = instaObj.created_time*1000;
@@ -50,6 +51,7 @@ function ConnectCtrl($scope, $rootScope, ApiService, $http, MetadataService, Soc
             }
             tile.imageUrl = instaObj.images.standard_resolution.url;
             socialTiles.push(tile);
+          }
           });
 
     }
