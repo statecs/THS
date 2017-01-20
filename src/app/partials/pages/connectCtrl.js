@@ -45,7 +45,7 @@ function ConnectCtrl($scope, $rootScope, ApiService, $http, MetadataService, Soc
             tile.link = instaObj.link;
             tile.date = instaObj.created_time*1000;
             tile.type = "Instagram";
-            tile.user = instaObj.user.username;
+            //tile.user = instaObj.user.username;
             if (instaObj.caption != null){
               tile.description = instaObj.caption.text;
             }

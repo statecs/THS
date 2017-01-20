@@ -509,3 +509,14 @@ function clear_cache_on_options_save($post_id) {
             echo '</div>';
         }
     }
+
+
+    add_filter( 'auto_core_update_send_email', 'wpb_stop_auto_update_emails', 10, 4 );
+ 
+function wpb_stop_update_emails( $send, $type, $core_update, $result ) {
+  
+  if ( ! empty( $type ) && $type == 'success' ) {
+    return false;
+  }
+    return true;
+  }
