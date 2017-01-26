@@ -63,7 +63,7 @@ class THS_API  {
     $jsonArr = json_decode($result, true); //this is an array
 
     foreach($jsonArr['data'] as $key => $value) { 
-        if((strpos($value['user']['username'], 'hochu_v_vanuatu') !== false) || (strpos($value['user']['username'], 'hindu_don') !== false) || (strpos($value['user']['username'], 'alocolu') !== false) || (strpos($value['user']['username'], 'blinidze') !== false) || (strpos($value['user']['username'], 'mhmd.fikriii') !== false) || (strpos($value['user']['username'], 'kikkiz') !== false) || (strpos($value['user']['username'], 'saaraplanting') !== false)) {
+        if((strpos($value['user']['username'], 'hochu_v_vanuatu') !== false) || (strpos($value['user']['username'], 'hindu_don') !== false) || (strpos($value['user']['username'], 'alocolu') !== false) || (strpos($value['user']['username'], 'blinidze') !== false) || (strpos($value['user']['username'], 'mhmd.fikriii') !== false) || (strpos($value['user']['username'], 'kikkiz') !== false)|| (strpos($value['user']['username'], 'saaraplanting') !== false)|| (strpos($value['user']['username'], 'sedibigdeli') !== false)|| (strpos($value['user']['username'], 'da.young_kim') !== false)|| (strpos($value['user']['username'], 'voodooburgersweden') !== false)|| (strpos($value['location']['name'], 'DKM') !== false)|| (strpos($value['user']['username'], 'hops0114') !== false)) {
           array_splice($jsonArr['data'][$key], 0);
         }
     }

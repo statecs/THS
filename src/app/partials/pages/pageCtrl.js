@@ -127,8 +127,8 @@ var eventTiles = [];
             tile.title = calendarObj.summary;
             tile.startsAt = new Date(calendarObj.start.dateTime);
             tile.endsAt = new Date(calendarObj.end.dateTime);
-            var replaceDescription = calendarObj.description.replace(/↵↵/g, "<br/>");
-            tile.description = replaceDescription;
+            //var replaceDescription = calendarObj.description.replace(/↵↵/g, "<br/>");
+            tile.description = calendarObj.description;
             tile.link = calendarObj.htmlLink;
             tile.cssClass = "events-class";
             if (calendarObj.attachments) {

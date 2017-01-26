@@ -160,7 +160,7 @@
   <h3>{{event.title }}</h3><p> {{event.startsAt |  date:'dd MMMM yyyy HH:mm'}} - {{event.endsAt|  date:'dd MMMM yyyy HH:mm'}}</p>
 
     
-    <p  ng-bind-html="event.description | calendarTrustAsHtml "></p>
+    <div class="event-desc" ng-bind-html="event.description | calendarTrustAsHtml "></div>
     <p><a href="{{event.link}}">Google Calendar</a></p>
 
 
