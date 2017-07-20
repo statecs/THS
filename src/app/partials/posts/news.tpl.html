@@ -1,24 +1,35 @@
-<div class="content">
-<div class="pure-g page-content" >
+<div class="content page">
+<div class="pure-g news-container" >
     
     <div class="o-content">
 
     <div class="search-container -news">
-            <revealing-search-input search-callback="vm.search(term)"></revealing-search-input>
-            <i ng-if="searchTrue == true" ng-click="clearSearch()" class="material-icons black-i ">clear</i>
+          <!--<revealing-search-input search-callback="vm.search(term)"></revealing-search-input>
+            <i ng-if="searchTrue == true" ng-click="clearSearch()" class="material-icons black-i ">clear</i>-->
+          <select class="c-dropdown_label" ng-model="vm.searchCategory" ng-change="vm.filterCategory(searchResult)">
+                 <option ng-selected="true" disabled selected value>---Please select---</option>
+                 <option value>All Categories</option>
+                               <option class="c-dropdown_item" data-idcat="20" ng-repeat="cat in cats" value="{{cat.slug}}">
+                                   <span>{{cat.name}}</span>
+                               </option>
+                            </select>
+          
         </div>  
+
+        
 
     <div class="o-container -news" data-widget="block">
         <div class="o-grid">
 
 
-    <div class="o-third js-wow fadeInUp animated" dir-paginate="post in vm.posts | itemsPerPage: 15 | filter:query:true">
+
+    <div class="o-third" dir-paginate="post in vm.posts | itemsPerPage: 15 | filter:query:true" total-items="vm.totalItems">
 
 
 
   <div class="feature-block animate-block" style="transition-delay: 175ms; max-height: 600px;">
 
-    <a ng-if="post.featured_image_thumbnail_url" ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="c-block feature-block_link_dark" style="background-image: url('{{post.featured_image_thumbnail_url}}');  background-size: cover; min-height: 450px">
+    <a ng-if="post.featured_image_thumbnail_url" ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="c-block feature-block_link_dark" style="background-image: url('{{post.featured_image_thumbnail_url}}');  background-size: cover; min-height: 460px">
 
      <div class="tag tag--date">
           <div class="tag_month">{{ post.date | date:'MMM' }}</div>
@@ -26,13 +37,13 @@
         </div><!-- End .tag -->
         
       <div class="feature-blockNewsImg_content">
-        <h3 class="feature-block_title">{{ post.title  }}</h3>
+        <h3 class="feature-block_title" ng-bind-html="post.title"></h3>
             <span class="feature-block_category" ng-repeat="postCat in post.category">{{postCat.name}} | </span>
          <div class="sub-title">{{ post.excerpt  | limitHtml: 100 }}</div>
       </div><!-- End .feature-block_content -->
     </a><!-- End .feature-block_link -->
 
-      <a ng-if="!post.featured_image_thumbnail_url" ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="c-block -link" style="min-height: 450px">
+      <a ng-if="!post.featured_image_thumbnail_url" ui-sref="root.newsPost({ id: post.id, title: post.slug })" class="c-block -link" style="min-height: 460px">
 
      <div class="tag tag--date tag--news">
           <div class="tag_month">{{ post.date | date:'MMM' }}</div>
@@ -40,7 +51,7 @@
         </div><!-- End .tag -->
         
       <div class="feature-blockNews_content">
-        <h3 class="feature-block_title">{{ post.title  }}</h3>
+        <h3 class="feature-block_title" ng-bind-html="post.title"></h3>
             <span class="feature-block_category" ng-repeat="postCat in post.category">{{postCat.name}} | </span>
          <div class="sub-content">{{ post.excerpt  | limitHtml: 150 }}</div>
       </div><!-- End .feature-block_content -->
@@ -51,7 +62,7 @@
             </div>
         </div>
     </div>     <div class="list-pagination">
-            <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="vm.scrollToTop()" direction-links="false">
+            <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="scrollToTop();vm.pageChanged(newPageNumber);"  direction-links="false">
             </dir-pagination-controls>
         </div>
 </div>

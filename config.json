@@ -3,16 +3,16 @@
     "build": {
       "siteUrl": "http://localhost",
       "basePath": "/",
-      "apiUrl": "http://ths.kth.se/api/",
+      "apiUrl": "http://dev.ths.kth.se/api/",
       "posts_per_page": "10"
     },
     "dist": {
-      "siteUrl": "http://dev.ths.kth.se/",
+      "siteUrl": "http://ths.kth.se/",
       "basePath": "/",
       "apiUrl": "http://ths.kth.se/api/",
       "posts_per_page": "10"
     }
   },
-  "DEFAULT_TITLE" : "THS - Your Students Union",
-  "DEFAULT_DESCRIPTION" : "Royal Institute of Technologys Student Union"
+  "DEFAULT_TITLE" : "THS - Your Student Union",
+  "DEFAULT_DESCRIPTION" : "Welcome to Royal Institute of Technology (KTH) and the Student Union! THS, Tekniska Högskolans Studentkår, has three main objectives: 1. To ensure that everyday life as a KTH student is trouble-free and rewarding 2. To monitor and improve the quality of education at KTH 3. To server as a platform to connect students with business and industry, while offering skill development and professional networking."
 }

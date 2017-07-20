@@ -1,6 +1,6 @@
 # Tekniska Högskolans Studentkår
 
-dev.ths.kth.se
+ths.kth.se
 AngularJS app designed to work with the Wordpress [JSON REST API](http://wp-api.org).
 
 >*Opinionated Angular style guide*

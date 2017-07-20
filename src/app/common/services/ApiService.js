@@ -7,16 +7,34 @@
  * @returns {{allPosts: allPosts, allPostsByTag: allPostsByTag, allPostsBySearchTerm: allPostsBySearchTerm, featuredPosts: featuredPosts, post: post}}
  * @constructor
  */
-function ApiService($http, $rootScope, $sce, $state, config, spinnerService, alertify, ngProgressFactory, $location) {
+function ApiService($http, $rootScope, $sce, $state, config, spinnerService, alertify, ngProgressFactory, $location, $timeout, CacheFactory) {
+
 
     $rootScope.progressbar = ngProgressFactory.createInstance();
+
+
+    function allDocuments() {
+        return getData('wp/v2/documents?per_page=100');
+    }
+
+    function documentBySlug(title) {
+        return getData('wp/v2/documents?slug=' + title);
+    }
 
     function allPosts() {
         return getData('wp/v2/posts?per_page=20');
     }
 
-    function allSearchTerm(searchResult) {
-        return getData('wp/v2/search?s=' + searchResult);
+    function allPostsBySearchTag(searchTerm) {
+        return getData('wp/v2/posts?per_page=20&filter[tag]=' + searchTerm);
+    }
+    
+   function allPostsBySearchCategory(pageNumber) {
+        return getData('wp/v2/posts?page='+ pageNumber);
+    }
+
+    function postsBySearchCategory(pageNumber, searchTerm) {
+        return getData('wp/v2/posts?page='+ pageNumber + '&filter[category_name]=' + searchTerm);
     }
 
     function allPostsBySearchTerm(searchTerm) {
@@ -36,23 +54,22 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
     }
 
     function getData(url) {
-        $rootScope.loaded = false;
-        spinnerService.show('loadingSpinner');
         $rootScope.progressbar.start();
         $rootScope.progressbar.setColor('#fff');
+        var apiCache = CacheFactory.info('apiCache');
+        if (!CacheFactory.get('apiCache')) { CacheFactory.createCache('apiCache')}
         return $http
-            .get(config.API_URL + url, { cache: true })
+            .get(config.API_URL + url, { cache: CacheFactory.get('apiCache') })
             .then(function(response) {
                 if (typeof response.data ==='object' && response.data instanceof Array) {
                      if(!response.data.length){
-                        //$location.path('/404');
-                         $state.transitionTo('root.404');
-                        //alertify.error("Error: Not Found 404");
+                         $state.go('root.404', null, {location: false});
+                         $rootScope.loaded = true;
+                        spinnerService.hide('loadingSpinner');
                         throw "Error: Not Found 404";
                      } else{
                         var items = response.data.map(function(item) {
-                            //console.log(item);
-                            return decorateResult(item);
+                           return decorateResult(item);
                         });
                         return items;
                     }
@@ -62,16 +79,15 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
                 }
             })
             .catch(function (e) {
-                    $state.transitionTo('root.404');
-                    //alertify.error("Error: Not Found 404");
-                    //$location.path('/404');
+                    $state.go('root.404', null, {location: false});
+                    $rootScope.loaded = true;
+                    spinnerService.hide('loadingSpinner');
                     throw e;
                     
             })
             .finally(function(response) {
-                 spinnerService.hide('loadingSpinner');
                   $rootScope.progressbar.complete();
-                  $rootScope.loaded = true;
+
             });
     }
 
@@ -91,10 +107,14 @@ function ApiService($http, $rootScope, $sce, $state, config, spinnerService, ale
 
     return {
         allPosts: allPosts,
+        allDocuments: allDocuments,
+        documentBySlug: documentBySlug,
+        allPostsBySearchTag: allPostsBySearchTag,
         allPostsBySearchTerm: allPostsBySearchTerm,
+        allPostsBySearchCategory: allPostsBySearchCategory,
+        postsBySearchCategory: postsBySearchCategory,
         featuredPosts: featuredPosts,
         postById: postById,
-        allSearchTerm: allSearchTerm,
         postByURL: postByURL,
     };
 }

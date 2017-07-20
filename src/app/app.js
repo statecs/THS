@@ -1,7 +1,7 @@
-angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'vcRecaptcha', 'ngTouch']);
+angular.module('app', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'angularSpinners', 'ngAlertify', 'ngProgress', 'LocalStorageModule', 'ngResource', 'vcRecaptcha', 'ngTouch', 'angular-cache','mwl.calendar']);
 
 
-function initializeApp($rootScope, localStorageService, $http ){
+function initializeApp($rootScope, localStorageService, $http, CacheFactory ){
     //console.log('app init');
     $rootScope.posts_per_page = config.POSTS_PAGE;
     //console.log(config.POSTS_PAGE);
@@ -13,17 +13,31 @@ function initializeApp($rootScope, localStorageService, $http ){
             $rootScope.cats = res;
             localStorageService.set( 'cats', cats );
         });
-        
+        if (!CacheFactory.get('navCache')) { CacheFactory.createCache('navCache')}
           /** Localize menu **/
-        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/header_menu', { cache: true }).success(function(res){
+        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/header_menu', { cache: CacheFactory.get('navCache') }).success(function(res){
             var nav = [];
             $rootScope.nav = res;
            localStorageService.set( 'nav', nav );
 
         });
+          /** Localize menu **/
+        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/footer_menu', { cache: CacheFactory.get('navFooterCache') }).success(function(res){
+            var navFooter = [];
+            $rootScope.navFooter = res;
+           localStorageService.set( 'navFooter', navFooter );
 
+        });
+           /** Localize menu **/
+        $http.get(config.API_URL + 'wp-api-menus/v2/menu-locations/chapters_menu', { cache: CacheFactory.get('navChaptersCache') }).success(function(res){
+            var navChapters = [];
+            $rootScope.navChapters = res;
+           localStorageService.set( 'navChapters', navChapters );
+
+        });
+        if (!CacheFactory.get('optionsCache')) { CacheFactory.createCache('optionsCache')}
            /** Cards **/
-        $http.get('http://ths.kth.se/api/acf/v2/options', { cache: true }).success(function(res){
+        $http.get(config.API_URL + 'acf/v2/options', {cache: CacheFactory.get('optionsCache')}).success(function(res){
             var acf = [];
             $rootScope.acf = res.acf;
             localStorageService.set( 'acf', acf );
@@ -38,13 +52,17 @@ function initializeApp($rootScope, localStorageService, $http ){
  * @param $urlRouterProvider
  * @ngInject
  */
-function routesConfig($stateProvider, $locationProvider, paginationTemplateProvider, $urlRouterProvider, localStorageServiceProvider) {
+function routesConfig($stateProvider, $locationProvider, paginationTemplateProvider, $urlRouterProvider, localStorageServiceProvider, CacheFactoryProvider) {
     
     var wow;
     wow = new WOW({ boxClass:     'js-wow',      // default
                     animateClass: 'is-animated', // default
+                    mobile:       false  // default
                 })
     wow.init();
+
+
+    angular.extend(CacheFactoryProvider.defaults, { maxAge: 1440 * 60 * 1000, deleteOnExpire: 'aggressive' });
 
     localStorageServiceProvider.setPrefix('wp');
     paginationTemplateProvider.setPath('common/directives/pagination/dirPagination.tpl.html');
@@ -106,6 +124,56 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.eventsCalendar', {
+            url: "/events-calendar",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/events-calendar.tpl.html',
+                        controller: 'EventsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.documents', {
+            url: "/documents",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/documents.tpl.html',
+                        controller: 'DocumentCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.documentsS', {
+            url: "/documents/",
+            views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/documents.tpl.html',
+                        controller: 'DocumentCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.documentPost',{
+                url: '/documents/:title',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/document-post.tpl.html',
+                        controller: 'DocumentCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.documentPostS',{
+                url: '/documents/:title/',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/document-post.tpl.html',
+                        controller: 'DocumentCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.contact', {
             url: "/contact",
             views: {
@@ -126,10 +194,75 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+             .state('root.tags',{
+                url:'/tag/:term',
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/category.tpl.html',
+                        controller: 'TagsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.tagsS',{
+                url:'/tag/:term/',
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/category.tpl.html',
+                        controller: 'TagsCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
             .state('root.category',{
                 url:'/category/:term',
-                controller: 'termView',
-                templateUrl: 'partials/category/list.html'
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/category.tpl.html',
+                        controller: 'CategoryCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.categoryS',{
+                url:'/category/:term/',
+                views: {
+                 'container@': {
+                        templateUrl: 'partials/posts/category.tpl.html',
+                        controller: 'CategoryCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.search', {
+                url: '/search',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/search.tpl.html', // Make Dynamic
+                        controller: 'SearchCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.searchTerm', {
+                url: '/search/:searchTerm',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/search.tpl.html', // Make Dynamic
+                        controller: 'SearchCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.searchCat', {
+                url: '/search/:searchCat/:searchTerm',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/pages/search.tpl.html', // Make Dynamic
+                        controller: 'SearchCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
             })
             .state('root.404', {
                 url: '/404',
@@ -139,6 +272,24 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                     }
                 }
             })
+            .state('root.newsPost',{
+                url: '/{id:[0-9a-fA-F]}/:title',
+                views: {
+                    'container@': {
+                        templateUrl: 'partials/posts/single-post.tpl.html',
+                        controller: 'PostCtrl',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+             .state('external',{
+                url: '/wp/{path:.*}',
+                external: true,
+            })
+             .state('external_wp',{
+                url: '/wp-content/{path:.*}',
+                external: true,
+            })
             .state('root.single', {
                 url: '*path',
                 views: {
@@ -146,16 +297,6 @@ function routesConfig($stateProvider, $locationProvider, paginationTemplateProvi
                         controller: 'PageCtrl',
                         controllerAs: 'vm',
                         template: '<div ng-include="pageTemplate()"></div>' // Make Dynamic
-                    }
-                }
-            })
-            .state('root.newsPost',{
-                url: '/:id/:title',
-                views: {
-                    'container@': {
-                        templateUrl: 'partials/posts/single-post.tpl.html',
-                        controller: 'PostCtrl',
-                        controllerAs: 'vm'
                     }
                 }
             });
@@ -188,18 +329,16 @@ var config = {
     POSTS_PAGE: '%%POSTS_PAGE%%'
 };
 
-function AppController($rootScope, $window, $location, $timeout, MetadataService, $anchorScroll) {
+function AppController($rootScope, $window, $location, $timeout, MetadataService) {
     var vm = this;
 
-     $rootScope.gotoElement = function (eID){
-      // set the location.hash to the id of
-      // the element you wish to scroll to.
-      $location.hash(eID);
- 
-      // call $anchorScroll()
-      $anchorScroll();
-      
-    };
+     $rootScope.$on('$stateChangeStart',
+    function(event, toState, toParams, fromState, fromParams) {
+      if (toState.external) {
+          event.preventDefault();
+          $window.open($location.url(), '_self');
+      }
+    });
 
     $rootScope.$watchCollection( function() {
         return MetadataService.getMetadata();

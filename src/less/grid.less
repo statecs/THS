@@ -135,7 +135,6 @@
 @media (min-width: 1000px) {
     .o-third {
         width: 50%;
-        max-height:440px;
     }
     .page .two-third {
         width: 66.66%;
@@ -146,7 +145,7 @@
 }
 @media (min-width: 1200px) {
     .o-half {
-        width: 50%
+        width: 49.7%
     }
     o-container.o-third {
         width: 33.33%;
@@ -161,6 +160,21 @@
 }
 .o-half.-tiny {
     width: 50%
+}
+.o-third.-tiny {
+    width: 5%
+}
+.o-half.-big {
+    width: 95%;
+}
+
+@media screen and (max-width: 840px) {
+.o-third.-tiny {
+    width: 15%
+}
+.o-half.-big {
+    width: 75%;
+}
 }
 
 /******************** 
@@ -184,6 +198,9 @@
     bottom: 0;
     left: 0
 }
+.c-block.-news{
+    height:100% !important;
+}
 .c-block.is-active {
     z-index: 900!important
 }
@@ -192,6 +209,9 @@
         height: 100%;
         overflow: hidden;
         min-height: 25rem;
+    }
+    .feature-block_slideshow .c-block{
+        min-height: 27rem;
     }
     .c-block iframe{
         height: 25rem;
@@ -204,17 +224,21 @@
 }
 @media (min-width: 900px) and (max-width: 1200px) {
     .c-block {
-        height: 27.5rem
+        height: 27.5rem;
+        min-height:455px;
+        overflow: hidden;
     }
 }
 @media (min-width: 1201px) and (max-width: 1599px) {
     .c-block {
-        height: 27.5rem
+        height: 27.5rem;
+        min-height:460px;
     }
 }
 @media (min-width: 1600px) {
     .c-block {
-        height: 27.5rem
+        min-height:460px;
+        height: 27.5rem;
     }
     .c-block.-video {
         height: 57.5rem
@@ -249,7 +273,7 @@
 }
 @media (min-width: 1200px) {
     .c-block.-link::after {
-        z-index: 800
+        z-index: 2;
     }
 }
 .c-block.-center:before,

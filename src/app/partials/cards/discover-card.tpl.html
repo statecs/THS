@@ -1,15 +1,15 @@
 <div class="feature-block_slideshow glide--carousel ">
 
 <div class="glide__arrows">
-			<span class="glide__arrow prev" ng-click="vm.navigateLeft()" data-glide-dir="<"><i class="material-icons">chevron_left</i></span>
-			<span class="glide__arrow next" ng-click="vm.navigateRight()" data-glide-dir=">"><i class="material-icons">chevron_right</i></span>
+			<span class="glide__arrow prev" ng-click="vm.navigateLeft()" data-glide-dir="<"><span class="chevron_left"></span></span>
+			<span class="glide__arrow next" ng-click="vm.navigateRight()" data-glide-dir=">"><span class="chevron_right"></span></span>
 		</div>
 <div class="glide__wrapper ">
 
 <ul class="glide__track" ng-style="vm.getElementWidth()" style="transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);" >
   <li ng-style="vm.getCurrentWidth()" class="feature-block glide__slide" ng-repeat="tile in vm.socialTiles|orderBy:vm.sortSocial:true|limitTo:5" ng-swipe-left="vm.navigateRight()" ng-swipe-right="vm.navigateLeft()">
 
-        <a target="_blank" ng-if="tile.link" ng-href="{{ tile.link }}" class="c-block feature-block_link" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover; min-height: 450px">
+        <a target="_blank" ng-if="tile.link" ng-href="{{ tile.link }}" class="c-block feature-block_link_card" style="background-image: url('{{ tile.imageUrl }}');  background-size: cover;">
 
      <div class="tag tag--date">
           <div class="tag_month">{{ tile.date | date:'MMM' }}</div>
@@ -18,12 +18,12 @@
         
       <div class="feature-block_content">
 
-        <div class="feature-block_category sub-title">{{ tile.description  | limitHtml: 100 }}</div>
+        <div ng-if="tile.description" class="feature-block_category sub-title">{{ tile.description  | limitHtml: 100 }}</div>
         <h3 class="feature-block_title">{{ tile.type  | limitHtml: 100 }}</h3>
       </div><!-- End .feature-block_content -->
     </a><!-- End .feature-block_link -->
 
-      <div target="_blank" ng-if="!tile.link"  class="c-block " style="background-image: url('{{ tile.imageUrl }}');  background-size: cover; min-height: 450px">
+      <div target="_blank" ng-if="!tile.link"  class="c-block " style="background-image: url('{{ tile.imageUrl }}');  background-size: cover; min-height: 460px">
 
      <div class="tag tag--date">
           <div class="tag_month">{{ tile.date | date:'MMM' }}</div>
@@ -31,7 +31,7 @@
         </div><!-- End .tag -->
         
       <div class="feature-blockSocial_content">
-      <div ng-if="tile.news" class="sub-title"><h3>{{ tile.news  | limitHtml: 200 }}</h3></div>
+      <div ng-if="tile.news" class="sub-title"><h3>{{ tile.news }}</h3></div>
 
       </div><!-- End .feature-block_content -->
     </div><!-- End .feature-block_link -->

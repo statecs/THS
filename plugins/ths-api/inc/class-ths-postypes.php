@@ -5,79 +5,56 @@
 * @author statecs
 */
 
-add_action( 'init', 'codex_event_init' );
+add_action( 'init', 'codex_document_init' );
 
 /**
- * Register a event post type.
+ * Register a document post type.
  *
  * @link http://codex.wordpress.org/Function_Reference/register_post_type
  */
-function codex_event_init() {
+function codex_document_init() {
     $labels = array(
-        'name'               => _x( 'Events', 'post type general name', 'your-plugin-textdomain' ),
-        'singular_name'      => _x( 'Event', 'post type singular name', 'your-plugin-textdomain' ),
-        'menu_name'          => _x( 'Events', 'admin menu', 'your-plugin-textdomain' ),
-        'name_admin_bar'     => _x( 'Event', 'add new on admin bar', 'your-plugin-textdomain' ),
-        'add_new'            => _x( 'Add Event', 'event', 'your-plugin-textdomain' ),
-        'add_new_item'       => __( 'Add New Event', 'your-plugin-textdomain' ),
-        'new_item'           => __( 'New Event', 'your-plugin-textdomain' ),
-        'edit_item'          => __( 'Edit Event', 'your-plugin-textdomain' ),
-        'view_item'          => __( 'View Event', 'your-plugin-textdomain' ),
-        'all_items'          => __( 'All Events', 'your-plugin-textdomain' ),
-        'search_items'       => __( 'Search Events', 'your-plugin-textdomain' ),
-        'parent_item_colon'  => __( 'Parent Event:', 'your-plugin-textdomain' ),
-        'not_found'          => __( 'No events found.', 'your-plugin-textdomain' ),
-        'not_found_in_trash' => __( 'No events found in Trash.', 'your-plugin-textdomain' )
+        'name'               => _x( 'Meeting documents', 'ths_documents' ),
+        'singular_name'      => _x( 'Documents', 'ths_documents'),
+        'menu_name'          => _x( 'Meeting documents', 'ths_documents' ),
+        'name_admin_bar'     => _x( 'Documents', 'ths_documents'),
+        'add_new'            => _x( 'Add Document', 'ths_documents' ),
+        'add_new_item'       => __( 'Add New Document', 'ths_documents' ),
+        'new_item'           => __( 'New Document', 'ths_documents' ),
+        'edit_item'          => __( 'Edit Document', 'ths_documents' ),
+        'view_item'          => __( 'View Document', 'ths_documents' ),
+        'all_items'          => __( 'All Documents', 'ths_documents' ),
+        'search_items'       => __( 'Search Documents', 'ths_documents' ),
+        'parent_item_colon'  => __( 'Parent Document:', 'ths_documents' ),
+        'not_found'          => __( 'No documents found.', 'ths_documents' ),
+        'not_found_in_trash' => __( 'No documents found in Trash.', 'ths_documents' )
     );
  
     $args = array(
         'labels'             => $labels,
-                'description'        => __( 'Description.', 'your-plugin-textdomain' ),
+         'description'        => __( 'Description.', 'ths_documents' ),
         'public'             => true,
+        'taxonomies' => array('category'),
         'publicly_queryable' => true,
         'show_ui'            => true,
         'show_in_menu'       => true,
         'show_in_rest'       => true,
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'event' ),
+        'rewrite'            => array( 'slug' => 'documents' ),
         'capability_type'    => 'post',
         'has_archive'        => true,
-        'hierarchical'       => false,
+        'hierarchical'       => true,
         'menu_position'      => null,
-        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'page-attributes' )
     );
  
-    register_post_type( 'event', $args );
+    register_post_type( 'documents', $args );
 }
 function wpsd_add_event_args() {
     global $wp_post_types;
  
-    $wp_post_types['event']->show_in_rest = true;
-    $wp_post_types['event']->rest_base = 'event';
-    $wp_post_types['event']->rest_controller_class = 'WP_REST_Posts_Controller';
+    $wp_post_types['documents']->show_in_rest = true;
+    $wp_post_types['documents']->rest_base = 'documents';
+    $wp_post_types['documents']->rest_controller_class = 'WP_REST_Posts_Controller';
 }
 add_action( 'init', 'wpsd_add_event_args', 30 );
-
-
-function sb_add_cpts_to_api() {
-    global $wp_post_types;
-    
-    // Add CPT slugs here
-    $arr = ['fake','movie','events'];
-    
-    foreach( $arr as $key ) {
-        
-    // If the post type doesn't exist, skip it
-    if( !$wp_post_types[$key] )
-        continue;
-            
-        $wp_post_types[$key]->show_in_rest = true;
-    $wp_post_types[$key]->rest_base = $key;
-    }
-}
-add_action( 'init', 'sb_add_cpts_to_api', 30 );
-
-/*class THS_Postypes {
-
-
-}*/

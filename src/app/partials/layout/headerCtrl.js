@@ -1,21 +1,55 @@
-function HeaderCtrl($anchorScroll, $scope, $state, config, $http, localStorageService, ApiService ) {
+function HeaderCtrl($anchorScroll, $scope, $state, config, $http, localStorageService, ApiService, SearchService ) {
 	var vm = this;
 
 	var apiCallFunction;
 	var posts = [];
+    $scope.totalItems = 100;
 
 	ApiService.allPosts().then(function(posts) {
-		$scope.posts = posts;
+        $scope.posts = posts;
+		$scope.newsPosts = posts;
 	});
+
+
+
+$scope.filterCategory = function(searchResult) { 
+  var valtosend = $scope.searchCategory;
+  var newPage = 1;
+           $scope.totalItems = 20;
+         apiCallFunction = ApiService.postsBySearchCategory(newPage, valtosend);
+         apiCallFunction.then(function(results) {
+          $scope.newsPosts = results;
+      });
+}
+
+ $scope.pageChanged = function(newPage) {
+     var valtosend = $scope.searchCategory;
+     if (valtosend === undefined ){
+        ApiService.allPostsBySearchCategory(newPage).then(function(posts) {
+		$scope.newsPosts = posts;
+	});
+     } else{  
+         ApiService.postsBySearchCategory(newPage, valtosend).then(function(posts) {
+		    $scope.newsPosts = posts;
+	});
+     }
+
+
+    
+
+    };
+
 
     $scope.change = function(searchResult) {
         var valtosend = $scope.searchText;
-         apiCallFunction = ApiService.allSearchTerm(valtosend);
+         apiCallFunction = SearchService.allSearchTerm(valtosend);
          apiCallFunction.then(function(results) {
           $scope.searchResults = results;
       });
 
         };
+
+
 
 	$scope.search = function(term) {
 		console.log("search", term);
@@ -52,12 +86,19 @@ $scope.scrollToTop = function() {
     });
 
 
+vm.search = function(term) {
+       apiCallFunction = ApiService.allPostsBySearchTerm(term);
+        
+       apiCallFunction.then(function(posts) {
+            vm.posts = posts;
+            vm.searchTrue = true;
+        });
+    };
 
-$scope.openSearch = function(){
-    if ($scope.searchClass === "modal-open")
-      $scope.searchClass = "";
-    else
-      $scope.searchClass = "modal-open";
+
+
+$scope.openSearchMenu = function(){
+      $scope.isActive = "is-active";
   };
 
 $scope.openArticlesMenu = function(){
@@ -66,10 +107,14 @@ $scope.openArticlesMenu = function(){
     else
       $scope.menuArticleClass = "is-open";
   };
+  $scope.closeSearch = function(){
+      $scope.isActive = "";
+  };
 
 $scope.closeMenu = function(){
       $scope.menuArticleClass = "";
       $scope.searchClass = "";
+      $scope.isActive = "";
   };
  $scope.setActive = function($index) {
    if($scope.activeMenu === $index){

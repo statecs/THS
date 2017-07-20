@@ -1,4 +1,4 @@
-<div class="content js-wow fadeIn animated" id="top">
+<div class="content page js-wow fadeIn animated" id="top">
   <div class="col-12">
     <div class="hero-block hero-block--darken hero-block--top-gradient">
     <img class="hero-block_image js-img-swap" data-osrc="/image/1486/b8/0.5,0.48/small">  
@@ -47,7 +47,7 @@
      }
   </style> 
 
-      <div class="o-container page" data-widget="block">
+      <div class="o-container" data-widget="block">
 
         <div class="o-grid">
 
@@ -59,22 +59,29 @@
 
  <div class="vf-core">
     <div class="vfDirekt-container">
-     <article class="no-article-survey">
-        <nav class="accordion-homepage" data-tracking-cat="accordion-homepage">
-            <h1>Frequently Asked Questions</h1>
-            <section ng-repeat="fCard in acf.faq_card track by $index" ng-click="openFaq($index)" ng-class="{'selected' : $index === faqClass}" class="parent"ng-repeat="fCard in acf.faq_card track by $index">
-                <h2 id="{{$index}}" aria-expanded="false" tabindex="0" ng-bind-html="fCard.question | sanitizeHtml"></h2>
-                <div class="overflow">
-                    <div aria-hidden="true" class="children">
-                        <div class="child">
-                            <a ng-bind-html="fCard.answer | sanitizeHtml"></a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </nav>
-    </article>
 
+ 
+
+    
+      
+           <!-- <nav class="accordion-homepage" data-tracking-cat="accordion-homepage"><h1>Frequently Asked Questions</h1>
+              <article ng-repeat="fCard in acf.faq_card track by $index">
+                  <input class="checkbox-state" type="checkbox" id="input-{{$index}}">
+
+                  <details ng-open="open"> 
+
+
+
+      <summary><label class="feature-block" for="input-{{$index}}">{{fCard.question}}</label></summary>
+
+    <div class="left-o">
+    <div ng-bind-html="fCard.answer | sanitizeHtml"></div>
+    </div>
+
+</details></article></nav>-->
+
+
+    
 
         <div class="content-block-solid" ng-bind-html="vm.page.content">
 
@@ -102,6 +109,7 @@
                 <option value="karx@ths.kth.se">Student ID card</option>
                 <option value="lokalbokning@ths.kth.se">Booking inquiries</option>
                 <option value="event@ths.kth.se">Party related</option>
+                <option value="restaurang@ths.kth.se">Nymble restaurant</option>
                 <option value="roger2@kth.se">Report a fault in Nymble</option><option value="naringsliv@ths.kth.se">Advertising</option>
                 <option value="webmaster@ths.kth.se">Webmaster</option>
                 <option value="kommunikation@ths.kth.se">Övrigt/Other</option></select>
@@ -180,7 +188,7 @@
 
 </div></div>
 
-<div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'default'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp animated" style="background-color:{{mCard.bg_color}};background-image:url({{mCard.bg_img}});background-size: cover;opacity: 0.05;overflow:hidden">
+<div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'default'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp"  data-wow-offset="0" data-wow-duration="0" ng-style="{'background-image': 'linear-gradient(180deg,{{mCard.bg_color}},{{mCard.bg_color}}),url({{mCard.bg_img}})','background-size': 'cover'}">
 
  <div default-card></div>
 

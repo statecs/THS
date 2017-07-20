@@ -1,12 +1,11 @@
-function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) {
+function ConnectCtrl($scope, $rootScope, ApiService, $http, MetadataService, SocialService, spinnerService) {
     var vm = this;
 
     vm.page = {};
 
     var apiCallFunction;
     var instagramData, facebookData, facebookDataTHS;
-    
-    vm.loaded = false;
+  
 
     vm.posts = [];
 
@@ -17,7 +16,9 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
         instagramData = posts.data;
         //console.log(instagramData);
         setUpPosts();
-    });
+        $rootScope.loaded = true;
+        spinnerService.hide('loadingSpinner');   
+       });
 
     SocialService.facebookPosts().then(function(posts) {
         facebookData = posts;
@@ -39,14 +40,18 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
     function setUpPosts() {
 
         instagramData.forEach(function (instaObj) {
+          if (instaObj.link != null) {
             tile = Object.create(SocialTile);
             tile.link = instaObj.link;
             tile.date = instaObj.created_time*1000;
             tile.type = "Instagram";
-            tile.user = instaObj.user.username;
-            tile.description = instaObj.caption.text;
+            //tile.user = instaObj.user.username;
+            if (instaObj.caption != null){
+              tile.description = instaObj.caption.text;
+            }
             tile.imageUrl = instaObj.images.standard_resolution.url;
             socialTiles.push(tile);
+          }
           });
 
     }
@@ -68,7 +73,7 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
             }
         else if (item.full_picture == null ){
               tile = Object.create(SocialTile);
-              tile.imageUrl = "http://ths.kth.se/wp-content/uploads/2016/08/welcome-to-kth-bgw.jpg";
+              tile.imageUrl = "http://ths.kth.se/wp/wp-content/uploads/2016/08/welcome-to-kth.jpg";
               tile.news = item.message;
               tile.date = item.created_time*1000;
               tile.type = "Facebook";
@@ -80,7 +85,6 @@ function ConnectCtrl($scope, ApiService, $http, MetadataService, SocialService) 
 
 
     vm.socialTiles = socialTiles;
-    vm.loaded = true;
 
     vm.sortSocial = function(tile) {
       var date = new Date(tile.date);

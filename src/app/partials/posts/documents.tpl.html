@@ -1,0 +1,149 @@
+<style ng-if="!vm.page.featured_image">
+    .hero-block {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://ths.kth.se/wp/wp-content/uploads/2016/08/flygfoto_kth_campus.jpg');
+      }
+    </style>
+
+
+<div class="content page js-wow fadeIn animated">
+  <div class="col-12">
+    <div class="hero-block hero-block--darken hero-block--top-gradient">
+    <img class="hero-block_image js-img-swap" data-osrc="/image/1486/b8/0.5,0.48/small">  
+        <div class="hero-block_content">
+          <div class="hero-block_category sub-title"></div>
+              <h1 class="hero-block_title o-heading -h1 js-wow fadeInUp animated">
+                <span class="o-heading_line">
+                    <span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s" ng-bind-html="vm.page.title"></span>
+                </span>
+            </h1>
+        </div>
+    </div>
+  </div>
+
+
+        <div class="o-grid"><ul class="searchFilter">
+
+       <div class="o-half"> <a href ng-click="filterType = ''; sortReverse = !sortReverse;vm.setTab(1)"><li ng-class="{ active: vm.isSet(1) }">
+             <h3 class="heading-title u-inlineBlock">Meeting documents</h3>
+        </li></a></div>
+
+        <div class="o-half"><a href ng-click="vm.setTab(2)"><li ng-class="{ active: vm.isSet(2) }">
+             <h3 class="heading-title u-inlineBlock">Policy documents</h3>
+        </li></a></div>
+        
+        </ul></div>
+
+  <div class="content page">
+    
+    <div class="o-content">
+     <div ng-show="vm.isSet(1)">
+      
+    <div class="documents">
+            <form ng-submit="change(searchResult)" touch-submit>
+              <input ng-model="searchDocuments" class="js-searchInput textInput--underlined textInput--jumbo" type="search" placeholder="Search.."> <div class="date-year">
+            <select ng-model="searchDocuments">
+              <option value="">- Year -</option>
+              <option value="1011">2010/2011</option>
+              <option value="1112">2011/2012</option>
+              <option value="1213">2012/2013</option>
+              <option value="1314">2013/2014</option>
+              <option value="1415">2014/2015</option>
+              <option value="1516">2015/2016</option>
+              <option value="1617">2016/2017</option>      
+            </select></div>
+
+          </form>
+                    </div>
+   
+  <div class="col-md-2">
+      <ul class="nav nav-pills nav-stacked heading-tabs">
+
+ <li class="u-inlineBlock js-tabsItem is-active">
+             <span class="heading-title u-inlineBlock"><a href ng-class="{'active': filterType == ''}" ng-click="filterType = '';sortReverse = !sortReverse" class="button button--unstyled">All</a></span>
+        </li>
+
+      <li class="u-inlineBlock js-tabsItem is-active">
+             <span class="heading-title u-inlineBlock"><a href ng-class="{'active': filterType == 'ks-documents'}" ng-click="filterType = 'ks-documents';sortReverse = !sortReverse" class="button button--unstyled">Student Union’s Board ( KS )</a></span>
+        </li>
+
+           <li class="heading-tabsItem u-inlineBlock js-tabsItem is-active">
+              <span class="heading-title u-inlineBlock"><a href ng-class="{'active': filterType == 'kf-documents'}" ng-click="filterType = 'kf-documents'; sortReverse = !sortReverse" class="button button--unstyled">The Student Union’s Council ( KF )</a></span>
+        </li>
+
+      </ul>
+    </div>
+      
+
+    <article dir-paginate="post in vm.posts | itemsPerPage: 15 |  orderBy:sortType:sortReverse | filter:searchDocuments | filter:filterType">
+
+    
+
+      <input class="checkbox-state" type="checkbox" id="{{post.id}}">
+
+      <details ng-open="open"> 
+
+      <summary>  <label class="feature-block" for="{{post.id}}">{{post.title}}</label></summary>
+
+    <div ng-if="post.content" class="two-third left-o">
+    <div ng-bind-html="post.content"></div>
+    </div>
+
+<div ng-if="post.acf.documents" class="o-half landing_section" ng-repeat="doc in post.acf.documents">
+   <a target="_blank" href="{{doc.documents.url}}">
+        
+      <div>
+        <p class="feature-block_title">{{doc.documents.filename}}</p>
+
+         <div class="sub-content"></div>
+      </div><!-- End .feature-block_content -->
+    </a><!-- End .feature-block_link -->
+
+</div>
+
+</details></article>
+
+
+
+<div class="list-pagination">
+            <dir-pagination-controls template-url="common/directives/pagination/dirPagination.tpl.html" on-page-change="vm.scrollToTop()" direction-links="false">
+            </dir-pagination-controls>
+      </div>
+
+    </div>   
+
+
+     <div ng-show="vm.isSet(2)">
+      
+      <div class="policy" ng-repeat="col in vm.page.acf.policy_documents"> 
+
+      <article>
+         <input class="checkbox-state" type="checkbox" id="{{col.title}}">
+         <details ng-open="open"> 
+      <summary>
+      <div class="o-grid">
+         <div class="o-third">
+            <h3><label class="feature-policy-block" for="{{col.title}}">{{col.title}}</label></h3>
+          </div>
+          <div class="two-third">
+            <label class="feature-policy-block landing_section_intro" for="{{col.title}}">{{col.description}}</label>
+            </div>
+        </summary>
+
+          <div class="o-half landing_section" ng-repeat="file in col.documents">
+             <a target="_blank" href="{{file.file.url}}">
+                  
+                <div>
+                  <p class="feature-block_title">{{file.file.filename}}</p>
+
+                   <div class="sub-content"></div>
+                </div><!-- End .feature-block_content -->
+              </a><!-- End .feature-block_link -->
+
+          </div>
+
+</details></article>
+
+</div>
+          </div>  
+        </div>
+</div>

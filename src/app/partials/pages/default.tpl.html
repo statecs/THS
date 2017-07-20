@@ -1,4 +1,4 @@
-<div class="content js-wow fadeIn animated" id="top">
+<div class="content page js-wow fadeIn animated">
 	<div class="col-12">
 		<div class="hero-block hero-block--darken hero-block--top-gradient">
 		<img class="hero-block_image js-img-swap" data-osrc="/image/1486/b8/0.5,0.48/small">	
@@ -6,7 +6,7 @@
         	<div class="hero-block_category sub-title"></div>
            		<h1 class="hero-block_title o-heading -h1 js-wow fadeInUp animated">
             		<span class="o-heading_line">
-                		<span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">{{vm.page.title}}</span>
+                		<span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s" ng-bind-html="vm.page.title"></span>
             		</span>
         		</h1>
     		</div>
@@ -48,7 +48,7 @@
 	</style>
 
 
-    <div class="o-container page" data-widget="block">
+    <div class="o-container" data-widget="block">
 
         <div class="o-grid">
 
@@ -65,8 +65,18 @@
 </div>
 <!--<div class="as"><div class="title">Was this article helpful?</div><div class="subtitle"></div><button class="as-button" data-value="5" type="button">Yes</button><button class="as-button" data-value="1" type="button">No</button></div>-->
 
-	<p>Page created: {{vm.page.date | date:'dd MMM yyyy' }}<br />Page updated: {{vm.page.modified | date:'dd MMM yyyy' }}<br />
-	</p>
+<footer class="article-footer">
+    <dl class="dl-horizontal dl-in-article-footer">
+        <dt>Last modified</dt>
+        <dd>
+            
+<time datetime="{{vm.page.modified | date:'yyyy-MM-dd' }}">{{vm.page.modified | date:'yyyy-MM-dd' }}</time>
+        </dd>
+                <dt>Responsible</dt>
+                <dd> <a href="mailto:{{vm.page.author.email}}">{{vm.page.author.name}}</a></dd>
+    </dl>
+    
+</footer>
 
 </div>
 
@@ -84,7 +94,7 @@
 
 </div></div>
 
-<div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'default'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp animated" style="background-color:{{mCard.bg_color}};background-image:url({{mCard.bg_img}});background-size: cover;opacity: 0.05;overflow:hidden">
+<div ng-repeat="mCard in acf.cards[0].card_content | filter:{order:{template:'default'}} | orderBy:'-order[0].order_id':true track by mCard.id" class="o-third-page js-wow fadeInUp"  data-wow-offset="0" data-wow-duration="0" ng-style="{'background-image': 'linear-gradient(180deg,{{mCard.bg_color}},{{mCard.bg_color}}),url({{mCard.bg_img}})','background-size': 'cover'}">
 
  <div default-card></div>
 

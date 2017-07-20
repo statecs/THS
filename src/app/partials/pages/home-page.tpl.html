@@ -7,12 +7,14 @@
         <!--<img src="/assets/images/bg.png" class="o-background hero-block_image js-img-swap"> <video loop="" muted="" class="hero-block_video">
           <source type="video/mp4" src="/assets/images/overview_3x_loop.mp4">
       </video>-->
-  <iframe class="y-video" id="player" data-id="vjfpKmPmSTw" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="100%" src="https://www.youtube.com/embed/vjfpKmPmSTw?vq=hd720&amp;autoplay=0&amp;loop=1&amp;playlist=vjfpKmPmSTw&amp;modestbranding=1&amp;controls=0&amp;enablejsapi=1&amp;"></iframe>
+
+<div class="youtube"> <iframe class="y-video" id="player" data-id="vjfpKmPmSTw" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="100%" src="https://www.youtube.com/embed/vjfpKmPmSTw?vq=hd720&amp;autoplay=0&amp;loop=1&amp;playlist=vjfpKmPmSTw&amp;modestbranding=1&amp;controls=0&amp;enablejsapi=1&amp;"></iframe></div>
+
     <div class="hero-block_content">
                 <div class="hero-block_category sub-title"></div>
        <h1 class="hero-block_title o-heading -h2 js-wow fadeInUp animated">
             <span class="o-heading_line">
-                <span href="/" class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">THS - Your Students' Union</span>
+                <span href="/" class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">THS - Your Student Union</span>
             </span>
             
         </h1>
@@ -24,9 +26,9 @@
     <div class="o-content">
     <div class="o-container" data-widget="block">
 
-        <div class="o-grid fadeInUp " data-wow-delay="0.5s">
+        <div class="o-grid">
 
-<div ng-repeat="mCard in acf.cards[0].card_content track by $index" class="{{mCard.flex_layout}} js-wow fadeInUp is-animated"  style="visibility:hidden;background-image: linear-gradient(180deg,{{mCard.bg_color}},{{mCard.bg_color}}),url({{mCard.bg_img}});background-size: cover">
+<div ng-repeat="mCard in acf.cards[0].card_content track by $index" class="{{mCard.flex_layout}} fadeInUp js-wow" data-wow-offset="10" ng-style="{'background-image': 'linear-gradient(180deg,{{mCard.bg_color}},{{mCard.bg_color}}),url({{mCard.bg_img}})','background-size': 'cover'}">
 
     <div default-card></div>
 

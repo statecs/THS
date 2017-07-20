@@ -1,4 +1,5 @@
-<div class="content page js-wow fadeIn animated" id="top">
+
+<div class="content page js-wow fadeIn animated">
     <div class="col-12">
         <div class="hero-block hero-block--darken hero-block--top-gradient">
         <img class="hero-block_image js-img-swap">    
@@ -7,22 +8,22 @@
                 <h1 class="hero-block_title o-heading -h1 js-wow fadeInUp animated">
                     <span class="o-heading_line">
                     <div class="date" style="font-size: 30px;">
-                            {{ vm.page.date | date:'dd MMM yyyy' }}
+                            {{ vm.post.date | date:'dd MMM yyyy' }}
                     </div>
-                        <span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s" ng-bind-html="vm.page.title | limitHtml: 40 | sanitizeHtml"></span>
+                        <span class="o-heading_text js-wow slideUp animated" data-wow-delay="0.1s">{{ vm.post.title }}</span>
                     </span>
                 </h1>
             </div>
         </div>
     </div>
 
- <style ng-if="vm.page.featured_image">
+ <style ng-if="vm.post.featured_image_thumbnail_url">
       .hero-block {
-        background-image: url('{{vm.page.featured_image}}');
+        background-image: url('{{vm.post.featured_image_thumbnail_url}}');
       }
     </style>
-    <style ng-if="!vm.page.featured_image">
-	.hero-block {
+    <style ng-if="!vm.post.featured_image_thumbnail_url">
+    .hero-block {
         background-image: url('assets/images/big-banner.jpg');
       }
     </style>
@@ -34,7 +35,9 @@
         <div ng-bind-html="post.content.rendered | to_trusted"></div>
     </div>
 </div>-->
-<div class="pure-g page-content news-content" >
+
+
+<div class="pure-g page-content" >
     <div class="pure-u-1">
         <div class="post-meta">
             <ul class="tags">
@@ -44,23 +47,31 @@
             </ul>
         </div>
 
-        <div ng-bind-html="vm.page.content"></div>
+    <div class="o-container" data-widget="block">
 
-<footer class="article-footer-news">
-    <dl class="dl-horizontal dl-in-article-footer">
-        <dt>Last modified</dt>
-        <dd>
-            
-<time datetime="{{vm.page.modified | date:'yyyy-MM-dd' }}">{{vm.page.modified | date:'yyyy-MM-dd' }}</time>
-        </dd>
-                <dt>Responsible</dt>
-                <dd> <a href="mailto:{{vm.page.author.email}}">{{vm.page.author.name}}</a></dd>
-    </dl>
-    
-</footer>
+        <div class="o-grid">
+
+<div class="two-third left-o">
+
+<div ng-bind-html="vm.post.content"></div>
+
+</div>
 
 
-        <dir-disqus class="dir-disqus" config="disqusConfig"></dir-disqus>
-            
+<div class="o-half landing_section" ng-repeat="doc in vm.post.acf.documents">
+   <a target="_blank" href="{{doc.documents.url}}">
+        
+      <div>
+        <p class="feature-block_title">{{doc.documents.filename}}</p>
+
+         <div class="sub-content"></div>
+      </div><!-- End .feature-block_content -->
+    </a><!-- End .feature-block_link -->
+
+</div>
+
+</div>
+
+     
     </div>
 </div>

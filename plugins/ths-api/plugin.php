@@ -3,7 +3,7 @@
  * Plugin Name: THS API
  * Plugin URI:
  * Description: JSON endpoint and shortcode for THS Website
- * Version: 1.0
+ * Version: 1.1
  * Author: statecs
  * Author URI: http://statecreative.se
  * License: MIT
@@ -131,31 +131,6 @@ add_filter( 'rest_url_prefix', function( $prefix ) { return 'api'; } );
 /* include static class */
 include_once( __DIR__.'/inc/class-ths-api.php' );
 
-/**
- * Only from certain origins
- */
-add_action( 'rest_api_init', function() {
-
-	remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
-	add_filter( 'rest_pre_serve_request', function( $value ) {
-
-		$origin = get_http_origin();
-		if ( $origin && in_array( $origin, array(
-				//define some origins!
-				   'http://ths.kth.se',
-        			'http://dev.ths.kth.se',
-        			'http://localhost:3000',
-                    'http://192.168.1.17:3000',
-			) ) ) {
-			header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
-			header( 'Access-Control-Allow-Methods: GET' );
-			header( 'Access-Control-Allow-Credentials: true' );
-		}
-
-		return $value;
-		
-	});
-}, 15 );
 
 /**
 * 2. CUSTOM ENDPOINTS
@@ -179,7 +154,7 @@ add_action( 'rest_api_init', function () {
 });
 
 add_action( 'rest_api_init', function () {
-    register_rest_route( 'wp/v2', '/social', array(
+    register_rest_route( 'wp/v2', '/social/(?P<type>\S+)', array(
         'methods' => WP_REST_Server::READABLE,
         'callback' => array('THS_API', 'get_social_posts'),
         'args'     => array(
@@ -194,6 +169,7 @@ add_action( 'rest_api_init', function () {
     register_nav_menus( array(
         'header_menu' => 'Main Menu',
         'footer_menu' => 'Footer Menu',
+        'chapters_menu' => 'Chapters Menu',
     ) );
 
 
@@ -213,7 +189,7 @@ add_action( 'rest_api_init', function () {
         $templates = array(
             'home-page'  => 'Home Page',
             'faq'  => 'FAQ',
-            'nymble-restaurant' => 'Nymble Restaurant' ,
+            'nymble-restaurant' => 'Nymble Restaurant'
         );
         return array_merge( $now_templates, $templates );
     } );
@@ -436,6 +412,81 @@ if ( function_exists( 'add_image_size' ) ) {
        add_image_size( 'image1920', 1920, 550, false ); //(scaled)
 }
 
+
+function half_shortcode( $atts, $content = null ) {
+  $a = shortcode_atts( array(
+    'class' => 'o-half left-o',
+  ), $atts );
+
+  return '<div class="' . esc_attr($a['class']) . '">' . do_shortcode($content) . '</div>';
+}
+add_shortcode('o-half', 'half_shortcode');
+
+function cover_shortcode( $atts, $content = null ) {
+
+  return '<div class="cover-img" style="background-image:url(' . do_shortcode($content) . ');background-size: cover;"></div>';
+}
+add_shortcode('cover-img', 'cover_shortcode');
+
+function collapse_shortcode( $atts, $content = null ) {
+ 
+    $output = '';
+ 
+    $pull_quote_atts = shortcode_atts( array(
+        'quote' => 'My Quote',
+    ), $atts );
+ 
+   $output .= '<section><article> <input class="toggle-box" type="checkbox" id="' . $pull_quote_atts[ 'quote' ]  . '">';
+    $output .=  '<div class="bg-c"><label class="bg-c1" for="' . $pull_quote_atts[ 'quote' ]  . '">' . $pull_quote_atts[ 'quote' ]  . '</label><div class="content-c">';
+    $output .= '' . do_shortcode($content) . '';
+    $output .= '</div></div></article></section>';
+    return $output;
+ 
+}
+add_shortcode( 'collapse-quote', 'collapse_shortcode' );
+
+function sub_collapse_shortcode( $atts, $content = null ) {
+ 
+    $output = '';
+ 
+    $pull_quote_atts = shortcode_atts( array(
+        'quote' => 'My Quote',
+    ), $atts );
+ 
+    $output .= '<article><input class="toggle-box-2" type="checkbox" id="' . $pull_quote_atts[ 'quote' ]  . '">';
+    $output .=  '<div class="bg-c"><label class="bg-c2" for="' . $pull_quote_atts[ 'quote' ]  . '">' . $pull_quote_atts[ 'quote' ]  . '</label><div class="content-c">';
+    $output .= '' . do_shortcode($content) . '';
+    $output .= '</div></div></article>';
+ 
+    return $output;
+ 
+}
+add_shortcode( 'sub-collapse-quote', 'sub_collapse_shortcode' );
+
+
+function my_searchwp_weight_mods( $sql ) {
+  
+  global $wpdb;
+  
+  // if posted within the last year, bump up the weight by 1000
+  $time_ago = 'NOW() - INTERVAL 1 YEAR';
+  $additional_weight = 1000;
+  $sql .= " + ( IF( UNIX_TIMESTAMP( {$wpdb->prefix}posts.post_date ) > UNIX_TIMESTAMP( {$time_ago} ), {$additional_weight}, 0 ) )";
+  return $sql;
+  
+}
+add_filter( 'searchwp_weight_mods', 'my_searchwp_weight_mods' );
+
+
+add_action('acf/save_post', 'clear_cache_on_options_save');
+function clear_cache_on_options_save($post_id) {
+  // you can check for options or not
+  if ($post_id == 'options') {
+    //wp_cache_clear_cache();
+    wp_cache_post_change( 'options' );
+  }
+}
+
 /* ------------
     6. ADD REQUIRED PLUGINS
 --------------- */
@@ -458,3 +509,14 @@ if ( function_exists( 'add_image_size' ) ) {
             echo '</div>';
         }
     }
+
+
+    add_filter( 'auto_core_update_send_email', 'wpb_stop_auto_update_emails', 10, 4 );
+ 
+function wpb_stop_update_emails( $send, $type, $core_update, $result ) {
+  
+  if ( ! empty( $type ) && $type == 'success' ) {
+    return false;
+  }
+    return true;
+  }

@@ -1,13 +1,25 @@
-<div class="content" id="top">
+<div class="content page" id="top">
     <div class="o-content">
     <div class="o-container" data-widget="block">
         <div class="o-grid">
 
-    <div class="o-third js-wow fadeInUp animated" ng-repeat="event in vm.calendar.items">
+    <div class="o-third js-wow fadeInUp animated" data-wow-duration="0" data-wow-offset="0" ng-repeat="event in vm.calendar.items">
   
-  <div class="feature-block animate-block" style="transition-delay: 175ms; max-height: 600px;">
+        <style ng-if="vm.eImg(event)">
+  .hero-block-img-{{vm.id(event)}} {
+        background-image: url('{{vm.eImg(event)}}');
+		    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('{{vm.eImg(event)}}');
+    background-size: cover;
+    visibility: visible;
+	height:460px;
+}
+    </style>
 
-    <a ng-if="vm.eImg(event)" target="_blank" href="{{ event.htmlLink }}" class="c-block feature-block_link" style="background-image: url('{{vm.eImg(event)}}');  background-size: cover; min-height: 450px">
+  <div class="feature-block animate-block" style="max-height: 600px;">
+
+    <a ng-if="vm.eImg(event)" target="_blank" href="{{ event.htmlLink }}">
+      <div class="c-block feature-block_link" style="background-image: url('http://ths.kth.se/wp/wp-content/uploads/2017/01/events-nymble.jpg');  background-size: cover; min-height: 460px">
+        <div class="hero-block-img-{{vm.id(event)}}">
 
      <div class="tag tag--date">
           <div class="tag_month">{{vm.month(event)}}</div>
@@ -18,9 +30,9 @@
         <div class="feature-block_category sub-title">{{ event.description  | limitHtml: 100 }}</div>
         <h3 class="feature-block_title">{{ event.summary  | limitHtml: 100 }}</h3>
       </div><!-- End .feature-block_content -->
-    </a><!-- End .feature-block_link -->
+      </div></div></a><!-- End .feature-block_link -->
 
-   <a ng-if="!vm.eImg(event)" target="_blank" href="{{ event.htmlLink }}" class="c-block feature-block_link" style="background-image: url('http://ths.kth.se/wp-content/uploads/2016/08/events-card.jpg');  background-size: cover;">
+   <a ng-if="!vm.eImg(event)" target="_blank" href="{{ event.htmlLink }}" class="c-block feature-block_link" style="background-image: url('http://ths.kth.se/wp/wp-content/uploads/2017/01/events-nymble.jpg');  background-size: cover;">
 
  <div class="tag tag--date">
           <div class="tag_month">{{vm.month(event)}}</div>

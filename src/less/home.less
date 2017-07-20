@@ -3,6 +3,10 @@
     Social Grid
 **********************/
 
+
+.ie .js-wow{
+    visibility: visible;
+}
 /* Block container */
 .c-block {
     display: inline-block;
@@ -122,6 +126,19 @@
 
 }
 
+.left-os{
+  margin: 0 20px;
+}
+.bg-c .content-c .content-c p, .bg-c .content-c .content-c h3{
+    margin: 20px 40px;
+}
+
+article .bg-c .content-c .bg-c .content-c p, article .bg-c .content-c .bg-c .content-c h3, article .bg-c .content-c .bg-c .content-c ul{
+    margin: 20px 40px;
+}
+.date-stitle{
+    font-size:0.8em;
+}
 .left-o{
   margin-top:20px;
 }
@@ -132,11 +149,66 @@
       }
       line-height: 2em;
 }
-.left-o ul{
+.left-o ul, .left-o ol{
       margin: 0px 20px;
 }
 
-.left-o h1, .left-o h2, .left-o h3{
+table { 
+margin: 0px 40px;
+  width: 90%; 
+  border-collapse: collapse; 
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #eee; 
+}
+th { 
+  background: #333; 
+  color: white; 
+  font-weight: bold; 
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+
+@media (max-width: 699px){
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr { 
+       display: block; 
+    }
+     table{ 
+        margin: 0px 20px;
+        border:none;
+    }
+    
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    
+    td { 
+        /* Behave  like a "row" */
+        position: relative;
+    }
+    
+    td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+    }
+}
+
+.left-o h1, .left-o h2, .left-o h3, .left-o h4{
       padding: 10px 40px;
       @media (max-width: 699px){
       padding: 10px 20px;
@@ -182,7 +254,7 @@
 @media (max-width: 699px){
 .c-block_title {
     font-size: 2.5rem;
-    padding-top: 40px;
+    padding-top: 60px;
 }
 }
 @media (min-width: 1600px){
@@ -231,7 +303,6 @@
     padding-bottom: 12px;
     -webkit-box-flex: 0;
     -moz-box-flex: 0;
-    width:10%;
     -webkit-flex: 0 auto;
     -ms-flex: 0 auto;
     flex: 0 auto;
@@ -251,6 +322,23 @@
 }
 
  
+ .container-card-restrict{
+    max-width: 1200px;
+    padding: 10px 37px;
+    min-height: 440px;
+ }
+ .collapse-text-toggle {
+    cursor: pointer;
+}
+.collapse-text-toggle:hover {
+    text-decoration: underline;
+}
+.collapse-text-toggle:before {
+    content: '\00a0(';
+}
+.collapse-text-toggle:after {
+    content: ')';
+}
  /* Cards */
 .container-card {
     max-width: 1200px;
@@ -266,6 +354,9 @@
     margin-bottom: 20px;
     color: #fff;
     font-size: 16px;
+    @media (min-width: 1200px) and (max-width:1400px) {
+    font-size: 15px;
+    }
     line-height: 30px;
     font-weight: 300;
     text-align: left;
@@ -274,7 +365,7 @@
 
 .calendar-card-heading {
     position: static;
-    margin-left:40px;
+    margin-left:30px;
     margin-top: -18px;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
@@ -322,6 +413,14 @@
 .feature-block_slideshow .glide__arrow.next {
     right: 20px;
     padding: 18px 0 0 0;
+}
+.chevron_right{
+     background: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkZGRkZGIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTAgNkw4LjU5IDcuNDEgMTMuMTcgMTJsLTQuNTggNC41OUwxMCAxOGw2LTZ6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==') no-repeat 9px center;
+     padding: 9px 10px 17px 32px;
+}
+.chevron_left{
+     background: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkZGRkZGIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTUuNDEgNy40MUwxNCA2bC02IDYgNiA2IDEuNDEtMS40MUwxMC44MyAxMnoiLz48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PC9zdmc+') no-repeat 9px center;
+     padding: 9px 10px 17px 32px;
 }
 .glide__wrapper {
     overflow: hidden;
@@ -372,6 +471,28 @@
 }
 .feature-block_category {
     margin-bottom: 0;
+}
+@media screen and (min-width: 640px){
+.feature-block_link_card.hover:after, .feature-block_link_card:hover:after {
+    opacity: 1;
+}
+}
+.feature-block_link_card:after {
+    background: rgba(0,0,0,.4);
+    content: '';
+    left: 0;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    -webkit-transition: opacity .2s linear;
+    transition: opacity .2s linear;
+    width: 100%;
+}
+.feature-block_link_card {
+    display: block;
+    width: 100%;
+    -webkit-transform: translate3d(0,0,0);
 }
 
 .feature-block_link.hover:after, .feature-block_link:hover:after {
@@ -432,9 +553,11 @@
 }
 .news-h4 h4{
   margin-top:-10px;
-  font-size:1.1rem;
-    font-weight:300;
-      line-height:1.2em;
+  font-weight:300;
+  line-height:1.2em;
+      @media (min-width: 1200px) and (max-width:1400px) {
+          font-size:0.9em;
+      }
 }
 
 .news-item-banner {
@@ -596,4 +719,12 @@ news-item-heading
   border: 1px solid @color-blue;
   display: block;
   max-width: 800px;
+}
+
+h1.news-item{
+   margin-top:5px !important; 
+}
+
+.meal-of-the-day-bg h2{
+        margin-top: 15px;
 }

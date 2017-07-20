@@ -1,5 +1,26 @@
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+
+</IfModule>
+
+# END WordPress
+
+Redirect 301 /jobs http://campuscompetence.se/ths/jobs
+Redirect 301 /login https://login.kth.se/login?service=http://thstudent.upright.se/
+
 <ifModule mod_rewrite.c>
     RewriteEngine On
+
+    RewriteRule ^api/(.*)$ /index_wp.php [L]
+
+    RewriteRule ^wp-content/(.*)$ /wp/wp-content/$1 [R=301,NC,L]
+    RewriteRule ^wp-content - [L,NC]
+    RewriteRule ^feed/(.*)$ /wp/feed/$1 [R=301,NC,L]
+
+    RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.xml$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]
+    RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.xml\.gz$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]
+    RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.html$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]
+    RewriteRule ^sitemap(-+([a-zA-Z0-9_-]+))?\.html.gz$ /wp/index.php?xml_sitemap=params=$2 [R=301,L]
 
     # Force www (http://stackoverflow.com/a/4958847/772859)
     # OSX users: Forcing WWW locally with MAMP will cause an error - comment the following
@@ -9,6 +30,10 @@
     #RewriteCond %{HTTPS}s ^on(s)|
     #RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
+    RewriteBase /
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
     # allow social media crawlers to work by redirecting them to a server-rendered static version on the page
     RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|Google.*snippet|Googlebot|redditbot|bingbot)
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -16,7 +41,11 @@
 
     # allow social media crawlers to work by redirecting them to a server-rendered static version on the page
     RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|Google.*snippet|Googlebot|redditbot|bingbot)
-    RewriteRule (.+)/.*$ %%SITE_URL%%static-page.php?url=$1 [P]
+    RewriteRule (.+)/.*$ http://ths.kth.se/static-page.php?url=$1 [P]
+
+
+    #RewriteRule ^wp-content/(.*)$ /wp/wp-content/$1 [R=301,NC,L]
+
 
     # Required to allow direct-linking of pages so they can be processed by Angular
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -24,20 +53,19 @@
     RewriteCond %{REQUEST_URI} !index
     RewriteRule (.*) index.html [L]
 
-    <FilesMatch "\.(js|css|xml|gz)$">
-        Header append Vary: Accept-Encoding
-    </FilesMatch>
+ 
+    #ExpiresActive On
+    #ExpiresDefault "access plus 1 days"
+    #ExpiresByType text/css "access plus 1 week"
+    #ExpiresByType text/plain "access plus 1 month"
+    #ExpiresByType image/gif "access plus 1 month"
+    #ExpiresByType image/png "access plus 1 month"
+    #ExpiresByType image/jpeg "access plus 1 month"
+    #ExpiresByType application/x-javascript "access plus 1 month"
+    #ExpiresByType application/javascript "access plus 1 week"
+    #ExpiresByType application/x-icon "access plus 1 year"
 
-    ExpiresActive On
-    ExpiresDefault "access plus 10 days"
-    ExpiresByType text/css "access plus 1 week"
-    ExpiresByType text/plain "access plus 1 month"
-    ExpiresByType image/gif "access plus 1 month"
-    ExpiresByType image/png "access plus 1 month"
-    ExpiresByType image/jpeg "access plus 1 month"
-    ExpiresByType application/x-javascript "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 week"
-    ExpiresByType application/x-icon "access plus 1 year"
+    Header append Vary: Accept-Encoding
 
 
 </ifModule>

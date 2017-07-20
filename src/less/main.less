@@ -25,6 +25,14 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
+@media only screen and (device-width: 768px) {
+  /* For general iPad layouts */
+  body{
+      cursor: pointer;
+  }
+}
+
+
 h1, h2, h3, h4, h5, h6 {
     font-family: CenturyGothic, sans-serif;
     font-weight: bold;
@@ -47,12 +55,29 @@ h1, h2, h3, h4, h5, h6 {
   background: @colour-main-view-bg;
 }
 
+i.fa-2 {
+    font-size: 2em;
+}
+i.fa-3 {
+    font-size: 4em;
+}
+i.fa-4 {
+    font-size: 7em;
+}
+i.fa-5 {
+    font-size: 12em;
+}
+i.fa-6 {
+    font-size: 20em;
+}
+
 .content {
   margin: 0 auto;
   padding: 0;
   position: relative;
   max-width: 1440px;
   font-size: 0.85em;
+  overflow:hidden;
   @media (min-width: 48em) {
     font-size: 1em;
   }
@@ -60,9 +85,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .page {
     background-color: #f7f7f7;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.15);
 }
-
+.nav-link-level-3{
+    margin:0 2px;
+}
+.o-half h2 a:before{
+     background: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDA0MDZjIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSI0OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTAgNkw4LjU5IDcuNDEgMTMuMTcgMTJsLTQuNTggNC41OUwxMCAxOGw2LTZ6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==') no-repeat -15px center;
+     padding: 0 15px;
+     content: '';
+}
 
 @media (min-width: 1600px){
 .o-heading.-h1 {
@@ -112,6 +144,9 @@ h2 {
   @media (min-width: 48em) {
     font-size: 2em;
   }
+  @media (min-width: 1200px) and (max-width:1400px) {
+    font-size: 1.5em;
+  }
 }
 
 h3 {
@@ -119,6 +154,9 @@ h3 {
     font-size: 1.6em;
     line-height: 1.3em;
   }
+  @media (max-width: 47em) {
+    line-height: 1.3em;
+}
 }
 
 img {

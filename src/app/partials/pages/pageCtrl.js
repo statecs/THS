@@ -1,14 +1,21 @@
-function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, $location, ApiService, MetadataService) {
+function PageCtrl($rootScope, $scope, $sce, $stateParams, $window, $anchorScroll, $timeout, $location, ApiService, MetadataService, spinnerService) {
     var vm = this;
     vm.page = {};
 
- //console.log($stateParams.path);
+
+        $rootScope.loaded = false;
+        spinnerService.show('loadingSpinner');
 
   ApiService.postByURL($stateParams.path).then(function(page) {
-        vm.page = page[0];
+        vm.page = page;
 
-        vm.page.title.rendered = $sce.getTrustedHtml(vm.page.title);
-        vm.page.excerpt.rendered = $sce.getTrustedHtml(vm.page.excerpt);
+          $rootScope.loaded = true;
+          spinnerService.hide('loadingSpinner');
+
+        if (vm.page.excerpt){
+          vm.page.title.rendered = $sce.getTrustedHtml(vm.page.title);
+          vm.page.excerpt.rendered = $sce.getTrustedHtml(vm.page.excerpt);
+        }
 
       /* TODO  if (typeof vm.redirect !== 'undefined'){
           console.log(vm.redirect);
@@ -26,17 +33,15 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
         */
          $scope.pageTemplate = function() {
             if (vm.page.template == 'default' || vm.page.template == '' ) {
+
                 return 'partials/pages/default.tpl.html';
             } else if (
-                vm.page.template == 'single-post'    ||
-                vm.page.template == 'category'){
-                return;
+                vm.page.type == 'attachment'){
+                return 'partials/pages/' + vm.page.type + '.tpl.html';
             } else {
-              //  console.log(vm.page.template);
                 return 'partials/pages/' + vm.page.template + '.tpl.html';
             }
         }
-
 
          $scope.disqusConfig = {
             disqus_shortname: 'ths-kth',
@@ -46,7 +51,6 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
             };
 
     $scope.openFaq = function($index) {
-          //console.log($index);
           if($scope.faqClass === $index){
             $scope.faqClass = "";
           } else{
@@ -54,7 +58,6 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
             }
          };
          $scope.openSubFaq = function($index) {
-          //console.log($index);
           if($scope.faqSubClass === $index){
             $scope.faqSubClass = "";
           } else{
@@ -76,12 +79,12 @@ function PageCtrl($scope, $sce, $stateParams, $window, $anchorScroll, $timeout, 
     
 }
 
-function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
+function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http, calendarConfig) {
     var vm = this;
     vm.page = {};
 
           var gcConfig = {
-            max: 10,
+            max: 20,
             hideTitle: false,
             google_key: 'AIzaSyDI9VA5xCt8FMDZV1eZuyuf2ODimyI4kfQ',
             calendar_id: 'armada.nu_3evd63ebtffpqkhkivr8d76usk@group.calendar.google.com',
@@ -92,6 +95,89 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
             htmlDesc: false,
             calendar_name: false
       };
+
+  var eventTile = {
+        date: null, // Date created
+        imageUrl: null, // URL to image
+        link: "", // Link to the content
+        title: "", // A title (probably only relevant for news items)
+        type: null // "facebook" or "instagram" or "news"
+      };
+
+
+var eventTiles = [];
+    var tile;
+    var calendarData;
+
+    var url = "https://www.googleapis.com/calendar/v3/calendars/" + gcConfig.calendar_id + "/events?orderBy=startTime&singleEvents=true&timeMin=" + (new Date().toISOString()) + "&maxResults=" + gcConfig.max + "&key=" + gcConfig.google_key;
+
+      $http.get(url).success(function(data){
+        vm.calendar = data;
+        calendarData = data.items;
+        setUpEvents();
+
+        if (!gcConfig.hideTitle && !gcConfig.calendar_name)
+          angular.extend(gcConfig, { calendar_name: data.summary })
+      });
+
+  function setUpEvents() {
+
+        calendarData.forEach(function (calendarObj) {
+            tile = Object.create(eventTile);
+            tile.title = calendarObj.summary;
+            tile.startsAt = new Date(calendarObj.start.dateTime);
+            tile.endsAt = new Date(calendarObj.end.dateTime);
+            //var replaceDescription = calendarObj.description.replace(/↵↵/g, "<br/>");
+            tile.description = calendarObj.description;
+            tile.link = calendarObj.htmlLink;
+            tile.cssClass = "events-class";
+            if (calendarObj.attachments) {
+            tile.img = calendarObj.attachments[0].fileId;
+            }
+            tile.type = "Events";
+           // tile.user = calendarObj.user.username;
+            if (calendarObj.caption != null){
+              tile.description = calendarObj.caption.text;
+            }
+            //tile.imageUrl = calendarObj.images.standard_resolution.url;
+            eventTiles.push(tile);
+          });
+
+          vm.events = eventTiles;
+
+  }
+
+
+  moment.locale('en_gb', {
+      week : {
+        dow : 1 // Monday is the first day of the week
+      }
+  });
+
+
+  vm.changeView = function(catDate) {
+    vm.calendarView = catDate;
+  }
+
+vm.eventClicked = function(event) {
+      vm.viewDate = !vm.viewDate;
+  if (vm.viewDate === event.startsAt){
+    vm.viewDate = false;
+    vm.viewDate = new Date();
+  } else{
+      vm.viewDate = event.startsAt;
+      vm.onDateRangeSelect = event.startsAt;
+  }
+
+    };
+
+  calendarConfig.templates.calendarMonthView = 'common/directives/calendar-template.tpl.html'; //change the month view template globally to a custom template
+       vm.calendarView = 'month';
+       vm.viewDate = new Date();
+
+
+   
+
 
       var fulldayFilter = function(date) {
         return $filter('date')(date, gcConfig.dateFilter)
@@ -120,13 +206,20 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
           return timedFilter(event.start.dateTime);
         }
       };
+       vm.id = function(event){
+        if (event.attachments) {
+             vm.pId = event.attachments[0].fileId;
+              return vm.pId;
+        }
+      };
+
 
        vm.eImg = function(event){
         if (event.attachments) {
-             vm.pId = event.attachments[0].fileUrl;
-             vm.imgUrl = vm.pId.split("/")[7]||"Unknown";
+             vm.pId = event.attachments[0].fileId;
+             //vm.imgUrl = vm.pId.split("/")[7]||"Unknown";
 
-              return "https://docs.google.com/uc?id=" + vm.imgUrl;
+              return "https://drive.google.com/uc?export=view&id=" + vm.pId;
         }
       };
 
@@ -145,24 +238,22 @@ function EventsCtrl($scope, $filter, $anchorScroll, MetadataService, $http) {
 
       };
 
-      var url = "https://www.googleapis.com/calendar/v3/calendars/" + gcConfig.calendar_id + "/events?orderBy=startTime&singleEvents=true&timeMin=" + (new Date().toISOString()) + "&maxResults=" + gcConfig.max + "&key=" + gcConfig.google_key;
 
-      $http.get(url, { cache: true }).success(function(data){
-             // console.log(gcConfig);
-        vm.calendar = data;
-
-        if (!gcConfig.hideTitle && !gcConfig.calendar_name)
-          angular.extend(gcConfig, { calendar_name: data.summary })
-      });
 
 }
 
-function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiService) {
+function ContactCtrl($scope, $rootScope, $http, MetadataService, vcRecaptchaService, ApiService, spinnerService) {
     var vm = this;
     vm.page = {};
 
+       $rootScope.loaded = false;
+        spinnerService.show('loadingSpinner');
+
        ApiService.postByURL('/contact').then(function(page) {
-        vm.page = page[0];
+        vm.page = page;
+
+        $rootScope.loaded = true;
+          spinnerService.hide('loadingSpinner');
         
         MetadataService.setMetadata({
             title: vm.page.title,
@@ -171,7 +262,6 @@ function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiServ
     });
 
     $scope.openFaq = function($index) {
-          //console.log($index);
           if($scope.faqClass === $index){
             $scope.faqClass = "";
           } else{
@@ -179,7 +269,6 @@ function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiServ
             }
          };
          $scope.openSubFaq = function($index) {
-          //console.log($index);
           if($scope.faqSubClass === $index){
             $scope.faqSubClass = "";
           } else{
@@ -209,12 +298,11 @@ function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiServ
                 }
 
                 /* MAKE AJAX REQUEST to our server with g-captcha-string */
-                $http.post('http://dev.ths.kth.se/assets/scripts/xhr-contact-form.php',post_data).success(function(response){
+                $http.post('http://ths.kth.se/assets/scripts/xhr-contact-form.php',post_data).success(function(response){
                     if(response.error === 0){
                         vm.success = "Email sent! We will get back to you shortly!"
                         vm.error = "";
                         //alert("Successfully verified and signed up the user");
-                        console.log(response);
                     }else{
                         vm.error = "Error email not sent";
                         vm.success = "";
@@ -228,11 +316,77 @@ function ContactCtrl($scope, $http, MetadataService, vcRecaptchaService, ApiServ
             }
 
         }
+
+        MetadataService.setMetadata({
+        title: 'Contact',
+        description: 'Contact THS'
+    });
     
+}
+
+function SearchCtrl($scope, $http, $stateParams, MetadataService, SearchService, $state) {
+    var vm = this;
+    vm.page = {};
+
+      var apiCallFunction;
+      vm.stateSearchTerm = $stateParams.searchTerm;
+
+        if (typeof $stateParams.tags !== 'undefined') {
+        apiCallFunction = SearchService.allSearchTerm($stateParams.tag);
+        vm.subtitle = 'tagged with "' + $stateParams.tag + '"';
+    } else if (typeof $stateParams.searchTerm !== 'undefined' && typeof $stateParams.searchCat !== 'undefined') {
+        apiCallFunction = SearchService.allSearchCat($stateParams.searchTerm, $stateParams.searchCat);
+        apiCallFunction.then(function(results) {
+          $scope.searchResults = results;
+        });
+        vm.subtitle = 'searching "' + $stateParams.searchTerm + '"';
+    } else {
+       apiCallFunction = SearchService.allSearchTerm($stateParams.searchTerm);
+        apiCallFunction.then(function(results) {
+          $scope.searchResults = results;
+        });
+        vm.subtitle = 'searching "' + $stateParams.searchTerm + '"';
+    }
+
+  // Switch the search type/state
+    $scope.switchSearchType = function(aSearchType) {
+    vm.typeOfSearch = aSearchType;
+    var valtosend = $scope.searchText;
+    $state.go('root.searchCat', {searchTerm: valtosend, searchCat: vm.typeOfSearch});
+    };
+
+    if ( $stateParams.searchCat == 'posts') {
+      vm.typeOfSearch = 'posts';
+    } else if( $stateParams.searchCat == 'pages'){
+      vm.typeOfSearch = 'pages';
+    } else if( $stateParams.searchCat == 'documents'){
+      vm.typeOfSearch = 'documents';
+    } else if( $stateParams.searchCat == 'faq'){
+      vm.typeOfSearch = 'faq';
+    } else{
+      vm.typeOfSearch = 'all';
+    }
+
+
+     $scope.change = function(searchResult) {
+      var valtosend = $scope.searchText;
+      $state.go('root.searchCat', {searchTerm: valtosend, searchCat: vm.typeOfSearch});
+
+}
+
+     MetadataService.setMetadata({
+        title: 'Search',
+        description: 'Search content from THS'
+    });
+
+
+
+
 }
 
 angular
     .module('app')
     .controller('PageCtrl', PageCtrl)
     .controller('EventsCtrl', EventsCtrl)
+    .controller('SearchCtrl', SearchCtrl)
     .controller('ContactCtrl', ContactCtrl);

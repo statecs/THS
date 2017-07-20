@@ -1,10 +1,10 @@
-<a id="fadein-trigger" ng-click="gotoElement(top)" ng-if="mCard.link" href="{{mCard.link}}" class="c-block -link ">
+<a id="fadein-trigger" ng-if="mCard.link" href="{{mCard.link}}" class="c-block -link ">
                     <div class="o-ripple" style="background-color: #F65846;"></div>
                      <div class="c-block_container container-card">
                         <h1 class="c-block_title js-block-title">
                             <span class="c-block_title_line">
                                 <span class="c-block_title_text js-swap-line">{{mCard.title}}</span>
-<div ng-if="mCard.link" class="btn-standard">&gt; read more</div>
+<div ng-if="mCard.link && mCard.title" class="btn-standard">&gt; read more</div>
                             </span>
                            
                         </h1>
